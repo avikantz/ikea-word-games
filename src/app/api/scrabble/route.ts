@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { IKEAProduct } from "@/interfaces";
+
 const DEFAULT_MAX_LENGTH = 7; // Length of words to return
 const DEFAULT_COUNT = 4; // Number of words to return
 
@@ -28,11 +30,11 @@ export async function GET(request: Request) {
     count = DEFAULT_COUNT;
   }
 
-  const list = require("../list/unique.json");
-  const itemMap = require("../list/item-map.json");
+  const list: string[] = require("../list/unique.json");
+  const itemMap: Record<string, IKEAProduct> = require("../list/item-map.json");
 
   const wordList = [];
-  const wordMap: Record<string, any> = {};
+  const wordMap: Record<string, IKEAProduct> = {};
 
   // Get "count" random words from list maxing out at "maxLength"
   while (wordList.length < count) {

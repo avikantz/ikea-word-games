@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { IKEAProduct } from "@/interfaces";
+
 const DEFAULT_LENGTH = 5; // Number of letters in word
 
 export async function GET(request: Request) {
@@ -16,16 +18,16 @@ export async function GET(request: Request) {
     length = DEFAULT_LENGTH;
   }
 
-  const list = require(`../list/unique/${length}.json`);
-  const itemMap = require('../list/item-map.json');
+  const list: string[] = require(`../list/unique/${length}.json`);
+  const itemMap: Record<string, IKEAProduct> = require("../list/item-map.json");
 
   // Get random word from unique item list
-  const randomWord = list[Math.floor(Math.random() * list.length)];
-  
+  const randomWord: string = list[Math.floor(Math.random() * list.length)];
+
   const response = {
-	word: randomWord,
-	data: itemMap[randomWord]
-  }
+    word: randomWord,
+    data: itemMap[randomWord],
+  };
 
   // TODO: encrypt response
   return NextResponse.json(response);
