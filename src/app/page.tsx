@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  LegacyRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Box,
   Button,
@@ -14,12 +20,15 @@ import {
   Image,
   PinInput,
   PinInputField,
+  Select,
   Text,
   VStack,
 } from "@chakra-ui/react";
+
 import { IKEAProduct } from "@/interfaces";
 
 export default function Home() {
+  const [length, setLength] = useState<number>(6);
   const [word, setWord] = useState<string>();
   const [shuffledWord, setShuffledWord] = useState<string>();
   const [product, setProduct] = useState<IKEAProduct>();
@@ -27,9 +36,11 @@ export default function Home() {
   const [guess, setGuess] = useState<string>();
   const [attempts, setAttempts] = useState<number>(0);
 
+  const firstPinInputField = useRef<HTMLInputElement>();
+
   const getWords = useCallback(async () => {
     try {
-      const response = await fetch("/api/jumble");
+      const response = await fetch(`/api/jumble?length=${length}`);
       const res: { word: string; data: IKEAProduct } = await response.json();
       setWord(res.word);
       setShuffledWord(
@@ -39,6 +50,7 @@ export default function Home() {
           .join("")
       );
       setProduct(res.data);
+      firstPinInputField?.current?.focus();
     } catch (error) {
       // ???
       setWord(undefined);
@@ -48,7 +60,7 @@ export default function Home() {
       setGuess("");
       setAttempts(0);
     }
-  }, []);
+  }, [length]);
 
   useEffect(() => {
     getWords();
@@ -58,8 +70,17 @@ export default function Home() {
     setGuess(value.toUpperCase());
     if (word && value.length === word.length) {
       setAttempts(attempts + 1);
+      if (word.toUpperCase() !== value.toUpperCase()) {
+        setGuess("");
+        firstPinInputField?.current?.focus();
+      }
     }
   };
+
+  const onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setLength(Number(event.target.value));
+    firstPinInputField?.current?.focus();
+  }
 
   return (
     <main>
@@ -84,9 +105,13 @@ export default function Home() {
                   value={guess}
                   onChange={onGuessChange}
                   type="alphanumeric"
-                  isDisabled={guess === word || attempts >= 3}
+                  isDisabled={!word || guess === word || attempts >= 3}
                 >
-                  {Array(word.length)
+                  <PinInputField
+                    ref={firstPinInputField as LegacyRef<HTMLInputElement>}
+                    textTransform="uppercase"
+                  />
+                  {Array(word.length - 1)
                     .fill(0)
                     .map((_, i) => (
                       <PinInputField textTransform="uppercase" key={i} />
@@ -95,7 +120,7 @@ export default function Home() {
               </HStack>
             )}
 
-            {guess === word && (
+            {word && guess === word && (
               <Text textAlign="center" fontSize="xl" color="green.500">
                 You got it!
               </Text>
@@ -133,9 +158,30 @@ export default function Home() {
               </Card>
             )}
 
-            <Button size="sm" variant="outline" onClick={getWords}>
-              Reload
-            </Button>
+            <HStack spacing="4">
+              <Select
+                size="sm"
+                placeholder="Length"
+                value={length}
+                onChange={onLengthChange}
+              >
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+              </Select>
+
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={getWords}
+                isLoading={!word}
+              >
+                Reload
+              </Button>
+            </HStack>
           </VStack>
         </Container>
       </Box>

@@ -24,6 +24,7 @@ export async function GET(request: Request) {
   // Get random word from unique item list
   const randomWord: string = list[Math.floor(Math.random() * list.length)];
 
+  
   const response = {
     word: randomWord,
     data: itemMap[randomWord],
