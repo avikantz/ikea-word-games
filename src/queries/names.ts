@@ -1,6 +1,6 @@
 import { QueryFunction } from "@tanstack/react-query";
 
-interface NameQuery {
+export interface NameQuery {
   length?: number;
 }
 

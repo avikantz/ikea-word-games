@@ -1,6 +1,6 @@
 import { QueryFunction } from "@tanstack/react-query";
 
-interface UniqueQuery {
+export interface UniqueQuery {
   length?: number;
 }
 
