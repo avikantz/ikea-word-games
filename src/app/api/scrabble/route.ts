@@ -31,7 +31,7 @@ export async function GET(request: Request) {
   }
 
   const list: string[] = require("../list/unique.json");
-  const itemMap: Record<string, IKEAProduct> = require("../list/item-map.json");
+  const itemMap: Record<string, IKEAProduct> = require("../items/map.json");
 
   const wordList = [];
   const wordMap: Record<string, IKEAProduct> = {};

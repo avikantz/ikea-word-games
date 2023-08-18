@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   }
 
   const list: string[] = require(`../list/unique/${length}.json`);
-  const itemMap: Record<string, IKEAProduct> = require("../list/item-map.json");
+  const itemMap: Record<string, IKEAProduct> = require("../items/map.json");
 
   // Get random word from unique item list
   const randomWord: string = list[Math.floor(Math.random() * list.length)];
