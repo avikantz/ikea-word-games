@@ -9,12 +9,13 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: 1000 * 60 * 60 * 24 * 30, // 30 days
+      staleTime: 1000 * 60 * 60 * 24 * 30, // 30 days
     },
   },
 });
 
 const persister = createSyncStoragePersister({
-  storage: window.localStorage,
+  storage: typeof window !== 'undefined' ? window.localStorage : null,
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {
