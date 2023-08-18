@@ -26,7 +26,7 @@ export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
     unknown,
     string[],
     [string, UniqueQuery]
-  >(["list", { length }], fetchUnique);
+  >(["unique", { length }], fetchUnique);
 
   const getJumbleWord: JumbleWordFunction = useCallback(() => {
     if (!list || !ikeaMap) {
