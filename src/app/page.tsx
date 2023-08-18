@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  LegacyRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { LegacyRef, useCallback, useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -25,42 +19,28 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { IKEAProduct } from "@/interfaces";
+import { IKEAJumbleWord } from "@/interfaces";
+import { useJumble } from "@/hooks/useJumble";
 
 export default function Home() {
   const [length, setLength] = useState<number>(6);
-  const [word, setWord] = useState<string>();
-  const [shuffledWord, setShuffledWord] = useState<string>();
-  const [product, setProduct] = useState<IKEAProduct>();
+
+  const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
 
   const [guess, setGuess] = useState<string>();
   const [attempts, setAttempts] = useState<number>(0);
 
   const firstPinInputField = useRef<HTMLInputElement>();
 
+  const { getJumbleWord } = useJumble({ length });
+
   const getWords = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/jumble?length=${length}`);
-      const res: { word: string; data: IKEAProduct } = await response.json();
-      setWord(res.word);
-      setShuffledWord(
-        res.word
-          .split("")
-          .sort(() => Math.random() - 0.5)
-          .join("")
-      );
-      setProduct(res.data);
-      firstPinInputField?.current?.focus();
-    } catch (error) {
-      // ???
-      setWord(undefined);
-      setShuffledWord(undefined);
-      setProduct(undefined);
-    } finally {
-      setGuess("");
-      setAttempts(0);
-    }
-  }, [length]);
+    // Fetch new jumble word
+    const jumbleWord = getJumbleWord();
+    setJumbleWord(jumbleWord);
+    setGuess("");
+    setAttempts(0);
+  }, [getJumbleWord]);
 
   useEffect(() => {
     getWords();
@@ -68,9 +48,10 @@ export default function Home() {
 
   const onGuessChange = (value: string) => {
     setGuess(value.toUpperCase());
-    if (word && value.length === word.length) {
+    if (jumbleWord && value.length === jumbleWord.word.length) {
       setAttempts(attempts + 1);
-      if (word.toUpperCase() !== value.toUpperCase()) {
+      // TODO: compare
+      if (jumbleWord.word.toUpperCase() !== value.toUpperCase()) {
         setGuess("");
         firstPinInputField?.current?.focus();
       }
@@ -80,7 +61,7 @@ export default function Home() {
   const onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLength(Number(event.target.value));
     firstPinInputField?.current?.focus();
-  }
+  };
 
   return (
     <main>
@@ -90,14 +71,14 @@ export default function Home() {
             <Heading textAlign="center">IKEA Jumble</Heading>
 
             <HStack spacing="8" px="6" py="2" rounded="md" bg="gray.50">
-              {shuffledWord?.split("").map((w, i) => (
+              {jumbleWord?.shuffledWord?.split("").map((w, i) => (
                 <Text key={`word-${w}${i}`} fontSize="2xl" fontWeight="light">
                   {w}
                 </Text>
               ))}
             </HStack>
 
-            {word && (
+            {jumbleWord?.word && (
               <HStack>
                 <PinInput
                   size="lg"
@@ -105,13 +86,13 @@ export default function Home() {
                   value={guess}
                   onChange={onGuessChange}
                   type="alphanumeric"
-                  isDisabled={!word || guess === word || attempts >= 3}
+                  isDisabled={!jumbleWord || guess === jumbleWord?.word || attempts >= 3}
                 >
                   <PinInputField
                     ref={firstPinInputField as LegacyRef<HTMLInputElement>}
                     textTransform="uppercase"
                   />
-                  {Array(word.length - 1)
+                  {Array(jumbleWord?.word.length - 1)
                     .fill(0)
                     .map((_, i) => (
                       <PinInputField textTransform="uppercase" key={i} />
@@ -120,13 +101,13 @@ export default function Home() {
               </HStack>
             )}
 
-            {word && guess === word && (
+            {jumbleWord?.word && guess === jumbleWord.word && (
               <Text textAlign="center" fontSize="xl" color="green.500">
                 You got it!
               </Text>
             )}
 
-            {guess !== word && attempts >= 3 && (
+            {guess !== jumbleWord?.word && attempts >= 3 && (
               <Text textAlign="center" fontSize="xl" color="red.500">
                 Better luck next time!
               </Text>
@@ -138,13 +119,13 @@ export default function Home() {
               </Text>
             )}
 
-            {product && (attempts >= 3 || guess === word) && (
-              <Card as="a" href={product.url} target="_blank">
-                <CardHeader>{product.name}</CardHeader>
+            {jumbleWord?.product && (attempts >= 3 || guess === jumbleWord?.word) && (
+              <Card as="a" href={jumbleWord.product.url} target="_blank">
+                <CardHeader>{jumbleWord.product.name}</CardHeader>
                 <CardBody>
                   <Image
-                    src={product.image}
-                    alt={product.alt}
+                    src={jumbleWord.product.image}
+                    alt={jumbleWord.product.alt}
                     w="48"
                     h="48"
                     objectFit="cover"
@@ -152,7 +133,7 @@ export default function Home() {
                 </CardBody>
                 <CardFooter>
                   <Text fontSize="sm" color="gray.400">
-                    {product.desc}
+                    {jumbleWord.product.desc}
                   </Text>
                 </CardFooter>
               </Card>
@@ -177,7 +158,7 @@ export default function Home() {
                 size="sm"
                 variant="outline"
                 onClick={getWords}
-                isLoading={!word}
+                isLoading={!jumbleWord}
               >
                 Reload
               </Button>
