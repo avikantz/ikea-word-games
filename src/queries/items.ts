@@ -9,7 +9,7 @@ export const fetchItems: QueryFunction<any, [string, ItemsQuery]> = async ({
 }) => {
   const [_key, { words }] = queryKey;
 
-  const url = new URL("/api/items");
+  const url = new URL("/api/items", window.location.origin);
 
   if (typeof words === "string") {
     url.searchParams.append("words", words);

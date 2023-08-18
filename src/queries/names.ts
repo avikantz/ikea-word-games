@@ -9,7 +9,7 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({
 }) => {
   const [_key, { length }] = queryKey;
 
-  const url = new URL("/api/list/names");
+  const url = new URL("/api/list/names", window.location.origin);
 
   if (length) {
     url.searchParams.append("length", length.toString());

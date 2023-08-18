@@ -9,7 +9,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({
 }) => {
   const [_key, { length }] = queryKey;
 
-  const url = new URL("/api/list/unique");
+  const url = new URL("/api/list/unique", window.location.origin);
 
   if (length) {
     url.searchParams.append("length", length.toString());
