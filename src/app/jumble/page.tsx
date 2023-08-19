@@ -89,10 +89,9 @@ export default function Home() {
             {jumbleWord?.product && (
               <IKEAProductCard
                 product={jumbleWord.product}
-                // showName={attempts >= 3 || success}
-                showName
                 showDesc={attempts > 0 || success}
                 showImage={attempts > 1 || success}
+                showName={attempts >= 3 || success}
               />
             )}
 
