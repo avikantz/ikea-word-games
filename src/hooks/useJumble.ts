@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { UniqueQuery, fetchMap, fetchUnique } from "@/queries";
+import { Q_MAP_KEY, Q_UNIQUE_KEY, UniqueQuery, fetchMap, fetchUnique } from "@/queries";
 import { IKEAJumbleWord, IKEAProduct } from "@/interfaces";
 
 interface UseJumbleProps {
@@ -18,7 +18,7 @@ export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
     unknown,
     unknown,
     Record<string, IKEAProduct>
-  >(["map"], fetchMap);
+  >([Q_MAP_KEY], fetchMap);
 
   // List of unique IKEA product names
   const { data: list } = useQuery<
@@ -26,7 +26,7 @@ export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
     unknown,
     string[],
     [string, UniqueQuery]
-  >(["unique", { length }], fetchUnique);
+  >([Q_UNIQUE_KEY, { length }], fetchUnique);
 
   const getJumbleWord: JumbleWordFunction = useCallback(() => {
     if (!list || !ikeaMap) {

@@ -1,5 +1,7 @@
 import { QueryFunction } from "@tanstack/react-query";
 
+export const Q_ITEMS_KEY = "q_items";
+
 interface ItemsQuery {
   words: string | string[];
 }

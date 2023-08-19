@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -13,32 +12,15 @@ import NextLink from "next/link";
 import { JUMBLE } from "@/utils/paths";
 
 export const Header = () => {
-  const [isNavSticky, setNavSticky] = useState<boolean>(false);
-  const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
-
-  const handleScroll = useCallback(() => {
-    const currentScrollPos = window.scrollY;
-    // set state based on location info and scroll position, if scrolling down, hide nav, else show nav
-    if (Math.abs(prevScrollPos - currentScrollPos) > 20) {
-      setNavSticky(prevScrollPos - currentScrollPos > 20);
-    }
-    setPrevScrollPos(currentScrollPos);
-  }, [prevScrollPos]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-
   return (
     <Box
       as="header"
       position="sticky"
       transition="top 0.5s ease"
-      top={isNavSticky ? 0 : "-72px"}
+      top="0"
       bgColor="white"
       borderBottom="1px solid"
-      borderBottomColor={isNavSticky ? "gray.200" : "transparent"}
+      borderBottomColor="gray.200"
       zIndex={100}
       display="flex"
       alignItems="center"
