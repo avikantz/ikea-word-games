@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import "@fontsource-variable/open-sans"
 
 import { Providers } from "./providers";
 import { Header } from "@/components";
