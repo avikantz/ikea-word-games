@@ -30,6 +30,5 @@ export async function GET(request: Request) {
     data: itemMap[randomWord],
   };
 
-  // TODO: encrypt response
   return NextResponse.json(response);
 }

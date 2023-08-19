@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     count = DEFAULT_COUNT;
   }
 
-  const list: string[] = require("../list/unique.json");
+  const list: string[] = require("../list/unique/all.json");
   const itemMap: Record<string, IKEAProduct> = require("../items/map.json");
 
   const wordList = [];
@@ -50,6 +50,5 @@ export async function GET(request: Request) {
     data: wordMap,
   };
 
-  // TODO: encrypt response
   return NextResponse.json(response);
 }
