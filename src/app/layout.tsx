@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -14,7 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <Providers>
-        <body>{children}</body>
+        <body>
+          {children}
+          <Analytics />
+        </body>
       </Providers>
     </html>
   );
