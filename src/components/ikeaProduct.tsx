@@ -2,6 +2,7 @@
 
 import React from "react";
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -30,13 +31,21 @@ export const IKEAProductCard = ({
 }: IKEAProductProps) => {
   return (
     <Card direction="row" overflow="hidden" variant="outline">
-      <Image
-        src={product.image}
-        alt={product.alt}
-        filter={showImage ? undefined : "blur(20px)"}
-        maxW={{ base: "120px", md: "200px" }}
-        objectFit="cover"
-      />
+      <Box
+        w={{ base: "120px", md: "200px" }}
+        h={{ base: "120px", md: "200px" }}
+        overflow="hidden"
+      >
+        <Image
+          src={product.image}
+          alt={product.alt}
+          w="full"
+          h="full"
+          filter={showImage ? undefined : "blur(20px)"}
+          objectFit="cover"
+          pointerEvents="none"
+        />
+      </Box>
       <Stack minW={{ md: "300px" }}>
         <CardBody>
           <Heading size="md">

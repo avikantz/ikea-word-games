@@ -4,15 +4,10 @@ import { LegacyRef, useCallback, useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Container,
   HStack,
   Heading,
   IconButton,
-  Image,
   PinInput,
   PinInputField,
   Select,
@@ -46,6 +41,7 @@ export default function Home() {
     setGuess("");
     setAttempts(0);
     setSuccess(false);
+    firstPinInputField?.current?.focus();
   }, [getJumbleWord]);
 
   useEffect(() => {
@@ -71,6 +67,7 @@ export default function Home() {
     if (matchWords(guess, jumbleWord.word)) {
       setSuccess(true);
     } else {
+      setSuccess(false);
       setAttempts(attempts + 1);
       setGuess("");
       firstPinInputField?.current?.focus();
@@ -92,9 +89,10 @@ export default function Home() {
             {jumbleWord?.product && (
               <IKEAProductCard
                 product={jumbleWord.product}
-                showName={attempts >= 3 || success}
-                showDesc={attempts > 0}
-                showImage={attempts > 1}
+                // showName={attempts >= 3 || success}
+                showName
+                showDesc={attempts > 0 || success}
+                showImage={attempts > 1 || success}
               />
             )}
 
@@ -104,13 +102,13 @@ export default function Home() {
               </Text>
             )}
 
-            {guess !== jumbleWord?.word && attempts >= 3 && (
+            {attempts >= 3 && !success && (
               <Text textAlign="center" fontSize="xl" color="red.500">
                 Better luck next time!
               </Text>
             )}
 
-            {attempts < 3 && (
+            {attempts < 3 && !success && (
               <Text textAlign="center" fontSize="sm" color="gray.400">
                 {attempts} of 3 attempts
               </Text>
@@ -133,9 +131,7 @@ export default function Home() {
                   onChange={onGuessChange}
                   onComplete={onGuessCompletion}
                   type="alphanumeric"
-                  isDisabled={
-                    !jumbleWord || guess === jumbleWord?.word || attempts >= 3
-                  }
+                  isDisabled={!jumbleWord || attempts >= 3 || success}
                   isInvalid={
                     guess?.length === jumbleWord.word.length &&
                     !matchCharacters(guess, jumbleWord.word)
@@ -158,9 +154,8 @@ export default function Home() {
                   size="lg"
                   variant="outline"
                   onClick={onMatch}
-                  isDisabled={
-                    !jumbleWord || guess === jumbleWord?.word || attempts >= 3
-                  }
+                  isDisabled={!jumbleWord || attempts >= 3 || success}
+                  _focus={{ bg: "blue.100" }}
                 />
               </HStack>
             )}
