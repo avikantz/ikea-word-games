@@ -41,10 +41,7 @@ export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
 
     return {
       word: randomWord,
-      shuffledWord: randomWord
-        .split("")
-        .sort(() => Math.random() - 0.5)
-        .join(""),
+      shuffledWord: randomWord.shuffle(),
       product: ikeaMap[randomWord],
     };
   }, [ikeaMap, list]);
