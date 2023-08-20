@@ -52,6 +52,9 @@ const theme = extendTheme({
   },
   shadows: {
     red: "0 0 0 1px #E53E3E",
+    "red-xl": "0 0 0 5px #E53E3E",
+    green: "0 0 0 1px #38A169",
+    "green-xl": "0 0 0 5px #38A169",
   },
   components: {
     Button,

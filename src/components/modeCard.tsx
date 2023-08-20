@@ -52,7 +52,7 @@ export const ModeCard = ({
       {children}
       <Spacer />
       <LinkOverlay as={NextLink} href={href}>
-        <Button rounded="none">{buttonTitle || `Play ${title}`}</Button>
+        <Button>{buttonTitle || `Play ${title}`}</Button>
       </LinkOverlay>
     </LinkBox>
   );

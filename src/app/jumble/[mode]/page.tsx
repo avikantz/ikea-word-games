@@ -64,25 +64,15 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
           showDesc={attempts > 0 || success}
           showImage={attempts > 1 || success}
           showName={attempts >= 3 || success}
-        />
-      )}
-
-      {success && (
-        <Text textAlign="center" fontSize="xl" color="green.500">
-          You got it!
-        </Text>
-      )}
-
-      {attempts >= 3 && !success && (
-        <Text textAlign="center" fontSize="xl" color="red.500">
-          Better luck next time!
-        </Text>
-      )}
-
-      {attempts < 3 && !success && (
-        <Text textAlign="center" fontSize="sm" color="gray.400">
-          {attempts} of 3 attempts
-        </Text>
+          isSuccess={success}
+          isFailure={attempts >= 3 && !success}
+        >
+          {attempts < 3 && !success && (
+            <Text fontSize="sm" color="gray.400">
+              {attempts} of 3 attempts
+            </Text>
+          )}
+        </IKEAProductCard>
       )}
 
       <HStack spacing="8" px="6" py="2" rounded="md" bg="gray.50">

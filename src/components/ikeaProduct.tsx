@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Box,
   Button,
   Card,
   CardBody,
   CardFooter,
+  CardProps,
   Heading,
   Image,
   Stack,
@@ -16,11 +17,14 @@ import {
 import { IKEAProduct } from "@/interfaces";
 import { replaceWithQuestionMarks } from "@/utils/words";
 
-interface IKEAProductProps {
+interface IKEAProductProps extends CardProps {
   product: IKEAProduct;
   showName?: boolean;
   showImage?: boolean;
   showDesc?: boolean;
+  isSuccess?: boolean;
+  isFailure?: boolean;
+  children?: ReactNode;
 }
 
 export const IKEAProductCard = ({
@@ -28,6 +32,10 @@ export const IKEAProductCard = ({
   showName,
   showImage,
   showDesc,
+  isSuccess,
+  isFailure,
+  children,
+  ...props
 }: IKEAProductProps) => {
   return (
     <Card
@@ -35,6 +43,11 @@ export const IKEAProductCard = ({
       direction="row"
       overflow="hidden"
       variant="outline"
+      transition="all 0.2s ease"
+      boxSizing="border-box"
+      borderColor={isSuccess ? "green.500" : isFailure ? "red.500" : "gray.200"}
+      boxShadow={isSuccess ? "green-xl" : isFailure ? "red-xl" : "none"}
+      {...props}
     >
       <Box
         w={{ base: "120px", md: "200px" }}
@@ -52,8 +65,8 @@ export const IKEAProductCard = ({
         />
       </Box>
       <Stack flexGrow={1} minW={{ md: "300px" }} gap="0">
-        <CardBody p={{ base: 2, md: 4 }}>
-          <Heading size="md" mb={{ md: 2 }}>
+        <CardBody p={{ base: 2, md: 4 }} gap={{ base: 1, md: 2 }}>
+          <Heading size="md">
             {showName ? product.name : replaceWithQuestionMarks(product.name)}
           </Heading>
 
@@ -62,8 +75,8 @@ export const IKEAProductCard = ({
           </Text>
         </CardBody>
 
-        {showName && (
-          <CardFooter p={{ base: 2, md: 4 }}>
+        <CardFooter p={{ base: 2, md: 4 }}>
+          {showName ? (
             <Button
               as="a"
               href={product.url}
@@ -73,8 +86,10 @@ export const IKEAProductCard = ({
             >
               View Product
             </Button>
-          </CardFooter>
-        )}
+          ) : (
+            children
+          )}
+        </CardFooter>
       </Stack>
     </Card>
   );

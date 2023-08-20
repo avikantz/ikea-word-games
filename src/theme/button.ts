@@ -15,7 +15,8 @@ export const Button: ComponentStyleConfig = {
       color: "white",
       backgroundColor: "black",
       textTransform: "uppercase",
-      letterSpacing: "wider",
+      letterSpacing: "wide",
+      borderRadius: 0,
       _hover: {
         opacity: 0.4,
         backgroundColor: "black",
