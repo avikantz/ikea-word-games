@@ -1,7 +1,18 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Button, HStack, Select, Text, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Container,
+  Divider,
+  HStack,
+  Slider,
+  SliderMark,
+  SliderThumb,
+  SliderTrack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 
 import { IKEAJumbleWord } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
@@ -42,35 +53,8 @@ function JumbleGame() {
     }
   };
 
-  const onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setLength(Number(event.target.value));
-  };
-
   return (
     <VStack spacing={{ base: 4, md: 8 }}>
-      <HStack spacing="4">
-        <Select
-          size="sm"
-          value={length}
-          onChange={onLengthChange}
-        >
-          {[4, 5, 6, 7, 8, 9, 10].map((l) => (
-            <option key={`length-${l}`} value={l}>
-              {l}
-            </option>
-          ))}
-        </Select>
-
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={getWords}
-          isLoading={!jumbleWord}
-        >
-          Hit me!
-        </Button>
-      </HStack>
-
       {jumbleWord?.product && (
         <IKEAProductCard
           product={jumbleWord.product}
@@ -114,6 +98,44 @@ function JumbleGame() {
           isDisabled={attempts >= 3 || success}
         />
       )}
+
+      <Button
+        size="sm"
+        variant="outline"
+        onClick={getWords}
+        isLoading={!jumbleWord}
+      >
+        Pass (∞)
+      </Button>
+
+      <Container maxW="md">
+        <Divider mb={{ base: 4, md: 8 }} />
+        <Text textAlign="center" color="gray.500">
+          Size
+        </Text>
+        <Slider
+          aria-label="Length"
+          onChange={(value) => setLength(value)}
+          value={length}
+          min={4}
+          max={10}
+          step={1}
+        >
+          {[4, 5, 6, 7, 8, 9, 10].map((l) => (
+            <SliderMark
+              mt="3"
+              ml="-1"
+              fontSize="sm"
+              key={`length-${l}`}
+              value={l}
+            >
+              {l}
+            </SliderMark>
+          ))}
+          <SliderTrack bg="gray.100" />
+          <SliderThumb boxSize="5" bg="black" />
+        </Slider>
+      </Container>
     </VStack>
   );
 }
