@@ -30,7 +30,12 @@ export const IKEAProductCard = ({
   showDesc,
 }: IKEAProductProps) => {
   return (
-    <Card direction="row" overflow="hidden" variant="outline">
+    <Card
+      w={{ base: "full", md: "auto" }}
+      direction="row"
+      overflow="hidden"
+      variant="outline"
+    >
       <Box
         w={{ base: "120px", md: "200px" }}
         h={{ base: "120px", md: "200px" }}
@@ -46,24 +51,24 @@ export const IKEAProductCard = ({
           pointerEvents="none"
         />
       </Box>
-      <Stack minW={{ md: "300px" }}>
-        <CardBody>
-          <Heading size="md">
+      <Stack flexGrow={1} minW={{ md: "300px" }} gap="0">
+        <CardBody p={{ base: 2, md: 4 }}>
+          <Heading size="md" mb={{ md: 2 }}>
             {showName ? product.name : replaceWithQuestionMarks(product.name)}
           </Heading>
 
-          <Text py="2" color="gray.500">
+          <Text color="gray.500">
             {showDesc ? product.desc : replaceWithQuestionMarks(product.desc)}
           </Text>
         </CardBody>
 
         {showName && (
-          <CardFooter>
+          <CardFooter p={{ base: 2, md: 4 }}>
             <Button
               as="a"
               href={product.url}
               target="_blank"
-              variant="solid"
+              variant={{ base: "link", md: "solid" }}
               colorScheme="blue"
             >
               View Product
