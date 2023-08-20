@@ -18,7 +18,7 @@ import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordInput } from "@/components";
 import { JUMBLE } from "@/utils/paths";
 
-const MAX_ROUNDS = 2;
+const MAX_ROUNDS = 10;
 const MAX_MULTIPLIER = 5;
 const MAX_PASSES = 3;
 const MAX_ATTEMPTS = 3;
