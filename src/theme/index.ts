@@ -50,9 +50,12 @@ const theme = extendTheme({
       "900": "#1A1A1A",
     },
   },
+  shadows: {
+    red: "0 0 0 1px #E53E3E",
+  },
   components: {
-	Button,
-  }
+    Button,
+  },
 });
 
 export default theme;

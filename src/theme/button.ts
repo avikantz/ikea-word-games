@@ -4,8 +4,6 @@ export const Button: ComponentStyleConfig = {
   // style object for base or default style
   baseStyle: {
     fontWeight: "bold",
-    textTransform: "uppercase",
-    letterSpacing: "wider",
     cursor: "pointer",
   },
   // styles for different sizes ("sm", "md", "lg")
@@ -16,11 +14,15 @@ export const Button: ComponentStyleConfig = {
       colorScheme: "black",
       color: "white",
       backgroundColor: "black",
+      textTransform: "uppercase",
+      letterSpacing: "wider",
       _hover: {
         opacity: 0.4,
+        backgroundColor: "black",
       },
       _active: {
         opacity: 0.6,
+        backgroundColor: "black",
       },
     },
     outline: {
@@ -29,6 +31,8 @@ export const Button: ComponentStyleConfig = {
       borderColor: "black",
       color: "black",
       backgroundColor: "transparent",
+      textTransform: "uppercase",
+      letterSpacing: "wider",
       _hover: {
         color: "white",
         backgroundColor: "black",

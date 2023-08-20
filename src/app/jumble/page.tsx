@@ -1,15 +1,12 @@
 "use client";
 
-import { LegacyRef, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Button,
   Container,
   HStack,
   Heading,
-  IconButton,
-  PinInput,
-  PinInputField,
   Select,
   Text,
   VStack,
@@ -17,20 +14,16 @@ import {
 
 import { IKEAJumbleWord } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
-import { matchCharacters, matchWords } from "@/utils/words";
-import { IKEAProductCard } from "@/components";
+import { matchWords } from "@/utils/words";
+import { IKEAProductCard, WordInput } from "@/components";
 
-export default function Home() {
+function JumbleGame() {
   const [length, setLength] = useState<number>(6);
 
   const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
 
-  const [guess, setGuess] = useState<string>();
   const [attempts, setAttempts] = useState<number>(0);
   const [success, setSuccess] = useState<boolean>(false);
-
-  const firstPinInputField = useRef<HTMLInputElement>();
-  const matchButton = useRef<HTMLButtonElement>();
 
   const { getJumbleWord } = useJumble({ length });
 
@@ -38,45 +31,28 @@ export default function Home() {
     // Fetch new jumble word
     const jumbleWord = getJumbleWord();
     setJumbleWord(jumbleWord);
-    setGuess("");
     setAttempts(0);
     setSuccess(false);
-    firstPinInputField?.current?.focus();
   }, [getJumbleWord]);
 
   useEffect(() => {
     getWords();
   }, [getWords]);
 
-  const onGuessChange = (value: string) => {
-    setGuess(value.toUpperCase());
-  };
-
-  const onGuessCompletion = (value: string) => {
+  const onMatch = (value: string) => {
     if (!jumbleWord) return;
+    if (value.length !== jumbleWord.word.length) return;
 
-    if (matchCharacters(value, jumbleWord.word)) {
-      matchButton?.current?.focus();
-    }
-  };
-
-  const onMatch = () => {
-    if (!jumbleWord || !guess) return;
-    if (guess.length !== jumbleWord.word.length) return;
-
-    if (matchWords(guess, jumbleWord.word)) {
+    if (matchWords(value, jumbleWord.word)) {
       setSuccess(true);
     } else {
       setSuccess(false);
       setAttempts(attempts + 1);
-      setGuess("");
-      firstPinInputField?.current?.focus();
     }
   };
 
   const onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setLength(Number(event.target.value));
-    firstPinInputField?.current?.focus();
   };
 
   return (
@@ -122,41 +98,12 @@ export default function Home() {
             </HStack>
 
             {jumbleWord?.word && (
-              <HStack>
-                <PinInput
-                  size="lg"
-                  autoFocus
-                  value={guess}
-                  onChange={onGuessChange}
-                  onComplete={onGuessCompletion}
-                  type="alphanumeric"
-                  isDisabled={!jumbleWord || attempts >= 3 || success}
-                  isInvalid={
-                    guess?.length === jumbleWord.word.length &&
-                    !matchCharacters(guess, jumbleWord.word)
-                  }
-                >
-                  <PinInputField
-                    ref={firstPinInputField as LegacyRef<HTMLInputElement>}
-                    textTransform="uppercase"
-                  />
-                  {Array(jumbleWord?.word.length - 1)
-                    .fill(0)
-                    .map((_, i) => (
-                      <PinInputField textTransform="uppercase" key={i} />
-                    ))}
-                </PinInput>
-                <IconButton
-                  ref={matchButton as LegacyRef<HTMLButtonElement>}
-                  icon={<Text>⏎</Text>}
-                  aria-label="Submit"
-                  size="lg"
-                  variant="outline"
-                  onClick={onMatch}
-                  isDisabled={!jumbleWord || attempts >= 3 || success}
-                  _focus={{ bg: "blue.100" }}
-                />
-              </HStack>
+              <WordInput
+                length={jumbleWord.word.length}
+                targetValue={jumbleWord.word}
+                onSubmit={onMatch}
+                isDisabled={attempts >= 3 || success}
+              />
             )}
 
             <HStack spacing="4">
@@ -188,3 +135,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default JumbleGame;
