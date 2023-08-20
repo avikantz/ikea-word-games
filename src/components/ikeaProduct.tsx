@@ -117,6 +117,7 @@ export const IKEAProductCard = ({
           {showName ? (
             <Button
               as="a"
+              size="sm"
               href={product.url}
               target="_blank"
               variant={{ base: "link", md: "solid" }}
