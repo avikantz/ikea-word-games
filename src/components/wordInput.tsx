@@ -16,6 +16,8 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { useAnimate } from "framer-motion";
+
 import { matchCharacters } from "@/utils/words";
 
 interface WordInputProps {
@@ -36,6 +38,7 @@ export const WordInput = ({
   const [value, setValue] = useState<string>("");
   const [isInvalid, setInvalid] = useState<boolean>(false);
 
+  const [containerRef, animateContainer] = useAnimate();
   const inputRef = useRef<HTMLInputElement>();
   const buttonRef = useRef<HTMLButtonElement>();
 
@@ -52,6 +55,12 @@ export const WordInput = ({
       buttonRef?.current?.focus();
     } else {
       setInvalid(true);
+      // Jiggle input if invalid
+      animateContainer(
+        containerRef.current,
+        { translate: [0, "-5px", 0, "5px", 0] },
+        { duration: 0.1, repeat: 3 }
+      );
     }
     // Trigger parent onCompletion
     _onCompletion?.(value);
@@ -93,7 +102,7 @@ export const WordInput = ({
   };
 
   return (
-    <HStack>
+    <HStack ref={containerRef}>
       {/* Render basic input on mobile due to space constraints */}
       {isMobile ? (
         <Input

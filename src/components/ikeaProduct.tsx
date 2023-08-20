@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import {
   Box,
   Button,
@@ -8,11 +8,14 @@ import {
   CardBody,
   CardFooter,
   CardProps,
+  Center,
   Heading,
   Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useAnimate } from "framer-motion";
+import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
 import { replaceWithQuestionMarks } from "@/utils/words";
@@ -37,6 +40,32 @@ export const IKEAProductCard = ({
   children,
   ...props
 }: IKEAProductProps) => {
+  const [cardRef, animateCard] = useAnimate();
+
+  // Jiggle card on failure
+  useEffect(() => {
+    if (isFailure) {
+      animateCard(
+        cardRef.current,
+        {
+          scale: [1, 1.1, 1, 1.1, 1],
+          rotate: [0, 10, 0, -10, 0],
+        },
+        {
+          duration: 0.1,
+          repeat: 3,
+        }
+      );
+    }
+  }, [animateCard, cardRef, isFailure]);
+
+  // Zoom card on success
+  useEffect(() => {
+    if (isSuccess) {
+      animateCard(cardRef.current, { scale: [1, 1.2, 1] }, { duration: 0.1 });
+    }
+  }, [animateCard, cardRef, isSuccess]);
+
   return (
     <Card
       w={{ base: "full", md: "auto" }}
@@ -47,8 +76,17 @@ export const IKEAProductCard = ({
       boxSizing="border-box"
       borderColor={isSuccess ? "green.500" : isFailure ? "red.500" : "gray.200"}
       boxShadow={isSuccess ? "green-xl" : isFailure ? "red-xl" : "none"}
+      ref={cardRef}
+      position="relative"
       {...props}
     >
+      {/* Success confetti */}
+      {isSuccess && (
+        <Center position="absolute" top="0" bottom="0" left="0" right="0">
+          <ConfettiExplosion colors={["#FFDB00", "#008AFF", "#111111"]} height="80vh" />
+        </Center>
+      )}
+
       <Box
         w={{ base: "120px", md: "200px" }}
         h={{ base: "120px", md: "200px" }}
