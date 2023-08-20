@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <main>
-      <Center h="calc(100vh - 72px)">
+      <Center h="100vh">
         <Heading textAlign="center">IKEA Word Games</Heading>
       </Center>
     </main>
