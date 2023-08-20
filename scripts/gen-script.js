@@ -79,9 +79,9 @@ console.log('names', names.length);
 console.log('uniqueNames', uniqueNames.length);
 
 
-fs.writeFileSync("./100.json", JSON.stringify(uniqueNames.slice(0, 100).sort(), null, 2)); // List of all names
-fs.writeFileSync("./250.json", JSON.stringify(uniqueNames.slice(0, 250).sort(), null, 2)); // List of all names
-fs.writeFileSync("./500.json", JSON.stringify(uniqueNames.slice(0, 500).sort(), null, 2)); // List of all names
+fs.writeFileSync("./easy.json", JSON.stringify(uniqueNames.filter(name => name.length < 7).slice(0, 100).sort(), null, 2)); // List of all names
+fs.writeFileSync("./medium.json", JSON.stringify(uniqueNames.filter(name => name.length < 9).slice(0, 250).sort(), null, 2)); // List of all names
+fs.writeFileSync("./hard.json", JSON.stringify(uniqueNames.slice(0, 500).sort(), null, 2)); // List of all names
 fs.writeFileSync("./all.json", JSON.stringify(uniqueNames.sort(), null, 2)); // List of all names
 
 // names.sort((a, b) => a.localeCompare(b));
