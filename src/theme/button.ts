@@ -13,25 +13,31 @@ export const Button: ComponentStyleConfig = {
   // styles for different visual variants ("outline", "solid")
   variants: {
     solid: {
-      colorScheme: "yellow",
-      color: "blue.500",
-      backgroundColor: "yellow.500",
+      colorScheme: "black",
+      color: "white",
+      backgroundColor: "black",
       _hover: {
-        color: "yellow.500",
-        backgroundColor: "blue.500",
+        opacity: 0.4,
+      },
+      _active: {
+        opacity: 0.6,
       },
     },
     outline: {
       px: 8,
+      colorScheme: "black",
+      borderColor: "black",
+      color: "black",
+      backgroundColor: "transparent",
       _hover: {
-        color: "yellow.500",
-        backgroundColor: "blue.500",
-        borderColor: "blue.500",
+        color: "white",
+        backgroundColor: "black",
+        borderColor: "black",
       },
     },
   },
   // default values for 'size', 'variant' and 'colorScheme'
   defaultProps: {
-    colorScheme: "blue",
+    colorScheme: "black",
   },
 };
