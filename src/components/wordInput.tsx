@@ -84,6 +84,7 @@ export const WordInput = ({
     event.preventDefault();
 
     if (value.length !== length) return;
+    if (!matchCharacters(value, targetValue)) return;
 
     setValue("");
     inputRef?.current?.focus();
@@ -102,12 +103,12 @@ export const WordInput = ({
           onChange={onInputChange}
           type="text"
           isDisabled={isDisabled}
-		  isInvalid={isInvalid}
-		  _invalid={{ borderColor: 'red.500', _focus: { boxShadow: "red" } }}
-		  maxLength={length}
+          isInvalid={isInvalid}
+          _invalid={{ borderColor: "red.500", _focus: { boxShadow: "red" } }}
+          maxLength={length}
           ref={inputRef as LegacyRef<HTMLInputElement>}
           textTransform="uppercase"
-		  textAlign="center"
+          textAlign="center"
           letterSpacing="8px"
         />
       ) : (
