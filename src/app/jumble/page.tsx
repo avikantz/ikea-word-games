@@ -1,138 +1,54 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { ModeCard } from "@/components";
 import {
-  Box,
-  Button,
-  Container,
-  HStack,
-  Heading,
-  Select,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-
-import { IKEAJumbleWord } from "@/interfaces";
-import { useJumble } from "@/hooks/useJumble";
-import { matchWords } from "@/utils/words";
-import { IKEAProductCard, WordInput } from "@/components";
+  JUMBLE_CUSTOM,
+  JUMBLE_EASY,
+  JUMBLE_HARD,
+  JUMBLE_INSANE,
+  JUMBLE_MEDIUM,
+} from "@/utils/paths";
+import { Center, SimpleGrid, Text } from "@chakra-ui/react";
 
 function JumbleGame() {
-  const [length, setLength] = useState<number>(6);
-
-  const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
-
-  const [attempts, setAttempts] = useState<number>(0);
-  const [success, setSuccess] = useState<boolean>(false);
-
-  const { getJumbleWord } = useJumble({ length });
-
-  const getWords = useCallback(async () => {
-    // Fetch new jumble word
-    const jumbleWord = getJumbleWord();
-    setJumbleWord(jumbleWord);
-    setAttempts(0);
-    setSuccess(false);
-  }, [getJumbleWord]);
-
-  useEffect(() => {
-    getWords();
-  }, [getWords]);
-
-  const onMatch = (value: string) => {
-    if (!jumbleWord) return;
-    if (value.length !== jumbleWord.word.length) return;
-
-    if (matchWords(value, jumbleWord.word)) {
-      setSuccess(true);
-    } else {
-      setSuccess(false);
-      setAttempts(attempts + 1);
-    }
-  };
-
-  const onLengthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setLength(Number(event.target.value));
-  };
-
   return (
-    <main>
-      <Box h="calc(100vh - 72px)">
-        <Container>
-          <VStack py="8" spacing="8">
-            <Heading textAlign="center">Jumble</Heading>
-
-            {jumbleWord?.product && (
-              <IKEAProductCard
-                product={jumbleWord.product}
-                showDesc={attempts > 0 || success}
-                showImage={attempts > 1 || success}
-                showName={attempts >= 3 || success}
-              />
-            )}
-
-            {success && (
-              <Text textAlign="center" fontSize="xl" color="green.500">
-                You got it!
-              </Text>
-            )}
-
-            {attempts >= 3 && !success && (
-              <Text textAlign="center" fontSize="xl" color="red.500">
-                Better luck next time!
-              </Text>
-            )}
-
-            {attempts < 3 && !success && (
-              <Text textAlign="center" fontSize="sm" color="gray.400">
-                {attempts} of 3 attempts
-              </Text>
-            )}
-
-            <HStack spacing="8" px="6" py="2" rounded="md" bg="gray.50">
-              {jumbleWord?.shuffledWord?.split("").map((w, i) => (
-                <Text key={`word-${w}${i}`} fontSize="2xl" fontWeight="light">
-                  {w}
-                </Text>
-              ))}
-            </HStack>
-
-            {jumbleWord?.word && (
-              <WordInput
-                length={jumbleWord.word.length}
-                targetValue={jumbleWord.word}
-                onSubmit={onMatch}
-                isDisabled={attempts >= 3 || success}
-              />
-            )}
-
-            <HStack spacing="4">
-              <Select
-                size="sm"
-                placeholder="Length"
-                value={length}
-                onChange={onLengthChange}
-              >
-                {[4, 5, 6, 7, 8, 9].map((l) => (
-                  <option key={`length-${l}`} value={l}>
-                    {l}
-                  </option>
-                ))}
-              </Select>
-
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={getWords}
-                isLoading={!jumbleWord}
-              >
-                Reload
-              </Button>
-            </HStack>
-          </VStack>
-        </Container>
-      </Box>
-    </main>
+    <>
+      <Center mb={{ base: 4, md: 8 }}>
+        <Text textAlign="center">
+          Form a word from the given letters to match an IKEA product.
+        </Text>
+      </Center>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }}>
+        <ModeCard
+          title="Easy"
+          desc="Guess only the most popular products!"
+          href={JUMBLE_EASY}
+          bg="green.100"
+        />
+        <ModeCard
+          title="Medium"
+          desc="Includes most on shelf products!"
+          href={JUMBLE_MEDIUM}
+          bg="yellow.200"
+        />
+        <ModeCard
+          title="Hard"
+          desc="Top 500 all time products"
+          href={JUMBLE_HARD}
+          bg="orange.200"
+        />
+        <ModeCard title="Insane" href={JUMBLE_INSANE} bg="red.200">
+          <Text color="gray.500">
+            All products are on the <s>table</s> lagkapten
+          </Text>
+        </ModeCard>
+        <ModeCard
+          title="Custom"
+          desc="Custom word length"
+          href={JUMBLE_CUSTOM}
+        />
+      </SimpleGrid>
+    </>
   );
 }
 
