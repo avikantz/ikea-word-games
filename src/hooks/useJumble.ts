@@ -6,13 +6,12 @@ import { IKEAJumbleWord, IKEAProduct } from "@/interfaces";
 
 interface UseJumbleProps {
   length?: number;
+  mode?: "easy" | "medium" | "hard";
 }
-
-const DEFAULT_LENGTH = 5; // Number of letters in word
 
 type JumbleWordFunction = () => IKEAJumbleWord | undefined;
 
-export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
+export const useJumble = ({ length, mode }: UseJumbleProps) => {
   // Map of names to IKEA products
   const { data: ikeaMap } = useQuery<
     unknown,
@@ -26,7 +25,7 @@ export const useJumble = ({ length = DEFAULT_LENGTH }: UseJumbleProps) => {
     unknown,
     string[],
     [string, UniqueQuery]
-  >([Q_UNIQUE_KEY, { length }], fetchUnique);
+  >([Q_UNIQUE_KEY, { length, mode }], fetchUnique);
 
   const getJumbleWord: JumbleWordFunction = useCallback(() => {
     if (!list || !ikeaMap) {

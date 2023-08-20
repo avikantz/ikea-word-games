@@ -4,16 +4,18 @@ export const Q_UNIQUE_KEY = "q_unique";
 
 export interface UniqueQuery {
   length?: number;
+  mode?: "easy" | "medium" | "hard";
 }
 
 export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({
   queryKey,
 }) => {
-  const [_key, { length }] = queryKey;
+  const [_key, { mode, length }] = queryKey;
 
   // Get from local storage if available
+  const lsKey = `${Q_UNIQUE_KEY}_${mode || length}`;
   if (typeof window !== "undefined") {
-    const list = window.localStorage.getItem(`${Q_UNIQUE_KEY}_${length}`);
+    const list = window.localStorage.getItem(lsKey);
     if (list) {
       return JSON.parse(list);
     }
@@ -21,7 +23,9 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({
 
   const url = new URL("/api/list/unique", window.location.origin);
 
-  if (length) {
+  if (mode) {
+    url.searchParams.append("mode", mode);
+  } else if (length) {
     url.searchParams.append("length", length.toString());
   }
 
@@ -34,7 +38,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({
   // Save to local storage
   if (typeof window !== "undefined") {
     const list = await response.text();
-    window.localStorage.setItem(`${Q_UNIQUE_KEY}_${length}`, list);
+    window.localStorage.setItem(lsKey, list);
   }
 
   return response.json();
