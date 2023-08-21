@@ -9,7 +9,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { JUMBLE } from "@/utils/paths";
+import { PATH_JUMBLE } from "@/utils/paths";
 
 export const Header = () => {
   return (
@@ -30,7 +30,7 @@ export const Header = () => {
         <HStack h="full" alignItems="center" spacing={{ base: 2, md: 4 }}>
           <Heading fontSize="lg">IKEA Word Games</Heading>
 
-          <Link as={NextLink} href={JUMBLE}>
+          <Link as={NextLink} href={PATH_JUMBLE}>
             Jumble
           </Link>
 

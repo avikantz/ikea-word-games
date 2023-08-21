@@ -1,35 +1,31 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import {
-  Button,
-  HStack,
-  Heading,
-  Spacer,
-  Tag,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, HStack, Heading, IconButton, Spacer, Tag, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
 import { IKEAJumbleWord, JUMBLE_MODE } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordInput } from "@/components";
-import { JUMBLE } from "@/utils/paths";
-
-const MAX_ROUNDS = 10;
-const MAX_MULTIPLIER = 5;
-const MAX_PASSES = 3;
-const MAX_ATTEMPTS = 3;
+import { PATH_JUMBLE } from "@/utils/paths";
+import { JUMBLE } from "@/utils/constants";
+import { JumbleHowToPlayModal } from "@/components/jumble";
 
 function JumbleGameMode({ params }: { params: { mode: string } }) {
   const router = useRouter();
   const [difficulty, setDifficulty] = useState<JUMBLE_MODE>();
 
+  // Modals
+  const {
+    isOpen: isOpenHowToPlayModal,
+    onOpen: onOpenHowToPlayModal,
+    onClose: onCloseHowToPlayModal,
+  } = useDisclosure();
+
   // Game state
   const [passCount, setPassCount] = useState<number>(0);
-  const [round, setRound] = useState<number>(0);
+  const [round, setRound] = useState<number>(1);
   const [score, setScore] = useState<number>(0);
   const [multiplier, setMultiplier] = useState<number>(1);
 
@@ -47,7 +43,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         setDifficulty(params.mode as JUMBLE_MODE);
       } else {
         alert("Invalid mode");
-        router.replace(JUMBLE);
+        router.replace(PATH_JUMBLE);
       }
     }
   }, [params.mode, router]);
@@ -60,9 +56,10 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     setSuccess(false);
   }, [getJumbleWord]);
 
-  // useEffect(() => {
-  //   getWords();
-  // }, [getWords]);
+  useEffect(() => {
+    getWords();
+    onOpenHowToPlayModal();
+  }, [getWords, onOpenHowToPlayModal]);
 
   const onMatch = (value: string) => {
     if (!jumbleWord) return;
@@ -71,7 +68,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     if (matchWords(value, jumbleWord.word)) {
       setSuccess(true);
       // Update multiplier
-      setMultiplier((multiplier) => Math.min(multiplier + 1, MAX_MULTIPLIER));
+      setMultiplier((multiplier) => Math.min(multiplier + 1, JUMBLE.MAX_MULTIPLIER));
       // Calculate score
       setScore((score) => {
         let roundScore = 10;
@@ -90,31 +87,41 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   };
 
   const onPass = () => {
-    if (passCount < MAX_PASSES) {
+    if (passCount < JUMBLE.MAX_PASSES) {
       setPassCount(passCount + 1);
       getWords();
     }
   };
 
   const onNextRound = () => {
-    if (round < MAX_ROUNDS) {
+    if (round < JUMBLE.MAX_ROUNDS) {
       setRound((round) => round + 1);
       getWords();
     } else {
-      alert(`Game over\n\nYour final is ${score}\n\nThanks for playing!`)
-      router.replace(JUMBLE);
+      alert(`Game over\n\nYour final is ${score}\n\nThanks for playing!`);
+      router.replace(PATH_JUMBLE);
     }
   };
 
   return (
     <VStack spacing={{ base: 4, md: 8 }}>
+      <HStack spacing="4">
+        <Heading textAlign="center" textTransform="capitalize">
+          Jumble {difficulty}
+        </Heading>
+        <IconButton
+          variant="outline"
+          isRound
+          icon={<Text>?</Text>}
+          aria-label="How to play"
+          onClick={onOpenHowToPlayModal}
+        />
+      </HStack>
+
       {round > 0 && (
-        <HStack
-          minW={{ base: "full", md: "500" }}
-          justifyContent="space-between"
-        >
+        <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
           <Tag size="lg" bg="blue.500" color="white">
-            Round {round} of {MAX_ROUNDS}
+            Round {round} of {JUMBLE.MAX_ROUNDS}
           </Tag>
 
           <Spacer />
@@ -130,19 +137,19 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       )}
 
       {/* Active game */}
-      {jumbleWord && round > 0 && round <= MAX_ROUNDS && (
+      {jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
         <VStack spacing={{ base: 4, md: 8 }}>
           <IKEAProductCard
             product={jumbleWord.product}
             showDesc={attempts > 0 || success}
             showImage={attempts > 1 || success}
-            showName={attempts >= MAX_ATTEMPTS || success}
+            showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
             isSuccess={success}
-            isFailure={attempts >= MAX_ATTEMPTS && !success}
+            isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
           >
-            {attempts < MAX_ATTEMPTS && !success && (
+            {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
               <Text fontSize="sm" color="gray.400">
-                {attempts} of {MAX_ATTEMPTS} attempts
+                {attempts} of {JUMBLE.MAX_ATTEMPTS} attempts
               </Text>
             )}
           </IKEAProductCard>
@@ -159,7 +166,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             length={jumbleWord.word.length}
             targetValue={jumbleWord.word}
             onSubmit={onMatch}
-            isDisabled={attempts >= MAX_ATTEMPTS || success}
+            isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
           />
 
           <Button
@@ -167,57 +174,17 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             variant="outline"
             onClick={onPass}
             isLoading={!jumbleWord}
-            isDisabled={
-              round > MAX_ROUNDS ||
-              passCount >= MAX_PASSES ||
-              success ||
-              attempts > 3
-            }
+            isDisabled={round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > 3}
           >
-            Pass ({MAX_PASSES - passCount})
+            Pass ({JUMBLE.MAX_PASSES - passCount})
           </Button>
         </VStack>
       )}
 
-      {round === 0 && (
-        <VStack
-          rounded="md"
-          p={{ base: 4, md: 8 }}
-          bg="gray.50"
-          maxW={{ base: "full", md: "md" }}
-          spacing="4"
-          textAlign="center"
-        >
-          <Heading as="h4" fontSize="lg">
-            How to play
-          </Heading>
+      <JumbleHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 
-          <Text>
-            You will be given a scrambled IKEA product name. Unscramble the
-            letters to guess the product.
-          </Text>
-
-          <Text>
-            There are {MAX_ROUNDS} rounds. Each round, you will be given a new
-            product to guess.
-          </Text>
-
-          <Text>
-            You have {MAX_ATTEMPTS} attempts to guess the product in each round.
-            The faster you guess, the more points you will score.
-          </Text>
-
-          <Text>
-            If you are stuck, you can pass/skip the round. You have {MAX_PASSES}{" "}
-            passes per game.
-          </Text>
-
-          <Text>Enjoy!</Text>
-        </VStack>
-      )}
-
-      <Button onClick={onNextRound} isDisabled={round > MAX_ROUNDS}>
-        {round === 0 ? "Start" : round === MAX_ROUNDS ? "Finish" : "Next"}
+      <Button onClick={onNextRound} isDisabled={round > JUMBLE.MAX_ROUNDS}>
+        {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
       </Button>
     </VStack>
   );
