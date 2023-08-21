@@ -1,8 +1,8 @@
-export const JUMBLE = "/jumble";
-export const JUMBLE_EASY = `${JUMBLE}/easy`;
-export const JUMBLE_MEDIUM = `${JUMBLE}/medium`;
-export const JUMBLE_HARD = `${JUMBLE}/hard`;
-export const JUMBLE_INSANE = `${JUMBLE}/insane`;
-export const JUMBLE_CUSTOM = `${JUMBLE}/custom`;
+export const PATH_JUMBLE = "/jumble";
+export const PATH_JUMBLE_EASY = `${PATH_JUMBLE}/easy`;
+export const PATH_JUMBLE_MEDIUM = `${PATH_JUMBLE}/medium`;
+export const PATH_JUMBLE_HARD = `${PATH_JUMBLE}/hard`;
+export const PATH_JUMBLE_INSANE = `${PATH_JUMBLE}/insane`;
+export const PATH_JUMBLE_CUSTOM = `${PATH_JUMBLE}/custom`;
 
-export const SCRABBLE = "/scrabble";
+export const PATH_SCRABBLE = "/scrabble";
