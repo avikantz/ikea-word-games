@@ -181,11 +181,11 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         </VStack>
       )}
 
-      <JumbleHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
-
       <Button onClick={onNextRound} isDisabled={round > JUMBLE.MAX_ROUNDS}>
         {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
       </Button>
+
+      <JumbleHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
     </VStack>
   );
 }

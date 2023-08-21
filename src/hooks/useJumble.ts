@@ -13,19 +13,13 @@ type JumbleWordFunction = () => IKEAJumbleWord | undefined;
 
 export const useJumble = ({ length, mode }: UseJumbleProps) => {
   // Map of names to IKEA products
-  const { data: ikeaMap } = useQuery<
-    unknown,
-    unknown,
-    Record<string, IKEAProduct>
-  >([Q_MAP_KEY], fetchMap);
+  const { data: ikeaMap } = useQuery<unknown, unknown, Record<string, IKEAProduct>>([Q_MAP_KEY], fetchMap);
 
   // List of unique IKEA product names
-  const { data: list } = useQuery<
-    unknown,
-    unknown,
-    string[],
-    [string, UniqueQuery]
-  >([Q_UNIQUE_KEY, { length, mode }], fetchUnique);
+  const { data: list } = useQuery<unknown, unknown, string[], [string, UniqueQuery]>(
+    [Q_UNIQUE_KEY, { length, mode }],
+    fetchUnique,
+  );
 
   const getJumbleWord: JumbleWordFunction = useCallback(() => {
     if (!list || !ikeaMap) {

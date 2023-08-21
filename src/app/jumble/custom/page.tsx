@@ -6,6 +6,7 @@ import {
   Container,
   Divider,
   HStack,
+  Heading,
   Slider,
   SliderMark,
   SliderThumb,
@@ -55,6 +56,10 @@ function JumbleGame() {
 
   return (
     <VStack spacing={{ base: 4, md: 8 }}>
+      <Heading textAlign="center" textTransform="capitalize">
+        Jumble Custom
+      </Heading>
+
       {jumbleWord?.product && (
         <IKEAProductCard
           product={jumbleWord.product}
@@ -89,34 +94,18 @@ function JumbleGame() {
         />
       )}
 
-      <Button
-        size="sm"
-        variant="outline"
-        onClick={getWords}
-        isLoading={!jumbleWord}
-      >
+      <Button size="sm" variant="outline" onClick={getWords} isLoading={!jumbleWord}>
         {success || attempts >= 3 ? "Next" : "Pass (∞)"}
       </Button>
 
       <Container maxW="md">
         <Divider mb={{ base: 4, md: 8 }} />
-        <Text color="gray.500" textAlign="center" fontSize="sm">Size</Text>
-        <Slider
-          aria-label="Length"
-          onChange={(value) => setLength(value)}
-          value={length}
-          min={4}
-          max={10}
-          step={1}
-        >
+        <Text color="gray.500" textAlign="center" fontSize="sm">
+          Size
+        </Text>
+        <Slider aria-label="Length" onChange={(value) => setLength(value)} value={length} min={4} max={10} step={1}>
           {[4, 5, 6, 7, 8, 9, 10].map((l) => (
-            <SliderMark
-              mt="3"
-              ml="-1"
-              fontSize="sm"
-              key={`length-${l}`}
-              value={l}
-            >
+            <SliderMark mt="3" ml="-1" fontSize="sm" key={`length-${l}`} value={l}>
               {l}
             </SliderMark>
           ))}
