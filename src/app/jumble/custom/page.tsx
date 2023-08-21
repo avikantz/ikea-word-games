@@ -1,24 +1,12 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Container,
-  Divider,
-  HStack,
-  Heading,
-  Slider,
-  SliderMark,
-  SliderThumb,
-  SliderTrack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Button, Container, Divider, Heading, Select, Text, VStack } from "@chakra-ui/react";
 
 import { IKEAJumbleWord } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
-import { IKEAProductCard, WordInput } from "@/components";
+import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JUMBLE } from "@/utils/constants";
 
 function JumbleGame() {
@@ -99,13 +87,7 @@ function JumbleGame() {
         </IKEAProductCard>
       )}
 
-      <HStack spacing="8" px="6" py="2" rounded="md" bg="gray.50">
-        {jumbleWord?.shuffledWord?.split("").map((w, i) => (
-          <Text key={`word-${w}${i}`} fontSize="2xl" fontWeight="light">
-            {w}
-          </Text>
-        ))}
-      </HStack>
+      {jumbleWord?.shuffledWord && <WordDisplay word={jumbleWord?.shuffledWord} />}
 
       {jumbleWord?.word && (
         <WordInput
@@ -129,10 +111,24 @@ function JumbleGame() {
 
       <Container maxW="md">
         <Divider mb={{ base: 4, md: 8 }} />
-        <Text color="gray.500" textAlign="center" fontSize="sm">
+        <Text color="gray.500" textAlign="center" fontSize="sm" mb="2">
           Size
         </Text>
-        <Slider aria-label="Length" onChange={(value) => setLength(value)} value={length} min={4} max={10} step={1}>
+        <Select
+          maxW="32"
+          mx="auto"
+          aria-label="Length"
+          onChange={(e) => setLength(parseInt(e.target.value))}
+          value={length}
+          isDisabled={!jumbleWord}
+        >
+          {[4, 5, 6, 7, 8, 9, 10].map((l) => (
+            <option key={`length-${l}`} value={l}>
+              {l}
+            </option>
+          ))}
+        </Select>
+        {/* <Slider aria-label="Length" onChange={(value) => setLength(value)} value={length} min={4} max={10} step={1}>
           {[4, 5, 6, 7, 8, 9, 10].map((l) => (
             <SliderMark mt="3" ml="-1" fontSize="sm" key={`length-${l}`} value={l}>
               {l}
@@ -140,7 +136,7 @@ function JumbleGame() {
           ))}
           <SliderTrack bg="gray.100" />
           <SliderThumb boxSize="5" bg="black" />
-        </Slider>
+        </Slider> */}
       </Container>
     </VStack>
   );

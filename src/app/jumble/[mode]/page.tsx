@@ -5,7 +5,7 @@ import { Button, HStack, Heading, IconButton, Spacer, Tag, Text, VStack, useDisc
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 
-import { IKEAProductCard, WordInput } from "@/components";
+import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, JUMBLE_MODE } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
@@ -197,13 +197,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             )}
           </IKEAProductCard>
 
-          <HStack spacing="8" px="6" py="1" rounded="md" bg="gray.50">
-            {jumbleWord.shuffledWord.split("").map((w, i) => (
-              <Text key={`word-${w}${i}`} fontSize={{ base: "xl", md: "2xl" }}>
-                {w}
-              </Text>
-            ))}
-          </HStack>
+          <WordDisplay word={jumbleWord.shuffledWord} />
 
           <WordInput
             ref={inputRef as Ref<HTMLInputElement>}

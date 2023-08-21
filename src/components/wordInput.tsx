@@ -99,15 +99,14 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     }
 
     setValue("");
-    // inputRef?.current?.focus();
 
     _onSubmit(value);
   };
 
   return (
-    <HStack ref={containerRef}>
-      {/* Render basic input on mobile due to space constraints */}
+    <HStack w={{ base: 'full', md: 'auto' }} ref={containerRef}>
       {isMobile ? (
+        // Render basic input on mobile due to space constraints
         <Input
           size="lg"
           fontWeight="semibold"
@@ -123,9 +122,11 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
           textTransform="uppercase"
           textAlign="center"
           letterSpacing="8px"
+          // Support enter key submission
           onKeyUp={onInputKeyUp}
         />
       ) : (
+        // Fancier Pin Input on desktop
         <PinInput
           size="lg"
           autoFocus
