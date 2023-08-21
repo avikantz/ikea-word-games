@@ -63,7 +63,10 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     setAttempts(0);
     setSuccess(false);
 
-    inputRef.current?.focus();
+    // Focus input after delay
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
   }, [getJumbleWord]);
 
   // Get a new word on load
@@ -117,9 +120,6 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   };
 
   const onNextRound = () => {
-    // TODO: why does this not work?
-    inputRef.current?.focus();
-
     if (round < JUMBLE.MAX_ROUNDS) {
       if (success || attempts >= JUMBLE.MAX_ATTEMPTS) {
         // Proceed to next round
@@ -140,6 +140,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         );
       }
     } else {
+      // TODO: add modal
       alert(`Game over\n\nYour final is ${score}\n\nThanks for playing!`);
       router.replace(PATH_JUMBLE);
     }

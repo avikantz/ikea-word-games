@@ -42,7 +42,11 @@ function JumbleGame() {
     setJumbleWord(jumbleWord);
     setAttempts(0);
     setSuccess(false);
-    inputRef.current?.focus();
+
+    // Focus input after delay
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
   }, [getJumbleWord]);
 
   useEffect(() => {
