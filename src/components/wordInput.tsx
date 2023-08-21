@@ -1,21 +1,7 @@
 "use client";
 
-import React, {
-  ChangeEventHandler,
-  LegacyRef,
-  MouseEventHandler,
-  useRef,
-  useState,
-} from "react";
-import {
-  HStack,
-  IconButton,
-  Input,
-  PinInput,
-  PinInputField,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import React, { ChangeEventHandler, LegacyRef, MouseEventHandler, useRef, useState } from "react";
+import { HStack, IconButton, Input, PinInput, PinInputField, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
 
 import { matchCharacters } from "@/utils/words";
@@ -42,25 +28,22 @@ export const WordInput = ({
   const inputRef = useRef<HTMLInputElement>();
   const buttonRef = useRef<HTMLButtonElement>();
 
-  const isMobile = useBreakpointValue(
-    { base: true, md: false },
-    { fallback: "md" }
-  );
+  const isMobile = useBreakpointValue({ base: true, md: false }, { fallback: "md" });
 
   // Input target length has reached
   const onCompletion = (value: string) => {
     // Auto focus button if valid
     if (matchCharacters(value, targetValue)) {
       setInvalid(false);
-      buttonRef?.current?.focus();
+
+      // Auto focus button on desktop
+      if (!isMobile) {
+        buttonRef?.current?.focus();
+      }
     } else {
       setInvalid(true);
       // Jiggle input if invalid
-      animateContainer(
-        containerRef.current,
-        { translate: [0, "-5px", 0, "5px", 0] },
-        { duration: 0.1, repeat: 3 }
-      );
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
     }
     // Trigger parent onCompletion
     _onCompletion?.(value);
@@ -92,8 +75,11 @@ export const WordInput = ({
   const onSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
 
-    if (value.length !== length) return;
-    if (!matchCharacters(value, targetValue)) return;
+    if (value.length !== length || !matchCharacters(value, targetValue)) {
+      // Jiggle input if invalid
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      return;
+    }
 
     setValue("");
     inputRef?.current?.focus();
@@ -130,10 +116,7 @@ export const WordInput = ({
           isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
-          <PinInputField
-            ref={inputRef as LegacyRef<HTMLInputElement>}
-            textTransform="uppercase"
-          />
+          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" />
           {Array(length - 1)
             .fill(0)
             .map((_, i) => (
