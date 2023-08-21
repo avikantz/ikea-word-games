@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import {
   Button,
   Container,
@@ -19,15 +19,21 @@ import { IKEAJumbleWord } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordInput } from "@/components";
+import { JUMBLE } from "@/utils/constants";
 
 function JumbleGame() {
-  const [length, setLength] = useState<number>(6);
+  // Refs
+  const inputRef = useRef<HTMLInputElement>();
+  const nextButtonRef = useRef<HTMLButtonElement>();
 
-  const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
-
+  // Game state
   const [attempts, setAttempts] = useState<number>(0);
   const [success, setSuccess] = useState<boolean>(false);
 
+  const [length, setLength] = useState<number>(6);
+
+  // Jumble words
+  const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
   const { getJumbleWord } = useJumble({ length });
 
   const getWords = useCallback(async () => {
@@ -36,6 +42,7 @@ function JumbleGame() {
     setJumbleWord(jumbleWord);
     setAttempts(0);
     setSuccess(false);
+    inputRef.current?.focus();
   }, [getJumbleWord]);
 
   useEffect(() => {
@@ -48,9 +55,20 @@ function JumbleGame() {
 
     if (matchWords(value, jumbleWord.word)) {
       setSuccess(true);
+
+      // Focus next button
+      nextButtonRef.current?.focus();
     } else {
       setSuccess(false);
-      setAttempts(attempts + 1);
+      // Update attempts and set focus
+      setAttempts((attempts) => {
+        if (attempts === JUMBLE.MAX_ATTEMPTS - 1) {
+          nextButtonRef.current?.focus();
+        } else {
+          inputRef.current?.focus();
+        }
+        return attempts + 1;
+      });
     }
   };
 
@@ -65,13 +83,13 @@ function JumbleGame() {
           product={jumbleWord.product}
           showDesc={attempts > 0 || success}
           showImage={attempts > 1 || success}
-          showName={attempts >= 3 || success}
+          showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
           isSuccess={success}
-          isFailure={attempts >= 3 && !success}
+          isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
         >
-          {attempts < 3 && !success && (
+          {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
             <Text fontSize="sm" color="gray.400">
-              {attempts} of 3 attempts
+              {attempts} of {JUMBLE.MAX_ATTEMPTS} attempts
             </Text>
           )}
         </IKEAProductCard>
@@ -87,15 +105,22 @@ function JumbleGame() {
 
       {jumbleWord?.word && (
         <WordInput
+          ref={inputRef as Ref<HTMLInputElement>}
           length={jumbleWord.word.length}
           targetValue={jumbleWord.word}
           onSubmit={onMatch}
-          isDisabled={attempts >= 3 || success}
+          isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
         />
       )}
 
-      <Button size="sm" variant="outline" onClick={getWords} isLoading={!jumbleWord}>
-        {success || attempts >= 3 ? "Next" : "Pass (∞)"}
+      <Button
+        ref={nextButtonRef as Ref<HTMLButtonElement>}
+        size="sm"
+        variant="outline"
+        onClick={getWords}
+        isLoading={!jumbleWord}
+      >
+        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? "Next" : "Pass (∞)"}
       </Button>
 
       <Container maxW="md">

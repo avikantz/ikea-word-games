@@ -90,7 +90,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         return score + roundScore;
       });
 
-      // Re-focus input
+      // Focus next button
       nextButtonRef.current?.focus();
     } else {
       setSuccess(false);
