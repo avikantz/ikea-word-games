@@ -4,7 +4,6 @@ import {
   ListItem,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -20,7 +19,9 @@ export const JumbleHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalPr
     <Modal onClose={onClose} isOpen={isOpen} isCentered closeOnEsc={false} closeOnOverlayClick={false} {...props}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader fontWeight="bold" textAlign="center">Jumble: How to play</ModalHeader>
+        <ModalHeader fontWeight="bold" textAlign="center">
+          Jumble: How to play
+        </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
             <ListItem>

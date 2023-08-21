@@ -5,7 +5,7 @@ import { Button, HStack, Heading, IconButton, Spacer, Tag, Text, VStack, useDisc
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 
-import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
+import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, JUMBLE_MODE } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
@@ -23,6 +23,8 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     onOpen: onOpenHowToPlayModal,
     onClose: onCloseHowToPlayModal,
   } = useDisclosure();
+
+  const { isOpen: isOpenGameOverModal, onOpen: onOpenGameOverModal, onClose: onCloseGameOverModal } = useDisclosure();
 
   // Refs
   const inputRef = useRef<HTMLInputElement>();
@@ -140,9 +142,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         );
       }
     } else {
-      // TODO: add modal
-      alert(`Game over\n\nYour final is ${score}\n\nThanks for playing!`);
-      router.replace(PATH_JUMBLE);
+      onOpenGameOverModal();
     }
   };
 
@@ -233,6 +233,13 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         isOpen={isOpenHowToPlayModal}
         onClose={onCloseHowToPlayModal}
         onCloseComplete={() => inputRef.current?.focus()}
+      />
+
+      <GameOverModal
+        isOpen={isOpenGameOverModal}
+        onClose={onCloseGameOverModal}
+        score={score}
+        onCloseComplete={() => router.replace(PATH_JUMBLE)}
       />
     </VStack>
   );
