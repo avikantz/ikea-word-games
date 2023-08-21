@@ -2,6 +2,7 @@
 
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Next13ProgressBar } from "next13-progressbar";
 
 import theme from "@/theme";
 
@@ -19,7 +20,10 @@ const queryClient = new QueryClient({
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
+        {children}
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }
