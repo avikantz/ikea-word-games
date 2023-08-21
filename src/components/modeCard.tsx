@@ -17,6 +17,7 @@ interface ModeCardProps extends BoxProps {
   desc?: string;
   href?: string;
   buttonTitle?: string;
+  isDisabled?: boolean;
   children?: ReactNode;
 }
 
@@ -25,6 +26,7 @@ export const ModeCard = ({
   desc,
   href,
   buttonTitle,
+  isDisabled,
   children,
   ...props
 }: ModeCardProps) => {
@@ -40,7 +42,12 @@ export const ModeCard = ({
       border="2px solid"
       borderColor="black"
       transition="all 0.2s ease"
-      _hover={{ border: "8px solid", borderColor: "blue.500" }}
+      _hover={{
+        borderColor: isDisabled ? "black" : "blue.500",
+        cursor: isDisabled ? "not-allowed" : "pointer",
+        boxShadow: isDisabled ? "none" : "blue-xl",
+      }}
+      opacity={isDisabled ? 0.5 : 1}
       {...props}
     >
       {!!title && (
@@ -51,8 +58,10 @@ export const ModeCard = ({
       {!!desc && <Text color="gray.500">{desc}</Text>}
       {children}
       <Spacer />
-      <LinkOverlay as={NextLink} href={href}>
-        <Button>{buttonTitle || `Play ${title}`}</Button>
+      <LinkOverlay as={NextLink} href={isDisabled ? "" : href}>
+        <Button isDisabled={isDisabled}>
+          {buttonTitle || `Play ${title}`}
+        </Button>
       </LinkOverlay>
     </LinkBox>
   );

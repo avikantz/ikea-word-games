@@ -13,12 +13,12 @@ import { Center, SimpleGrid, Text } from "@chakra-ui/react";
 function JumbleGame() {
   return (
     <>
-      <Center mb={{ base: 4, md: 8 }}>
+      <Center>
         <Text textAlign="center">
           Form a word from the given letters to match an IKEA product.
         </Text>
       </Center>
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }} py={{ base: 4, md: 8 }}>
         <ModeCard
           title="Easy"
           desc="Guess only the most popular products!"

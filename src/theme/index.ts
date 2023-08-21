@@ -55,6 +55,8 @@ const theme = extendTheme({
     "red-xl": "0 0 0 5px #E53E3E",
     green: "0 0 0 1px #38A169",
     "green-xl": "0 0 0 5px #38A169",
+    blue: "0 0 0 1px #008AFF",
+    "blue-xl": "0 0 0 6px #008AFF",
   },
   components: {
     Button,
