@@ -1,16 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Button, HStack, Heading, IconButton, Spacer, Tag, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useAnimate } from "framer-motion";
 
+import { IKEAProductCard, WordInput } from "@/components";
+import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, JUMBLE_MODE } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
-import { IKEAProductCard, WordInput } from "@/components";
 import { PATH_JUMBLE } from "@/utils/paths";
 import { JUMBLE } from "@/utils/constants";
-import { JumbleHowToPlayModal } from "@/components/jumble";
 
 function JumbleGameMode({ params }: { params: { mode: string } }) {
   const router = useRouter();
@@ -23,6 +24,11 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     onClose: onCloseHowToPlayModal,
   } = useDisclosure();
 
+  // Refs
+  const inputRef = useRef<HTMLInputElement>();
+  const nextButtonRef = useRef<HTMLButtonElement>();
+  const [roundRef, animateRoundContainer] = useAnimate();
+
   // Game state
   const [passCount, setPassCount] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
@@ -32,6 +38,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   const [attempts, setAttempts] = useState<number>(0);
   const [success, setSuccess] = useState<boolean>(false);
 
+  // Jumble words
   const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
 
   const { getJumbleWord } = useJumble({ mode: difficulty });
@@ -52,14 +59,17 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     // Fetch new jumble word
     const jumbleWord = getJumbleWord();
     setJumbleWord(jumbleWord);
+
     setAttempts(0);
     setSuccess(false);
+
+    inputRef.current?.focus();
   }, [getJumbleWord]);
 
+  // Get a new word on load
   useEffect(() => {
     getWords();
-    onOpenHowToPlayModal();
-  }, [getWords, onOpenHowToPlayModal]);
+  }, [getWords]);
 
   const onMatch = (value: string) => {
     if (!jumbleWord) return;
@@ -71,17 +81,28 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       setMultiplier((multiplier) => Math.min(multiplier + 1, JUMBLE.MAX_MULTIPLIER));
       // Calculate score
       setScore((score) => {
+        // TODO: refactor this
         let roundScore = 10;
-        if (attempts === 0) roundScore = 50;
-        if (attempts === 1) roundScore = 20;
-        if (attempts === 2) roundScore = 10;
+        if (attempts === 0) roundScore = 20;
+        if (attempts === 1) roundScore = 10;
+        if (attempts === 2) roundScore = 5;
         roundScore *= multiplier;
         return score + roundScore;
       });
+
+      // Re-focus input
+      nextButtonRef.current?.focus();
     } else {
       setSuccess(false);
-      // Reset attempts and multiplier
-      setAttempts(attempts + 1);
+      // Update attempts and reset multiplier
+      setAttempts((attempts) => {
+        if (attempts === JUMBLE.MAX_ATTEMPTS - 1) {
+          nextButtonRef.current?.focus();
+        } else {
+          inputRef.current?.focus();
+        }
+        return attempts + 1;
+      });
       setMultiplier(1);
     }
   };
@@ -91,12 +112,33 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       setPassCount(passCount + 1);
       getWords();
     }
+
+    inputRef.current?.focus();
   };
 
   const onNextRound = () => {
+    // TODO: why does this not work?
+    inputRef.current?.focus();
+
     if (round < JUMBLE.MAX_ROUNDS) {
-      setRound((round) => round + 1);
-      getWords();
+      if (success || attempts >= JUMBLE.MAX_ATTEMPTS) {
+        // Proceed to next round
+        setRound((round) => round + 1);
+        getWords();
+      } else {
+        // Cannot proceed to next round
+        animateRoundContainer(
+          roundRef.current,
+          {
+            scale: [1, 1.2, 1, 1.2, 1],
+            rotate: [0, 10, 0, -10, 0],
+          },
+          {
+            duration: 0.15,
+            repeat: 3,
+          },
+        );
+      }
     } else {
       alert(`Game over\n\nYour final is ${score}\n\nThanks for playing!`);
       router.replace(PATH_JUMBLE);
@@ -120,7 +162,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
       {round > 0 && (
         <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
-          <Tag size="lg" bg="blue.500" color="white">
+          <Tag ref={roundRef} size="lg" bg="blue.500" color="white">
             Round {round} of {JUMBLE.MAX_ROUNDS}
           </Tag>
 
@@ -154,15 +196,16 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             )}
           </IKEAProductCard>
 
-          <HStack spacing="8" px="6" py="2" rounded="md" bg="gray.50">
+          <HStack spacing="8" px="6" py="1" rounded="md" bg="gray.50">
             {jumbleWord.shuffledWord.split("").map((w, i) => (
-              <Text key={`word-${w}${i}`} fontSize="2xl" fontWeight="light">
+              <Text key={`word-${w}${i}`} fontSize={{ base: "xl", md: "2xl" }}>
                 {w}
               </Text>
             ))}
           </HStack>
 
           <WordInput
+            ref={inputRef as Ref<HTMLInputElement>}
             length={jumbleWord.word.length}
             targetValue={jumbleWord.word}
             onSubmit={onMatch}
@@ -181,11 +224,21 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         </VStack>
       )}
 
-      <Button onClick={onNextRound} isDisabled={round > JUMBLE.MAX_ROUNDS}>
+      <Button
+        size="sm"
+        variant="outline"
+        ref={nextButtonRef as Ref<HTMLButtonElement>}
+        onClick={onNextRound}
+        isDisabled={round > JUMBLE.MAX_ROUNDS}
+      >
         {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
       </Button>
 
-      <JumbleHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
+      <JumbleHowToPlayModal
+        isOpen={isOpenHowToPlayModal}
+        onClose={onCloseHowToPlayModal}
+        onCloseComplete={() => inputRef.current?.focus()}
+      />
     </VStack>
   );
 }

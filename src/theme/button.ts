@@ -24,7 +24,11 @@ export const Button: ComponentStyleConfig = {
       _active: {
         opacity: 0.6,
         backgroundColor: "black",
+        boxShadow: "blue",
       },
+      _focus: {
+        boxShadow: "blue",
+      }
     },
     outline: {
       px: 8,
@@ -39,6 +43,12 @@ export const Button: ComponentStyleConfig = {
         backgroundColor: "black",
         borderColor: "black",
       },
+      _focus: {
+        boxShadow: "blue",
+      },
+      _active: {
+        boxShadow: "blue",
+      }
     },
   },
   // default values for 'size', 'variant' and 'colorScheme'

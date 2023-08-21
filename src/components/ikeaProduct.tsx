@@ -54,7 +54,7 @@ export const IKEAProductCard = ({
         {
           duration: 0.1,
           repeat: 3,
-        }
+        },
       );
     }
   }, [animateCard, cardRef, isFailure]);
@@ -87,11 +87,7 @@ export const IKEAProductCard = ({
         </Center>
       )}
 
-      <Box
-        w={{ base: "120px", md: "200px" }}
-        h={{ base: "120px", md: "200px" }}
-        overflow="hidden"
-      >
+      <Box w={{ base: "120px", md: "200px" }} h={{ base: "120px", md: "200px" }} overflow="hidden">
         <Image
           src={product.image}
           alt={product.alt}
@@ -104,13 +100,9 @@ export const IKEAProductCard = ({
       </Box>
       <Stack flexGrow={1} minW={{ md: "300px" }} gap="0">
         <CardBody p={{ base: 2, md: 4 }} gap={{ base: 1, md: 2 }}>
-          <Heading size="md">
-            {showName ? product.name : replaceWithQuestionMarks(product.name)}
-          </Heading>
+          <Heading size="md">{showName ? product.name : replaceWithQuestionMarks(product.name)}</Heading>
 
-          <Text color="gray.500">
-            {showDesc ? product.desc : replaceWithQuestionMarks(product.desc)}
-          </Text>
+          <Text color="gray.500">{showDesc ? product.desc : replaceWithQuestionMarks(product.desc)}</Text>
         </CardBody>
 
         <CardFooter p={{ base: 2, md: 4 }}>

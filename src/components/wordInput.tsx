@@ -1,6 +1,14 @@
 "use client";
 
-import React, { ChangeEventHandler, LegacyRef, MouseEventHandler, useRef, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  LegacyRef,
+  MouseEventHandler,
+  forwardRef,
+  useRef,
+  useState,
+} from "react";
 import { HStack, IconButton, Input, PinInput, PinInputField, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
 
@@ -14,18 +22,13 @@ interface WordInputProps {
   isDisabled?: boolean;
 }
 
-export const WordInput = ({
-  length,
-  targetValue,
-  onCompletion: _onCompletion,
-  onSubmit: _onSubmit,
-  isDisabled,
-}: WordInputProps) => {
+export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, inputRef) => {
+  const { length, targetValue, onCompletion: _onCompletion, onSubmit: _onSubmit, isDisabled } = props;
+
   const [value, setValue] = useState<string>("");
   const [isInvalid, setInvalid] = useState<boolean>(false);
 
   const [containerRef, animateContainer] = useAnimate();
-  const inputRef = useRef<HTMLInputElement>();
   const buttonRef = useRef<HTMLButtonElement>();
 
   const isMobile = useBreakpointValue({ base: true, md: false }, { fallback: "md" });
@@ -80,9 +83,23 @@ export const WordInput = ({
       animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
       return;
     }
+    _onSubmit(value);
+    setValue("");
+  };
+
+  const onInputKeyUp: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    event.preventDefault();
+
+    if (event.key !== "Enter") return;
+
+    if (value.length !== length || !matchCharacters(value, targetValue)) {
+      // Jiggle input if invalid
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      return;
+    }
 
     setValue("");
-    inputRef?.current?.focus();
+    // inputRef?.current?.focus();
 
     _onSubmit(value);
   };
@@ -93,6 +110,7 @@ export const WordInput = ({
       {isMobile ? (
         <Input
           size="lg"
+          fontWeight="semibold"
           autoFocus
           value={value}
           onChange={onInputChange}
@@ -105,6 +123,7 @@ export const WordInput = ({
           textTransform="uppercase"
           textAlign="center"
           letterSpacing="8px"
+          onKeyUp={onInputKeyUp}
         />
       ) : (
         <PinInput
@@ -116,11 +135,15 @@ export const WordInput = ({
           isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
-          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" />
+          <PinInputField
+            ref={inputRef as LegacyRef<HTMLInputElement>}
+            textTransform="uppercase"
+            fontWeight="semibold"
+          />
           {Array(length - 1)
             .fill(0)
             .map((_, i) => (
-              <PinInputField textTransform="uppercase" key={i} />
+              <PinInputField textTransform="uppercase" fontWeight="semibold" key={i} />
             ))}
         </PinInput>
       )}
@@ -133,8 +156,9 @@ export const WordInput = ({
         variant="outline"
         onClick={onSubmit}
         isDisabled={isDisabled}
-        _focus={{ bg: "blue.100" }}
       />
     </HStack>
   );
-};
+});
+
+WordInput.displayName = "WordInput";
