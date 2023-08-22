@@ -15,6 +15,8 @@ function JumbleGame() {
   const nextButtonRef = useRef<HTMLButtonElement>();
 
   // Game state
+  const [guess, setGuess] = useState<string>("");
+
   const [attempts, setAttempts] = useState<number>(0);
   const [success, setSuccess] = useState<boolean>(false);
 
@@ -65,7 +67,7 @@ function JumbleGame() {
   };
 
   return (
-    <VStack spacing={{ base: 4, md: 8 }}>
+    <VStack alignItems={{ base: 'stretch', md: 'center' }} spacing={{ base: 4, md: 8 }}>
       <Heading textAlign="center" textTransform="capitalize">
         Jumble Custom
       </Heading>
@@ -87,11 +89,13 @@ function JumbleGame() {
         </IKEAProductCard>
       )}
 
-      {jumbleWord?.shuffledWord && <WordDisplay word={jumbleWord?.shuffledWord} />}
+      {jumbleWord?.shuffledWord && <WordDisplay word={jumbleWord?.shuffledWord} guess={guess} />}
 
       {jumbleWord?.word && (
         <WordInput
           ref={inputRef as Ref<HTMLInputElement>}
+          value={guess}
+          setValue={setGuess}
           length={jumbleWord.word.length}
           targetValue={jumbleWord.word}
           onSubmit={onMatch}
@@ -105,6 +109,7 @@ function JumbleGame() {
         variant="outline"
         onClick={getWords}
         isLoading={!jumbleWord}
+        alignSelf="center"
       >
         {success || attempts >= JUMBLE.MAX_ATTEMPTS ? "Next" : "Pass (∞)"}
       </Button>

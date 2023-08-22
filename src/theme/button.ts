@@ -31,13 +31,11 @@ export const Button: ComponentStyleConfig = {
       }
     },
     outline: {
-      px: 8,
+      px: 6,
       colorScheme: "black",
       borderColor: "black",
       color: "black",
       backgroundColor: "transparent",
-      textTransform: "uppercase",
-      letterSpacing: "wider",
       _hover: {
         color: "white",
         backgroundColor: "black",

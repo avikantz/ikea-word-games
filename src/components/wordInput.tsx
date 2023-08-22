@@ -2,9 +2,11 @@
 
 import React, {
   ChangeEventHandler,
+  Dispatch,
   KeyboardEventHandler,
   LegacyRef,
   MouseEventHandler,
+  SetStateAction,
   forwardRef,
   useRef,
   useState,
@@ -15,6 +17,8 @@ import { useAnimate } from "framer-motion";
 import { matchCharacters } from "@/utils/words";
 
 interface WordInputProps {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
   length: number;
   targetValue: string;
   onCompletion?: (value: string) => void;
@@ -23,9 +27,8 @@ interface WordInputProps {
 }
 
 export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, inputRef) => {
-  const { length, targetValue, onCompletion: _onCompletion, onSubmit: _onSubmit, isDisabled } = props;
+  const { value, setValue, length, targetValue, onCompletion: _onCompletion, onSubmit: _onSubmit, isDisabled } = props;
 
-  const [value, setValue] = useState<string>("");
   const [isInvalid, setInvalid] = useState<boolean>(false);
 
   const [containerRef, animateContainer] = useAnimate();
@@ -104,12 +107,11 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
   };
 
   return (
-    <HStack w={{ base: 'full', md: 'auto' }} ref={containerRef}>
+    <HStack justifyContent="center" w={{ base: "full", md: "auto" }} ref={containerRef}>
       {isMobile ? (
         // Render basic input on mobile due to space constraints
         <Input
           size="lg"
-          fontWeight="semibold"
           autoFocus
           value={value}
           onChange={onInputChange}
@@ -136,15 +138,11 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
           isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
-          <PinInputField
-            ref={inputRef as LegacyRef<HTMLInputElement>}
-            textTransform="uppercase"
-            fontWeight="semibold"
-          />
+          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" />
           {Array(length - 1)
             .fill(0)
             .map((_, i) => (
-              <PinInputField textTransform="uppercase" fontWeight="semibold" key={i} />
+              <PinInputField textTransform="uppercase" key={i} />
             ))}
         </PinInput>
       )}

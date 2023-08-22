@@ -6,6 +6,8 @@ declare global {
     removeAccents(): string;
     /// Sort characters in word
     sortCharacters(): string;
+    /// Filter string to only include the given string/character(s)
+    filter(c: string): string;
   }
 }
 
@@ -27,6 +29,11 @@ String.prototype.removeAccents = function () {
 String.prototype.sortCharacters = function () {
   return this.split("").sort().join("");
 };
+
+/// Filter string to only include the given string/character(s)
+String.prototype.filter = function (c: string) {
+  return this.split("").filter((char) => char === c).join("");
+}
 
 /// Match words, ignoring accents and case
 export const matchWords = (word1: string, word2: string) => {

@@ -32,6 +32,8 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   const [roundRef, animateRoundContainer] = useAnimate();
 
   // Game state
+  const [guess, setGuess] = useState<string>("");
+
   const [passCount, setPassCount] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
   const [score, setScore] = useState<number>(0);
@@ -147,7 +149,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   };
 
   return (
-    <VStack spacing={{ base: 4, md: 8 }}>
+    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
       <HStack spacing="4">
         <Heading textAlign="center" textTransform="capitalize">
           Jumble {difficulty}
@@ -181,7 +183,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
       {/* Active game */}
       {jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
-        <VStack spacing={{ base: 4, md: 8 }}>
+        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
           <IKEAProductCard
             product={jumbleWord.product}
             showDesc={attempts > 0 || success}
@@ -197,37 +199,42 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             )}
           </IKEAProductCard>
 
-          <WordDisplay word={jumbleWord.shuffledWord} />
+          <WordDisplay word={jumbleWord.shuffledWord} guess={guess} />
 
           <WordInput
             ref={inputRef as Ref<HTMLInputElement>}
+            value={guess}
+            setValue={setGuess}
             length={jumbleWord.word.length}
             targetValue={jumbleWord.word}
             onSubmit={onMatch}
             isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
           />
 
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={onPass}
-            isLoading={!jumbleWord}
-            isDisabled={round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > 3}
-          >
-            Pass ({JUMBLE.MAX_PASSES - passCount})
-          </Button>
+          <HStack justifyContent="space-between">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={onPass}
+              isLoading={!jumbleWord}
+              isDisabled={round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > 3}
+            >
+              Pass ({JUMBLE.MAX_PASSES - passCount})
+            </Button>
+
+            <Button
+              size="sm"
+              variant="outline"
+              ref={nextButtonRef as Ref<HTMLButtonElement>}
+              onClick={onNextRound}
+              isDisabled={round > JUMBLE.MAX_ROUNDS && (success || attempts >= JUMBLE.MAX_ATTEMPTS)}
+              alignSelf="center"
+            >
+              {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
+            </Button>
+          </HStack>
         </VStack>
       )}
-
-      <Button
-        size="sm"
-        variant="outline"
-        ref={nextButtonRef as Ref<HTMLButtonElement>}
-        onClick={onNextRound}
-        isDisabled={round > JUMBLE.MAX_ROUNDS}
-      >
-        {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
-      </Button>
 
       <JumbleHowToPlayModal
         isOpen={isOpenHowToPlayModal}

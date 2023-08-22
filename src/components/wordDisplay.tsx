@@ -3,10 +3,11 @@ import { HStack, StackProps, Text, TextProps, useBreakpointValue } from "@chakra
 
 interface WordDisplayProps extends TextProps {
   word: string;
+  guess?: string;
   stackProps?: StackProps;
 }
 
-export const WordDisplay = ({ word, stackProps, ...props }: WordDisplayProps) => {
+export const WordDisplay = ({ word, guess, stackProps, ...props }: WordDisplayProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false }, { fallback: "md" });
 
   return (
@@ -20,12 +21,26 @@ export const WordDisplay = ({ word, stackProps, ...props }: WordDisplayProps) =>
       bg="gray.50"
     >
       {isMobile ? (
-        <Text textAlign="center" fontSize="xl" letterSpacing="8px" {...props}>
-          {word}
+        <Text as="span" textAlign="center" fontSize="xl" letterSpacing="8px" {...props}>
+          {word.split("").map((w, i) => (
+            <Text as="span" key={`word-${w}${i}`} color={guess?.includes(w.removeAccents()) ? "gray.200" : "black"}>
+              {w}
+            </Text>
+          ))}
         </Text>
       ) : (
         word.split("").map((w, i) => (
-          <Text key={`word-${w}${i}`} fontSize="2xl" fontWeight="light" {...props}>
+          <Text
+            as="span"
+            key={`word-${w}${i}`}
+            fontSize="2xl"
+            fontWeight="light"
+            color={
+              // TODO: fix this to be more accurate
+              guess?.includes(w.removeAccents()) ? "gray.200" : "black"
+            }
+            {...props}
+          >
             {w}
           </Text>
         ))
