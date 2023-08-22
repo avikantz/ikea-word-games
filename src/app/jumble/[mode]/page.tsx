@@ -29,9 +29,12 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   // Refs
   const inputRef = useRef<HTMLInputElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
-  const [roundRef, animateRoundContainer] = useAnimate();
+  const [roundRef, animateRound] = useAnimate();
+  const [multiplierRef, animateMultiplier] = useAnimate();
+  const [scoreRef, animateScore] = useAnimate();
 
   // Game state
+  const words = useRef<string[]>([]).current;
   const [guess, setGuess] = useState<string>("");
 
   const [passCount, setPassCount] = useState<number>(0);
@@ -61,8 +64,14 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
   const getWords = useCallback(async () => {
     // Fetch new jumble word
-    const jumbleWord = getJumbleWord();
+    let jumbleWord = getJumbleWord();
+    // Prevent existing words from being repeated
+    while (jumbleWord && words.includes(jumbleWord.word)) {
+      jumbleWord = getJumbleWord();
+    }
     setJumbleWord(jumbleWord);
+
+    if (jumbleWord) words.push(jumbleWord.word);
 
     setAttempts(0);
     setSuccess(false);
@@ -71,12 +80,26 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     setTimeout(() => {
       inputRef.current?.focus();
     }, 100);
-  }, [getJumbleWord]);
+  }, [getJumbleWord, words]);
 
   // Get a new word on load
   useEffect(() => {
     getWords();
   }, [getWords]);
+
+  // Animate score on change
+  useEffect(() => {
+    if (score > 0) {
+      animateScore(scoreRef.current, { scale: [1, 1.2, 1], translateY: [0, -10, 0] }, { duration: 0.3, delay: 0.1 });
+    }
+  }, [score, animateScore, scoreRef]);
+
+  // Animate multiplier on change
+  useEffect(() => {
+    if (multiplier > 0) {
+      animateMultiplier(multiplierRef.current, { scale: [1, 1.2, 1], translateY: [0, -20, 0] }, { duration: 0.3 });
+    }
+  }, [multiplier, animateMultiplier, multiplierRef]);
 
   const onMatch = (value: string) => {
     if (!jumbleWord) return;
@@ -104,13 +127,13 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       // Update attempts and reset multiplier
       setAttempts((attempts) => {
         if (attempts === JUMBLE.MAX_ATTEMPTS - 1) {
+          setMultiplier(1);
           nextButtonRef.current?.focus();
         } else {
           inputRef.current?.focus();
         }
         return attempts + 1;
       });
-      setMultiplier(1);
     }
   };
 
@@ -131,7 +154,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         getWords();
       } else {
         // Cannot proceed to next round
-        animateRoundContainer(
+        animateRound(
           roundRef.current,
           {
             scale: [1, 1.2, 1, 1.2, 1],
@@ -171,11 +194,11 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
           <Spacer />
 
-          <Tag size="lg" bg="yellow.500" color="black">
+          <Tag ref={multiplierRef} size="lg" bg="yellow.500" color="black">
             {multiplier}x
           </Tag>
 
-          <Tag size="lg" bg="black" color="white">
+          <Tag ref={scoreRef} size="lg" bg="black" color="white">
             Score {score}
           </Tag>
         </HStack>
