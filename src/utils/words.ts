@@ -13,9 +13,14 @@ declare global {
 
 /// Shuffle a word
 String.prototype.shuffle = function () {
-  return this.split("")
-    .sort(() => Math.random() - 0.5)
-    .join("");
+  let shuffled = "";
+  // Prevent same word
+  while (shuffled === "" || shuffled === this) {
+    shuffled = this.split("")
+      .sort(() => Math.random() - 0.5)
+      .join("");
+  }
+  return shuffled;
 };
 
 /// Remove accents from word
@@ -32,8 +37,10 @@ String.prototype.sortCharacters = function () {
 
 /// Filter string to only include the given string/character(s)
 String.prototype.filter = function (c: string) {
-  return this.split("").filter((char) => char === c).join("");
-}
+  return this.split("")
+    .filter((char) => char === c)
+    .join("");
+};
 
 /// Match words, ignoring accents and case
 export const matchWords = (word1: string, word2: string) => {
@@ -42,10 +49,7 @@ export const matchWords = (word1: string, word2: string) => {
 
 /// Match characters in words, ignoring accents and case
 export const matchCharacters = (word1: string, word2: string) => {
-  return (
-    word1.removeAccents().sortCharacters() ===
-    word2.removeAccents().sortCharacters()
-  );
+  return word1.removeAccents().sortCharacters() === word2.removeAccents().sortCharacters();
 };
 
 /// Replace characters with question marks
