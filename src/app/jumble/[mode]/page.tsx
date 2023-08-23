@@ -12,10 +12,11 @@ import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { PATH_JUMBLE } from "@/utils/paths";
 import { JUMBLE } from "@/utils/constants";
+import { useScores } from "@/hooks/useScores";
 
 function JumbleGameMode({ params }: { params: { mode: string } }) {
   const router = useRouter();
-  const [difficulty, setDifficulty] = useState<JUMBLE_MODE>();
+  const [difficulty, setDifficulty] = useState<JUMBLE_MODE>("easy");
 
   // Modals
   const {
@@ -44,6 +45,9 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
   const [attempts, setAttempts] = useState<number>(0);
   const [success, setSuccess] = useState<boolean>(false);
+
+  // Scoring
+  const { scores, saveScore } = useScores({ game: 'jumble', mode: difficulty });
 
   // Jumble words
   const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
@@ -167,6 +171,9 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         );
       }
     } else {
+      // Save final score
+      saveScore(score);
+      // Open game over modal
       onOpenGameOverModal();
     }
   };
@@ -269,6 +276,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         isOpen={isOpenGameOverModal}
         onClose={onCloseGameOverModal}
         score={score}
+        scores={scores}
         onCloseComplete={() => router.replace(PATH_JUMBLE)}
       />
     </VStack>
