@@ -6,7 +6,7 @@ const SCORES_KEY = "scores";
 
 interface UseScoresProps {
   // TODO: refactor
-  game: "jumble" | "scrabble";
+  game: "jumble" | "bildval" | "scrabble";
   mode: string;
 }
 

@@ -47,7 +47,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   const [success, setSuccess] = useState<boolean>(false);
 
   // Scoring
-  const { scores, saveScore } = useScores({ game: 'jumble', mode: difficulty });
+  const { scores, saveScore } = useScores({ game: "jumble", mode: difficulty });
 
   // Jumble words
   const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
@@ -247,7 +247,9 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
               variant="outline"
               onClick={onPass}
               isLoading={!jumbleWord}
-              isDisabled={round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > 3}
+              isDisabled={
+                round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > JUMBLE.MAX_ATTEMPTS
+              }
             >
               Pass ({JUMBLE.MAX_PASSES - passCount})
             </Button>
