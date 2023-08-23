@@ -21,12 +21,34 @@ export async function GET(request: Request) {
   const list: string[] = require(`../list/unique/${length}.json`);
   const itemMap: Record<string, IKEAProduct> = require("../items/map.json");
 
-  // Get random word from unique item list
-  const randomWord: string = list[Math.floor(Math.random() * list.length)];
+  const solution: string = list[Math.floor(Math.random() * list.length)];
+  const guesses: string[] = [];
+
+  // Add 3 random non-solution words to guesses
+  while (guesses.length < 3) {
+    const guess: string = list[Math.floor(Math.random() * list.length)];
+    if (guess !== solution) {
+      guesses.push(guess);
+    }
+  }
+
+  // Add solution to guesses
+  guesses.push(solution);
+
+  // Shuffle guesses
+  guesses.sort(() => Math.random() - 0.5);
+
+  const data: Record<string, IKEAProduct> = {};
+
+  // Add words from guesses to data
+  guesses.forEach((word) => {
+    data[word] = itemMap[word];
+  });
 
   const response = {
-    word: randomWord,
-    data: itemMap[randomWord],
+    solution,
+    guesses,
+    data,
   };
 
   return NextResponse.json(response);
