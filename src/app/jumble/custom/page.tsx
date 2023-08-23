@@ -67,7 +67,7 @@ function JumbleGame() {
   };
 
   return (
-    <VStack alignItems={{ base: 'stretch', md: 'center' }} spacing={{ base: 4, md: 8 }}>
+    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
       <Heading textAlign="center" textTransform="capitalize">
         Jumble Custom
       </Heading>
@@ -133,15 +133,6 @@ function JumbleGame() {
             </option>
           ))}
         </Select>
-        {/* <Slider aria-label="Length" onChange={(value) => setLength(value)} value={length} min={4} max={10} step={1}>
-          {[4, 5, 6, 7, 8, 9, 10].map((l) => (
-            <SliderMark mt="3" ml="-1" fontSize="sm" key={`length-${l}`} value={l}>
-              {l}
-            </SliderMark>
-          ))}
-          <SliderTrack bg="gray.100" />
-          <SliderThumb boxSize="5" bg="black" />
-        </Slider> */}
       </Container>
     </VStack>
   );

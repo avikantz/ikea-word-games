@@ -1,7 +1,18 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, HStack, Heading, IconButton, Spacer, Tag, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Heading,
+  IconButton,
+  Spacer,
+  Tag,
+  Text,
+  VStack,
+  useDisclosure,
+  Spinner,
+} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 
@@ -180,7 +191,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
-      <HStack spacing="4">
+      <HStack justifyContent="center" spacing="4">
         <Heading textAlign="center" textTransform="capitalize">
           Jumble {difficulty}
         </Heading>
@@ -212,7 +223,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       )}
 
       {/* Active game */}
-      {jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
+      {(jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
         <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
           <IKEAProductCard
             product={jumbleWord.product}
@@ -266,7 +277,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
             </Button>
           </HStack>
         </VStack>
-      )}
+      )) || <Spinner size="lg" />}
 
       <JumbleHowToPlayModal
         isOpen={isOpenHowToPlayModal}
