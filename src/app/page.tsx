@@ -1,8 +1,8 @@
 "use client";
 
-import { Box, Center, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { PATH_JUMBLE } from "@/utils/paths";
+import { PATH_BILDVAL, PATH_JUMBLE } from "@/utils/paths";
 import { ModeCard } from "@/components";
 
 export default function Home() {
@@ -22,6 +22,7 @@ export default function Home() {
               desc="Form a word from the given letters to match an IKEA product."
               href={PATH_JUMBLE}
             />
+            <ModeCard title="Bildval" desc="Guess what picture matches the given product name." href={PATH_BILDVAL} />
             <ModeCard title="Scrabble" isDisabled desc="Coming soon!" />
           </SimpleGrid>
         </Container>

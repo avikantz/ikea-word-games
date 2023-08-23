@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Center, Container, Heading } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 export default function JumbleLayout({
   children,

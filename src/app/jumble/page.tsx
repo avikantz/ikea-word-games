@@ -8,7 +8,7 @@ import {
   PATH_JUMBLE_INSANE,
   PATH_JUMBLE_MEDIUM,
 } from "@/utils/paths";
-import { Center, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
 function JumbleGame() {
   return (
