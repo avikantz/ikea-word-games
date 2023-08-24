@@ -1,34 +1,35 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import {
+  Box,
   Button,
   Container,
-  HStack,
   Heading,
+  HStack,
+  IconButton,
+  SimpleGrid,
   Spacer,
+  Spinner,
   Tag,
   Text,
-  VStack,
   useDisclosure,
-  Spinner,
-  SimpleGrid,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 
 import { GameOverModal } from "@/components";
-import { BildvalRound, IKEAProduct, JUMBLE_MODE } from "@/interfaces";
+import { BildvalRound, IKEAProduct, GAME_MODE } from "@/interfaces";
 import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useBildval } from "@/hooks/useBildval";
-import { WordDisplay } from "@/components/wordDisplay";
-import { BildvalGuessOption } from "@/components/bildval";
+import { BildvalGuessOption, BildvalHowToPlayModal } from "@/components/bildval";
 
 function BildvalGameMode({ params }: { params: { mode: string } }) {
   const router = useRouter();
-  const [difficulty, setDifficulty] = useState<JUMBLE_MODE>("easy");
+  const [difficulty, setDifficulty] = useState<GAME_MODE>("easy");
 
   // Modals
   const {
@@ -40,6 +41,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
   const { isOpen: isOpenGameOverModal, onOpen: onOpenGameOverModal, onClose: onCloseGameOverModal } = useDisclosure();
 
   // Refs
+  const nextButtonRef = useRef<HTMLButtonElement>();
   const [multiplierRef, animateMultiplier] = useAnimate();
   const [scoreRef, animateScore] = useAnimate();
 
@@ -65,7 +67,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
   useEffect(() => {
     if (params.mode) {
       if (["easy", "medium", "hard", "insane"].includes(params.mode)) {
-        setDifficulty(params.mode as JUMBLE_MODE);
+        setDifficulty(params.mode as GAME_MODE);
       } else {
         alert("Invalid mode");
         router.replace(PATH_BILDVAL);
@@ -126,38 +128,44 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
     }
   };
 
-  // TODO: match
+  // Match the selected option with the solution
   const onMatch = (item: IKEAProduct) => {
     if (!bildvalRound) return;
 
     if (item.name === bildvalRound.solution.name) {
       // Update multiplier
       setMultiplier((multiplier) => Math.min(multiplier + 1, BILDVAL.MAX_MULTIPLIER));
-      // Calculate score
-      setScore((score) => {
-        // TODO: refactor this
-        return score + 10 * multiplier;
-      });
+      // Update score
+      setScore((score) => score + 10 * multiplier);
     } else {
       // Reset multiplier
       setMultiplier(1);
-      // Highlight correct option if failure
-      setShowSolution(true);
     }
 
-    // Delay next round
+    // Highlight correct option on round end
+    setShowSolution(true);
+
+    // Focus next button after delay
     setTimeout(() => {
-      onNextRound();
-    }, 1500);
+      nextButtonRef.current?.focus();
+    }, 100);
   };
 
   return (
-    <Container maxW="container.lg">
+    <Container maxW="container.lg" px="0">
       <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
         <HStack justifyContent="center" spacing="4">
-          <Heading textAlign="center" textTransform="capitalize">
+          <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
             Bildval {difficulty}
           </Heading>
+          <IconButton
+            variant="outline"
+            size="sm"
+            isRound
+            icon={<Text>?</Text>}
+            aria-label="How to play"
+            onClick={onOpenHowToPlayModal}
+          />
         </HStack>
 
         {round > 0 && (
@@ -181,10 +189,11 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
         {/* Active game */}
         {(bildvalRound && round > 0 && round <= BILDVAL.MAX_ROUNDS && (
           <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
-            <VStack>
-              <Text textAlign="center">What is...</Text>
-              <WordDisplay word={bildvalRound.solution.name} />
-            </VStack>
+            <Box px="6" py="2" rounded="md" bg="gray.50">
+              <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
+                What is... {bildvalRound.solution.name}?
+              </Text>
+            </Box>
 
             <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
               {bildvalRound.guesses.map((guess) => (
@@ -198,19 +207,34 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
               ))}
             </SimpleGrid>
 
-            {/* Skip */}
-            <Button
-              size="sm"
-              variant="outline"
-              alignSelf="center"
-              onClick={onPass}
-              isLoading={!bildvalRound}
-              isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
-            >
-              Pass ({BILDVAL.MAX_PASSES - passCount})
-            </Button>
+            <HStack justifyContent="space-between">
+              {/* Skip */}
+              <Button
+                size="sm"
+                variant="outline"
+                alignSelf="center"
+                onClick={onPass}
+                isLoading={!bildvalRound}
+                isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
+              >
+                Pass ({BILDVAL.MAX_PASSES - passCount})
+              </Button>
+
+              <Button
+                size="sm"
+                variant="outline"
+                ref={nextButtonRef as Ref<HTMLButtonElement>}
+                onClick={onNextRound}
+                isDisabled={round > BILDVAL.MAX_ROUNDS || !showSolution}
+                alignSelf="center"
+              >
+                {round === 0 ? "Start" : round === BILDVAL.MAX_ROUNDS ? "Finish" : "Next"}
+              </Button>
+            </HStack>
           </VStack>
         )) || <Spinner size="lg" />}
+
+        <BildvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 
         <GameOverModal
           isOpen={isOpenGameOverModal}
