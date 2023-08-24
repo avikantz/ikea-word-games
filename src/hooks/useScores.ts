@@ -32,14 +32,14 @@ export const useScores = ({ game, mode }: UseScoresProps) => {
       const allScoresString = localStorage.getItem(SCORES_KEY);
 
       const newScore: Score = { value: score, date: new Date().toISOString() };
-      const newScores: Scores = { highscore: newScore, scores: [newScore] };
+      const newScores: Scores = { highscore: newScore, scores: [newScore], count: 1 };
 
       if (allScoresString) {
         const allScores = JSON.parse(allScoresString);
 
         if (game in allScores) {
           if (mode in allScores[game]) {
-            let { highscore, scores } = allScores[game][mode] as Scores;
+            let { highscore, scores, count } = allScores[game][mode] as Scores;
 
             // Update highscore if new score is higher
             if (score > highscore.value) {
@@ -63,6 +63,7 @@ export const useScores = ({ game, mode }: UseScoresProps) => {
             // Update new scores
             newScores.highscore = highscore;
             newScores.scores = scores;
+            newScores.count = (count ?? 1) + 1;
           }
         }
 
@@ -77,17 +78,18 @@ export const useScores = ({ game, mode }: UseScoresProps) => {
             },
           }),
         );
-      }
 
-      // Create new scores if none exist
-      localStorage.setItem(
-        SCORES_KEY,
-        JSON.stringify({
-          [game]: {
-            [mode]: newScores,
-          },
-        }),
-      );
+      } else {
+        // Create new scores if none exist
+        localStorage.setItem(
+          SCORES_KEY,
+          JSON.stringify({
+            [game]: {
+              [mode]: newScores,
+            },
+          }),
+        );
+      }
 
       // Update local scores
       setScores(newScores);

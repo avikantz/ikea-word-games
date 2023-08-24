@@ -67,7 +67,7 @@ export const GameOverModal = ({
 
             {scores?.highscore && (
               <Text fontWeight="semibold">
-                {scores?.highscore.value === score ? "New highscore!" : `Highscore ${scores.highscore.value}`}
+                {score >= scores?.highscore.value ? "New highscore!" : `Highscore ${scores.highscore.value}`}
               </Text>
             )}
           </VStack>

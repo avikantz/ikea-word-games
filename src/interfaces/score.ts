@@ -4,6 +4,7 @@ export interface Score {
 }
 
 export interface Scores {
+  count: number;
   highscore: Score;
   scores: Score[];
 }
