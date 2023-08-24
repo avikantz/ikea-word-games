@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const NAMES = require("../src/app/api/list/names.json");
+const NAMES = require("./names.json");
 
 // ['APPLE', 'PAPLE', 'LEAPP', 'LEPAP', 'PLEAP', 'PLEPA'] -> ['APPLE']
 function getUniqueCombinations(list = []) {
@@ -25,11 +25,8 @@ function getUniqueCombinations(list = []) {
 	return uniqueLetterList;
 }
 
-const uniqueNames = getUniqueCombinations(NAMES);
-fs.writeFileSync(
-  "./unique.json",
-  JSON.stringify(uniqueNames, null, 2)
-);
+fs.mkdirSync("./names");
+fs.mkdirSync("./unique");
 
 // Names of a certain length
 [4, 5, 6, 7, 8, 9, 10].map((length) => {

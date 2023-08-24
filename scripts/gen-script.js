@@ -58,6 +58,7 @@ for (var i = 0; i < masterItems.length; ++i) {
     name,
     desc: typeName,
     image: contextualImageUrl ?? mainImageUrl,
+    pImage: mainImageUrl,
     alt: mainImageAlt,
     url: pipUrl,
     id,
@@ -84,11 +85,11 @@ fs.writeFileSync("./medium.json", JSON.stringify(uniqueNames.filter(name => name
 fs.writeFileSync("./hard.json", JSON.stringify(uniqueNames.slice(0, 500).sort(), null, 2)); // List of all names
 fs.writeFileSync("./all.json", JSON.stringify(uniqueNames.sort(), null, 2)); // List of all names
 
-// names.sort((a, b) => a.localeCompare(b));
-// filteredItems.sort((a, b) => a.name.localeCompare(b.name));
+names.sort((a, b) => a.localeCompare(b));
+filteredItems.sort((a, b) => a.name.localeCompare(b.name));
 
-// fs.writeFileSync("./names.json", JSON.stringify(names, null, 2)); // List of all names
+fs.writeFileSync("./names.json", JSON.stringify(names, null, 2)); // List of all names
 
-// fs.writeFileSync("./item-map.json", JSON.stringify(itemsMap));
+fs.writeFileSync("./item-map.json", JSON.stringify(itemsMap));
 
-// fs.writeFileSync("./filtered.json", JSON.stringify(filteredItems));
+fs.writeFileSync("./filtered.json", JSON.stringify(filteredItems));
