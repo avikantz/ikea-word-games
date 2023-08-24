@@ -3,6 +3,6 @@ export interface IKEAProduct {
   name: string;
   desc: string;
   image: string;
-  alt: string;
+  pImage: string;
   url: string;
 }

@@ -52,10 +52,13 @@ const theme = extendTheme({
   },
   shadows: {
     red: "0 0 0 1px #E53E3E",
+    "red-md": "0 0 0 2px #E53E3E",
     "red-xl": "0 0 0 5px #E53E3E",
     green: "0 0 0 1px #38A169",
+    "green-md": "0 0 0 2px #38A169",
     "green-xl": "0 0 0 5px #38A169",
     blue: "0 0 0 2px #008AFF",
+    "blue-md": "0 0 0 3px #008AFF",
     "blue-xl": "0 0 0 6px #008AFF",
   },
   components: {

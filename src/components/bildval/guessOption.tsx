@@ -3,7 +3,7 @@ import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
-import { Box, BoxProps, Center, Image } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Collapse, Image, Text, useBreakpointValue } from "@chakra-ui/react";
 
 interface BildvalGuessOptionProps extends BoxProps {
   guess: IKEAProduct;
@@ -22,6 +22,9 @@ export const BildvalGuessOption = ({
   const [isSuccess, setSuccess] = useState(false);
 
   const [buttonRef, animateButton] = useAnimate();
+
+  const redShadow = useBreakpointValue({ base: "red-md", md: "red-xl" }, { fallback: 'md' });
+  const greenShadow = useBreakpointValue({ base: "green-md", md: "green-xl" }, { fallback: 'md' });
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (isLoaded) {
@@ -54,10 +57,10 @@ export const BildvalGuessOption = ({
       animateButton(
         buttonRef.current,
         {
-          scale: [1, 1.4, 1],
+          scale: [1, 1.2, 1],
         },
         {
-          duration: 1,
+          duration: 0.5,
         },
       );
     }
@@ -68,28 +71,40 @@ export const BildvalGuessOption = ({
       ref={buttonRef}
       as="button"
       border="2px solid"
-      borderColor="black"
       onClick={onClick}
-      cursor={isLoaded ? "pointer" : "progress"}
+      cursor={showSolution ? "default" : isLoaded ? "pointer" : "progress"}
       transition="all 0.1s ease"
-      _hover={{ base: {}, md: { boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.05)" } }}
-      _focus={{ boxShadow: "blue-xl", borderColor: "blue.500" }}
+      _hover={
+        showSolution
+          ? undefined
+          : { base: {}, md: { boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.05)" } }
+      }
+      _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
+      borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
+      boxShadow={showSolution ? (solution?.id === guess.id ? greenShadow : redShadow) : undefined}
       position="relative"
       {...props}
     >
+      <Image
+        src={guess.pImage ?? guess.image}
+        alt={guess.desc}
+        objectFit="contain"
+        w="full"
+        h={{ base: "25vh", md: "30vh" }}
+        onLoad={() => setLoaded(true)}
+      />
       {isSuccess && (
-        <Center position="absolute" top="0" bottom="0" left="0" right="0">
+        <Center position="absolute" top="0" bottom="0" left="0" right="0" zIndex="2">
           <ConfettiExplosion colors={["#FFDB00", "#008AFF", "#111111"]} height="80vh" />
         </Center>
       )}
-      <Image
-        src={guess.image}
-        alt={guess.desc}
-        objectFit="cover"
-        w="full"
-        h={{ base: "20vh", md: "30vh" }}
-        onLoad={() => setLoaded(true)}
-      />
+      <Box position="absolute" bottom="0" left="0" right="0">
+        <Collapse in={showSolution}>
+          <Box p={{ base: 2, md: 4 }} bg="white">
+            <Text textAlign="center" fontWeight="bold">{guess.name}</Text>
+          </Box>
+        </Collapse>
+      </Box>
     </Box>
   );
 };
