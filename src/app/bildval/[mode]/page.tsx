@@ -188,7 +188,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
 
         {/* Active game */}
         {(bildvalRound && round > 0 && round <= BILDVAL.MAX_ROUNDS && (
-          <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+          <VStack alignItems="stretch" spacing="8">
             <Box px="6" py="2" rounded="md" bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
                 What is... {bildvalRound.solution.name}?

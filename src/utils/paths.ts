@@ -10,5 +10,6 @@ export const PATH_BILDVAL_EASY = `${PATH_BILDVAL}/easy`;
 export const PATH_BILDVAL_MEDIUM = `${PATH_BILDVAL}/medium`;
 export const PATH_BILDVAL_HARD = `${PATH_BILDVAL}/hard`;
 export const PATH_BILDVAL_INSANE = `${PATH_BILDVAL}/insane`;
+export const PATH_BILDVAL_UNLIMITED = `${PATH_BILDVAL}/unlimited`;
 
 export const PATH_SCRABBLE = "/scrabble";

@@ -1,7 +1,13 @@
 "use client";
 
 import { ModeCard } from "@/components";
-import { PATH_BILDVAL_EASY, PATH_BILDVAL_HARD, PATH_BILDVAL_INSANE, PATH_BILDVAL_MEDIUM } from "@/utils/paths";
+import {
+  PATH_BILDVAL_EASY,
+  PATH_BILDVAL_HARD,
+  PATH_BILDVAL_INSANE,
+  PATH_BILDVAL_MEDIUM,
+  PATH_BILDVAL_UNLIMITED,
+} from "@/utils/paths";
 import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
 function BildvalGame() {
@@ -22,6 +28,7 @@ function BildvalGame() {
             All products are on the <s>table</s> lagkapten
           </Text>
         </ModeCard>
+        <ModeCard title="Bildval ∞" desc="Unlimited guessing!" href={PATH_BILDVAL_UNLIMITED} />
       </SimpleGrid>
     </>
   );
