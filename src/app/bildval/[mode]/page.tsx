@@ -136,7 +136,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
       // Update multiplier
       setMultiplier((multiplier) => Math.min(multiplier + 1, BILDVAL.MAX_MULTIPLIER));
       // Update score
-      setScore((score) => score + 10 * multiplier);
+      setScore((score) => score + BILDVAL.ROUND_SCORE * multiplier);
     } else {
       // Reset multiplier
       setMultiplier(1);

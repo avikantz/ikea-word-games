@@ -126,11 +126,10 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       setMultiplier((multiplier) => Math.min(multiplier + 1, JUMBLE.MAX_MULTIPLIER));
       // Calculate score
       setScore((score) => {
-        // TODO: refactor this
-        let roundScore = 10;
-        if (attempts === 0) roundScore = 20;
-        if (attempts === 1) roundScore = 10;
-        if (attempts === 2) roundScore = 5;
+        let roundScore = 0;
+        if (attempts === 0) roundScore = JUMBLE.ROUND_SCORE_G0;
+        if (attempts === 1) roundScore = JUMBLE.ROUND_SCORE_G1;
+        if (attempts === 2) roundScore = JUMBLE.ROUND_SCORE_G2;
         roundScore *= multiplier;
         return score + roundScore;
       });

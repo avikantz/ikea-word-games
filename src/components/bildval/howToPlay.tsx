@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Divider,
   ListItem,
   Modal,
   ModalBody,
@@ -9,6 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
+  Text,
   UnorderedList,
 } from "@chakra-ui/react";
 
@@ -36,7 +38,18 @@ export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalP
               If you are stuck, you can pass/skip the round. You have {BILDVAL.MAX_PASSES} passes per game.
             </ListItem>
 
-            <ListItem>Enjoy!</ListItem>
+            <Divider />
+
+            <ListItem>
+              <strong>Scoring:</strong> {BILDVAL.ROUND_SCORE} points per round * multiplier.
+            </ListItem>
+
+            <ListItem>
+              Multiplier increases by 1 each round if you pass, max {BILDVAL.MAX_MULTIPLIER}. If you fail, the
+              multiplier resets to 1.
+            </ListItem>
+
+            <Text>Enjoy!</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">

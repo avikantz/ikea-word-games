@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Button,
+  Divider,
   ListItem,
   Modal,
   ModalBody,
@@ -9,6 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
+  Text,
   UnorderedList,
 } from "@chakra-ui/react";
 
@@ -34,14 +36,31 @@ export const JumbleHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalPr
 
             <ListItem>
               You have {JUMBLE.MAX_ATTEMPTS} attempts to guess the product in each round. The faster you guess, the more
-              points you will score.
+              points you will score. The game will reveal the description and image of the product as you use up your
+              attempts.
             </ListItem>
 
             <ListItem>
               If you are stuck, you can pass/skip the round. You have {JUMBLE.MAX_PASSES} passes per game.
             </ListItem>
 
-            <ListItem>Enjoy!</ListItem>
+            <Divider />
+
+            <ListItem>
+              <strong>Scoring:</strong> Round score * multiplier.
+            </ListItem>
+
+            <ListItem>
+              Round score is {JUMBLE.ROUND_SCORE_G0} for guessing without hints, {JUMBLE.ROUND_SCORE_G1} for guessing
+              after the description is revealed, and {JUMBLE.ROUND_SCORE_G2} for guessing after the image is revealed.
+            </ListItem>
+
+            <ListItem>
+              Multiplier increases by 1 each round if you pass, max {JUMBLE.MAX_MULTIPLIER}. If you fail, the
+              multiplier resets to 1.
+            </ListItem>
+
+            <Text>Enjoy!</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
