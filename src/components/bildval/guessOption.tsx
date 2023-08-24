@@ -3,7 +3,7 @@ import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
-import { Box, BoxProps, Center, Collapse, Image, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Collapse, Image, Link, Skeleton, useBreakpointValue } from "@chakra-ui/react";
 
 interface BildvalGuessOptionProps extends BoxProps {
   guess: IKEAProduct;
@@ -23,8 +23,8 @@ export const BildvalGuessOption = ({
 
   const [buttonRef, animateButton] = useAnimate();
 
-  const redShadow = useBreakpointValue({ base: "red-md", md: "red-xl" }, { fallback: 'md' });
-  const greenShadow = useBreakpointValue({ base: "green-md", md: "green-xl" }, { fallback: 'md' });
+  const redShadow = useBreakpointValue({ base: "red-md", md: "red-xl" }, { fallback: "md" });
+  const greenShadow = useBreakpointValue({ base: "green-md", md: "green-xl" }, { fallback: "md" });
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
     if (isLoaded) {
@@ -86,11 +86,12 @@ export const BildvalGuessOption = ({
       {...props}
     >
       <Image
+        fallback={<Skeleton w="full" h="full" />}
         src={guess.pImage ?? guess.image}
         alt={guess.desc}
         objectFit="contain"
         w="full"
-        h={{ base: "25vh", md: "30vh" }}
+        h={{ base: "25vh", md: "72", lg: "96" }}
         loading="lazy"
         onLoad={() => setLoaded(true)}
         pointerEvents="none"
@@ -104,7 +105,9 @@ export const BildvalGuessOption = ({
       <Box position="absolute" bottom="0" left="0" right="0">
         <Collapse in={showSolution}>
           <Box p={{ base: 2, md: 4 }} bg="white">
-            <Text textAlign="center" fontWeight="bold">{guess.name}</Text>
+            <Link href={guess.url} target="_blank" rel="noopener" fontWeight="bold" color="blue.500">
+              {guess.name}
+            </Link>
           </Box>
         </Collapse>
       </Box>
