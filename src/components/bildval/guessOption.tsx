@@ -91,7 +91,10 @@ export const BildvalGuessOption = ({
         objectFit="contain"
         w="full"
         h={{ base: "25vh", md: "30vh" }}
+        loading="lazy"
         onLoad={() => setLoaded(true)}
+        pointerEvents="none"
+        blendMode="darken"
       />
       {isSuccess && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0" zIndex="2">
