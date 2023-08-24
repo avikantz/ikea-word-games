@@ -90,7 +90,7 @@ export const IKEAProductCard = ({
       <Box w={{ base: "120px", md: "200px" }} h={{ base: "120px", md: "200px" }} overflow="hidden">
         <Image
           src={product.image}
-          alt={product.alt}
+          alt={product.desc}
           w="full"
           h="full"
           filter={showImage ? undefined : "blur(20px)"}
