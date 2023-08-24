@@ -37,7 +37,7 @@ export const useBildval = ({ length, mode }: UseBildvalProps) => {
     // Add 3 random non-solution words to guess words
     while (guessWords.length < 3) {
       const guess: string = list[Math.floor(Math.random() * list.length)];
-      if (guess !== solutionWord) {
+      if (guess !== solutionWord && !guessWords.includes(guess)) {
         guessWords.push(guess);
       }
     }
