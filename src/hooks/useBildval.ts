@@ -2,12 +2,11 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Q_MAP_KEY, Q_UNIQUE_KEY, UniqueQuery, fetchMap, fetchUnique } from "@/queries";
-import { BildvalRound, IKEAProduct, JUMBLE_MODE } from "@/interfaces";
+import { BildvalRound, IKEAProduct, GAME_MODE } from "@/interfaces";
 
 interface UseBildvalProps {
   length?: number;
-  // TODO: refactor to use a common mode
-  mode?: JUMBLE_MODE;
+  mode?: GAME_MODE;
 }
 
 type BildvalRoundFunction = () => BildvalRound | undefined;

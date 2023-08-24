@@ -68,7 +68,7 @@ function JumbleGame() {
 
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
-      <Heading textAlign="center" textTransform="capitalize">
+      <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
         Jumble Custom
       </Heading>
 

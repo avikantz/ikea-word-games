@@ -28,7 +28,7 @@ export const Button: ComponentStyleConfig = {
       },
       _focus: {
         boxShadow: "blue",
-      }
+      },
     },
     outline: {
       px: 6,
@@ -46,7 +46,12 @@ export const Button: ComponentStyleConfig = {
       },
       _active: {
         boxShadow: "blue",
-      }
+      },
+      _disabled: {
+        _hover: {
+          color: "black",
+        },
+      },
     },
   },
   // default values for 'size', 'variant' and 'colorScheme'

@@ -18,7 +18,7 @@ import { useAnimate } from "framer-motion";
 
 import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
-import { IKEAJumbleWord, JUMBLE_MODE } from "@/interfaces";
+import { IKEAJumbleWord, GAME_MODE } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { PATH_JUMBLE } from "@/utils/paths";
@@ -27,7 +27,7 @@ import { useScores } from "@/hooks/useScores";
 
 function JumbleGameMode({ params }: { params: { mode: string } }) {
   const router = useRouter();
-  const [difficulty, setDifficulty] = useState<JUMBLE_MODE>("easy");
+  const [difficulty, setDifficulty] = useState<GAME_MODE>("easy");
 
   // Modals
   const {
@@ -69,7 +69,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   useEffect(() => {
     if (params.mode) {
       if (["easy", "medium", "hard", "insane"].includes(params.mode)) {
-        setDifficulty(params.mode as JUMBLE_MODE);
+        setDifficulty(params.mode as GAME_MODE);
       } else {
         alert("Invalid mode");
         router.replace(PATH_JUMBLE);
@@ -192,11 +192,12 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
       <HStack justifyContent="center" spacing="4">
-        <Heading textAlign="center" textTransform="capitalize">
+        <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
           Jumble {difficulty}
         </Heading>
         <IconButton
           variant="outline"
+          size="sm"
           isRound
           icon={<Text>?</Text>}
           aria-label="How to play"

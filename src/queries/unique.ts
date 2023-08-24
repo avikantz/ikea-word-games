@@ -1,12 +1,12 @@
 import { QueryFunction } from "@tanstack/react-query";
 
-import { JUMBLE_MODE } from "@/interfaces";
+import { GAME_MODE } from "@/interfaces";
 
 export const Q_UNIQUE_KEY = "q_unique";
 
 export interface UniqueQuery {
   length?: number;
-  mode?: JUMBLE_MODE;
+  mode?: GAME_MODE;
 }
 
 export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({

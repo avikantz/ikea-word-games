@@ -2,11 +2,11 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Q_MAP_KEY, Q_UNIQUE_KEY, UniqueQuery, fetchMap, fetchUnique } from "@/queries";
-import { IKEAJumbleWord, IKEAProduct, JUMBLE_MODE } from "@/interfaces";
+import { IKEAJumbleWord, IKEAProduct, GAME_MODE } from "@/interfaces";
 
 interface UseJumbleProps {
   length?: number;
-  mode?: JUMBLE_MODE;
+  mode?: GAME_MODE;
 }
 
 type JumbleWordFunction = () => IKEAJumbleWord | undefined;
