@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
+import { event } from "nextjs-google-analytics";
 
 import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
@@ -91,11 +92,14 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     setAttempts(0);
     setSuccess(false);
 
+    // Track round event
+    event(JUMBLE.ROUND_EVENT, { category: difficulty });
+
     // Focus input after delay
     setTimeout(() => {
       inputRef.current?.focus();
     }, 100);
-  }, [getJumbleWord, words]);
+  }, [difficulty, getJumbleWord, words]);
 
   // Get a new word on load
   useEffect(() => {
@@ -181,6 +185,8 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
         );
       }
     } else {
+      // Track game event
+      event(JUMBLE.GAME_EVENT, { category: difficulty });
       // Save final score
       saveScore(score);
       // Open game over modal

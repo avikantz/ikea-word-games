@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
+import { event } from "nextjs-google-analytics";
 
 import { GameOverModal } from "@/components";
 import { BildvalRound, IKEAProduct, GAME_MODE } from "@/interfaces";
@@ -86,8 +87,11 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
 
     if (bildvalRound) words.push(bildvalRound.solution.name);
 
+    // Track round event
+    event(BILDVAL.ROUND_EVENT, { category: difficulty });
+
     setShowSolution(false);
-  }, [getBildvalRound, words]);
+  }, [difficulty, getBildvalRound, words]);
 
   // Get a new word on load
   useEffect(() => {
@@ -121,6 +125,8 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
       setRound((round) => round + 1);
       getBildvalWords();
     } else {
+      // Track game event
+      event(BILDVAL.GAME_EVENT, { category: difficulty });
       // Save final score
       saveScore(score);
       // Open game over modal

@@ -2,6 +2,7 @@
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Container, Divider, Heading, Select, Text, VStack } from "@chakra-ui/react";
+import { event } from "nextjs-google-analytics";
 
 import { IKEAJumbleWord } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
@@ -9,7 +10,7 @@ import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JUMBLE } from "@/utils/constants";
 
-function JumbleGame() {
+function JumbleGameCustom() {
   // Refs
   const inputRef = useRef<HTMLInputElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
@@ -32,6 +33,9 @@ function JumbleGame() {
     setJumbleWord(jumbleWord);
     setAttempts(0);
     setSuccess(false);
+
+    // Track round event
+    event(JUMBLE.ROUND_EVENT, { category: "custom" });
 
     // Focus input after delay
     setTimeout(() => {
@@ -138,4 +142,4 @@ function JumbleGame() {
   );
 }
 
-export default JumbleGame;
+export default JumbleGameCustom;

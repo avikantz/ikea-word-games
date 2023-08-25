@@ -5,3 +5,5 @@ export const MAX_ATTEMPTS = 3;
 export const ROUND_SCORE_G0 = 20;
 export const ROUND_SCORE_G1 = 10;
 export const ROUND_SCORE_G2 = 5;
+export const ROUND_EVENT = "jumble_round";
+export const GAME_EVENT = "jumble_game";

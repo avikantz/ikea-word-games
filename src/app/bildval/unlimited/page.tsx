@@ -2,12 +2,14 @@
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Container, Heading, SimpleGrid, Spinner, Text, VStack } from "@chakra-ui/react";
+import { event } from "nextjs-google-analytics";
 
 import { BildvalRound, IKEAProduct } from "@/interfaces";
 import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption } from "@/components/bildval";
+import { BILDVAL } from "@/utils/constants";
 
-function BildvalGameMode() {
+function BildvalGameUnlimited() {
   // Refs
   const nextButtonRef = useRef<HTMLButtonElement>();
 
@@ -22,6 +24,10 @@ function BildvalGameMode() {
   const getBildvalWords = useCallback(async () => {
     // Fetch new bildval round
     setBildvalRound(getBildvalRound());
+
+    // Track round event
+    event(BILDVAL.ROUND_EVENT, { category: "unlimited" });
+
     setShowSolution(false);
   }, [getBildvalRound]);
 
@@ -93,4 +99,4 @@ function BildvalGameMode() {
   );
 }
 
-export default BildvalGameMode;
+export default BildvalGameUnlimited;
