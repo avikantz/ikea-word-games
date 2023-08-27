@@ -26,7 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
 
         <Analytics />
-        <GoogleAnalytics trackPageViews />
+        <GoogleAnalytics trackPageViews={false} />
 
         {children}
       </QueryClientProvider>
