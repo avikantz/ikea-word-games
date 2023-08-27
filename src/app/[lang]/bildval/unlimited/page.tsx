@@ -95,7 +95,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
               onClick={onPass}
               isLoading={!bildvalRound}
             >
-              {showSolution ? t("next") : t("pass_count", { count: "∞" })}
+              {showSolution ? t("next") : t("pass")}
             </Button>
           </VStack>
         )) || <Spinner size="lg" />}

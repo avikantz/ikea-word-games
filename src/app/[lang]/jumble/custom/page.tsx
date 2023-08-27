@@ -120,7 +120,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
         isLoading={!jumbleWord}
         alignSelf="center"
       >
-        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass_count", { count: "∞" })}
+        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
       </Button>
 
       <Container maxW="md">
