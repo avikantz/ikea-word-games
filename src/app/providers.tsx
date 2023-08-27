@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import theme from "@/theme";
+import { Footer } from "@/components/footer";
 
 const CACHE_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
@@ -29,6 +30,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <GoogleAnalytics trackPageViews={false} />
 
         {children}
+
+        <Footer lang={lang} />
       </QueryClientProvider>
     </ChakraProvider>
   );

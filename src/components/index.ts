@@ -1,4 +1,5 @@
 export * from "./header";
+export * from "./footer";
 export * from "./ikeaProduct";
 export * from "./wordInput";
 export * from "./wordDisplay";

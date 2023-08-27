@@ -25,7 +25,7 @@ export default function RootLayout({ children, params: { lang } }: RootLayoutPar
   return (
     <html lang={lang} dir={dir(lang)}>
       <body>
-        <Providers>{children}</Providers>
+        <Providers lang={lang}>{children}</Providers>
       </body>
     </html>
   );
