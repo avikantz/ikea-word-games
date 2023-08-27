@@ -21,16 +21,21 @@ import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
 import { GameOverModal } from "@/components";
-import { BildvalRound, IKEAProduct, GAME_MODE } from "@/interfaces";
+import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps } from "@/interfaces";
 import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption, BildvalHowToPlayModal } from "@/components/bildval";
+import { useTranslation } from "@/app/i18n/client";
 
-function BildvalGameMode({ params }: { params: { mode: string } }) {
+function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
   const [difficulty, setDifficulty] = useState<GAME_MODE>("easy");
+
+  // Translations
+  const { t } = useTranslation(lang);
+  const { t: b } = useTranslation(lang, "bildval");
 
   // Modals
   const {
@@ -66,15 +71,15 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
 
   // Check difficulty param
   useEffect(() => {
-    if (params.mode) {
-      if (["easy", "medium", "hard", "insane"].includes(params.mode)) {
-        setDifficulty(params.mode as GAME_MODE);
+    if (mode) {
+      if (["easy", "medium", "hard", "insane"].includes(mode)) {
+        setDifficulty(mode as GAME_MODE);
       } else {
         alert("Invalid mode");
         router.replace(PATH_BILDVAL);
       }
     }
-  }, [params.mode, router]);
+  }, [mode, router]);
 
   const getBildvalWords = useCallback(async () => {
     // Fetch new bildval round
@@ -162,14 +167,14 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
       <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
         <HStack justifyContent="center" spacing="4">
           <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-            Bildval {difficulty}
+            {b("title_difficulty", { difficulty })}
           </Heading>
           <IconButton
             variant="outline"
             size="sm"
             isRound
             icon={<Text>?</Text>}
-            aria-label="How to play"
+            aria-label={t("how_to_play")}
             onClick={onOpenHowToPlayModal}
           />
         </HStack>
@@ -177,7 +182,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <Tag size="lg" bg="blue.500" color="white">
-              Round {round} of {BILDVAL.MAX_ROUNDS}
+              {t("rounds", { count: round, max: BILDVAL.MAX_ROUNDS })}
             </Tag>
 
             <Spacer />
@@ -187,7 +192,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
             </Tag>
 
             <Tag ref={scoreRef} size="lg" bg="black" color="white">
-              Score {score}
+              {t("score", { score })}
             </Tag>
           </HStack>
         )}
@@ -197,7 +202,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
           <VStack alignItems="stretch" spacing="8">
             <Box px="6" py="2" rounded="md" bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
-                What is... {bildvalRound.solution.name}?
+                {b("question", { product: bildvalRound.solution.name })}
               </Text>
             </Box>
 
@@ -223,7 +228,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
                 isLoading={!bildvalRound}
                 isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
               >
-                Pass ({BILDVAL.MAX_PASSES - passCount})
+                {t("pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
               </Button>
 
               <Button
@@ -234,7 +239,7 @@ function BildvalGameMode({ params }: { params: { mode: string } }) {
                 isDisabled={round > BILDVAL.MAX_ROUNDS || !showSolution}
                 alignSelf="center"
               >
-                {round === 0 ? "Start" : round === BILDVAL.MAX_ROUNDS ? "Finish" : "Next"}
+                {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
               </Button>
             </HStack>
           </VStack>

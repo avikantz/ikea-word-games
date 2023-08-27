@@ -1,0 +1,18 @@
+{
+  "title": "Bildval",
+  "title_difficulty": "Bildval {{difficulty}}",
+  "desc": "Guess what picture matches the given product name.",
+  "easy.desc": "Guess only the most popular products!",
+  "medium.desc": "Includes most on shelf products!",
+  "hard.desc": "Top 500 all time products",
+  "insane.desc": "All products are on the \"lagkapten\"",
+  "unlimited": "Bildval ∞",
+  "unlimited.desc": "Unlimited guessing!",
+  "question": "What is... {{product}}?",
+  "how_to_play.title": "Bildval: How to play",
+  "how_to_play.desc.1": "You will be given an IKEA product name. Pick the picture that best identifies the product.",
+  "how_to_play.desc.2": "There are {{rounds}} rounds. Each round, you will be given a new name to identify.",
+  "how_to_play.desc.3": "If you are stuck, you can pass/skip the round. You have {{passes}} passes per game.",
+  "how_to_play.scoring": "Scoring: {{points}} points per round * multiplier.",
+  "how_to_play.multiplier": "Multiplier increases by 1 each round if you pass, max {{max}}. If you fail, the multiplier resets to 1."
+}

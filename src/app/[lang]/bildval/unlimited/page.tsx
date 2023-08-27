@@ -4,12 +4,17 @@ import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Container, Heading, SimpleGrid, Spinner, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { BildvalRound, IKEAProduct } from "@/interfaces";
+import { BildvalRound, IKEAProduct, PageProps } from "@/interfaces";
 import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption } from "@/components/bildval";
 import { BILDVAL } from "@/utils/constants";
+import { useTranslation } from "@/app/i18n/client";
 
-function BildvalGameUnlimited() {
+function BildvalGameUnlimited({ params: { lang } }: PageProps) {
+  // Translations
+  const { t } = useTranslation(lang);
+  const { t: b } = useTranslation(lang, "bildval");
+
   // Refs
   const nextButtonRef = useRef<HTMLButtonElement>();
 
@@ -57,7 +62,7 @@ function BildvalGameUnlimited() {
     <Container maxW="container.lg" px="0">
       <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
         <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-          Bildval ∞
+          {b("title_difficulty", { difficulty: "∞" })}
         </Heading>
 
         {/* Active game */}
@@ -65,7 +70,7 @@ function BildvalGameUnlimited() {
           <VStack alignItems="stretch" spacing="8">
             <Box px="6" py="2" rounded="md" bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
-                What is... {bildvalRound.solution.name}?
+                {b("question", { product: bildvalRound.solution.name })}
               </Text>
             </Box>
 
@@ -90,7 +95,7 @@ function BildvalGameUnlimited() {
               onClick={onPass}
               isLoading={!bildvalRound}
             >
-              {showSolution ? "Next" : "Pass (∞)"}
+              {showSolution ? t("next") : t("pass_count", { count: "∞" })}
             </Button>
           </VStack>
         )) || <Spinner size="lg" />}

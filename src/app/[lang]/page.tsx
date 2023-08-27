@@ -10,6 +10,7 @@ import { PageProps } from "@/interfaces/page";
 export default function Home({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
   const { t: j } = useTranslation(lang, "jumble");
+  const { t: b } = useTranslation(lang, "bildval");
 
   return (
     <main>
@@ -23,12 +24,8 @@ export default function Home({ params: { lang } }: PageProps) {
 
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }} py={{ base: 4, md: 8 }}>
             <ModeCard title={j("title")} desc={j("desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />
-            <ModeCard
-              title="Bildval"
-              desc="Guess what picture matches the given product name."
-              href={getLocalizedPath(PATH_BILDVAL, lang)}
-            />
-            <ModeCard title="Scrabble" isDisabled desc="Coming soon!" />
+            <ModeCard title={b("title")} desc={b("desc")} href={getLocalizedPath(PATH_BILDVAL, lang)} />
+            <ModeCard title="Wordle" isDisabled desc="Coming soon!" />
           </SimpleGrid>
         </Container>
       </Box>

@@ -15,8 +15,12 @@ import {
 } from "@chakra-ui/react";
 
 import { BILDVAL } from "@/utils/constants";
+import { useTranslation } from "@/app/i18n/client";
 
 export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
+  const { t } = useTranslation();
+  const { t: b } = useTranslation(undefined, "bildval");
+
   return (
     <Modal
       size={{ base: "full", md: "2xl" }}
@@ -30,38 +34,27 @@ export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalP
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          Bildval: How to play
+          {b("how_to_play.title")}
         </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
-            <ListItem>
-              You will be given an IKEA product name. Pick the picture that best identifies the product.
-            </ListItem>
+            <ListItem>{b("how_to_play.desc.1")}</ListItem>
 
-            <ListItem>
-              There are {BILDVAL.MAX_ROUNDS} rounds. Each round, you will be given a new name to identify.
-            </ListItem>
+            <ListItem>{b("how_to_play.desc.2", { rounds: BILDVAL.MAX_ROUNDS })}</ListItem>
 
-            <ListItem>
-              If you are stuck, you can pass/skip the round. You have {BILDVAL.MAX_PASSES} passes per game.
-            </ListItem>
+            <ListItem>{b("how_to_play.desc.3", { passes: BILDVAL.MAX_PASSES })}</ListItem>
 
             <Divider />
 
-            <ListItem>
-              <strong>Scoring:</strong> {BILDVAL.ROUND_SCORE} points per round * multiplier.
-            </ListItem>
+            <ListItem>{b("how_to_play.scoring", { points: BILDVAL.ROUND_SCORE })}</ListItem>
 
-            <ListItem>
-              Multiplier increases by 1 each round if you pass, max {BILDVAL.MAX_MULTIPLIER}. If you fail, the
-              multiplier resets to 1.
-            </ListItem>
+            <ListItem>{b("how_to_play.multiplier", { max: BILDVAL.MAX_MULTIPLIER })}</ListItem>
 
-            <Text>Enjoy!</Text>
+            <Text>{t("enjoy")}</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>Let me play!</Button>
+          <Button onClick={onClose}>{t("let_me_play")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
