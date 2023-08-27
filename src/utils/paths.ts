@@ -1,3 +1,7 @@
+export const getLocalizedPath = (path: string, locale: string = "en") => {
+  return `/${locale}${path}`;
+};
+
 export const PATH_JUMBLE = "/jumble";
 export const PATH_JUMBLE_EASY = `${PATH_JUMBLE}/easy`;
 export const PATH_JUMBLE_MEDIUM = `${PATH_JUMBLE}/medium`;

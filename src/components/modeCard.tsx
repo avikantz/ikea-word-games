@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
+import { useTranslation } from "@/app/i18n/client";
+
 interface ModeCardProps extends BoxProps {
   title?: string;
   desc?: string;
@@ -21,15 +23,8 @@ interface ModeCardProps extends BoxProps {
   children?: ReactNode;
 }
 
-export const ModeCard = ({
-  title,
-  desc,
-  href,
-  buttonTitle,
-  isDisabled,
-  children,
-  ...props
-}: ModeCardProps) => {
+export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children, ...props }: ModeCardProps) => {
+  const { t } = useTranslation();
   return (
     <LinkBox
       p={{ base: 4, md: 8 }}
@@ -59,9 +54,7 @@ export const ModeCard = ({
       {children}
       <Spacer />
       <LinkOverlay as={NextLink} href={isDisabled ? "" : href}>
-        <Button isDisabled={isDisabled}>
-          {buttonTitle || `Play ${title}`}
-        </Button>
+        <Button isDisabled={isDisabled}>{buttonTitle || t("play_title", { title })}</Button>
       </LinkOverlay>
     </LinkBox>
   );

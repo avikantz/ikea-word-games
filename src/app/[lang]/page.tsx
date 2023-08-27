@@ -3,10 +3,11 @@
 import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { PATH_BILDVAL, PATH_JUMBLE } from "@/utils/paths";
+import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE } from "@/utils/paths";
 import { ModeCard } from "@/components";
+import { PageProps } from "@/interfaces/page";
 
-export default function Home({ params: { lang } }: { params: { lang: string } }) {
+export default function Home({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
   const { t: j } = useTranslation(lang, "jumble");
 
@@ -21,8 +22,12 @@ export default function Home({ params: { lang } }: { params: { lang: string } })
           <Text textAlign="center">{t("desc")}</Text>
 
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }} py={{ base: 4, md: 8 }}>
-            <ModeCard title={j("title")} desc={j("desc")} href={PATH_JUMBLE} />
-            <ModeCard title="Bildval" desc="Guess what picture matches the given product name." href={PATH_BILDVAL} />
+            <ModeCard title={j("title")} desc={j("desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />
+            <ModeCard
+              title="Bildval"
+              desc="Guess what picture matches the given product name."
+              href={getLocalizedPath(PATH_BILDVAL, lang)}
+            />
             <ModeCard title="Scrabble" isDisabled desc="Coming soon!" />
           </SimpleGrid>
         </Container>

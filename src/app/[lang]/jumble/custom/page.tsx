@@ -4,13 +4,18 @@ import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Container, Divider, Heading, Select, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { IKEAJumbleWord } from "@/interfaces";
+import { IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JUMBLE } from "@/utils/constants";
+import { useTranslation } from "@/app/i18n/client";
 
-function JumbleGameCustom() {
+function JumbleGameCustom({ params: { lang } }: PageProps) {
+  // Translations
+  const { t } = useTranslation(lang);
+  const { t: j } = useTranslation(lang, "jumble");
+
   // Refs
   const inputRef = useRef<HTMLInputElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
@@ -73,7 +78,7 @@ function JumbleGameCustom() {
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
       <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-        Jumble Custom
+        {j("title_difficulty", { difficulty: t("custom") })}
       </Heading>
 
       {jumbleWord?.product && (
@@ -87,7 +92,7 @@ function JumbleGameCustom() {
         >
           {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
             <Text fontSize="sm" color="gray.400">
-              {attempts} of {JUMBLE.MAX_ATTEMPTS} attempts
+              {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
             </Text>
           )}
         </IKEAProductCard>
@@ -115,18 +120,18 @@ function JumbleGameCustom() {
         isLoading={!jumbleWord}
         alignSelf="center"
       >
-        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? "Next" : "Pass (∞)"}
+        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass_count", { count: "∞" })}
       </Button>
 
       <Container maxW="md">
         <Divider mb={{ base: 4, md: 8 }} />
         <Text color="gray.500" textAlign="center" fontSize="sm" mb="2">
-          Size
+          {t("size")}
         </Text>
         <Select
           maxW="32"
           mx="auto"
-          aria-label="Length"
+          aria-label={t("length")}
           onChange={(e) => setLength(parseInt(e.target.value))}
           value={length}
           isDisabled={!jumbleWord}

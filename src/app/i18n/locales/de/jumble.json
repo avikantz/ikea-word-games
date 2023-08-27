@@ -1,4 +1,17 @@
 {
-	"title": "Jumble",
-	"desc": "Bilden sie aus den vorgegebenen buchstaben ein wort, das zu einem IKEA produkt passt."
+  "title": "Jumble",
+  "desc": "Bilden sie aus den vorgegebenen buchstaben ein wort, das zu einem IKEA produkt passt.",
+  "easy.desc": "Erraten sie nur die beliebtesten produkte!",
+  "medium.desc": "Beinhaltet die meisten im regal erhältlichen produkte!",
+  "hard.desc": "Die 500 besten produkte aller zeiten",
+  "insane.desc": "Alle produkte sind auf dem \"lagkapten\"",
+  "custom.desc": "Benutzerdefinierte wortlänge",
+  "how_to_play.title": "Jumble: Wie man spielt",
+  "how_to_play.desc.1": "Sie erhalten einen verschlüsselten IKEA produktnamen. Entschlüsseln sie die buchstaben, um das produkt zu erraten.",
+  "how_to_play.desc.2": "Es gibt {{rounds}} runden. In jeder runde erhalten sie ein neues produkt zum erraten.",
+  "how_to_play.desc.3": "Sie haben in jeder runde {{attempts}} versuche, das produkt zu erraten. Je schneller sie raten, desto mehr punkte erhalten sie. Das spiel zeigt die beschreibung und das bild des produkts an, während sie ihre versuche aufbrauchen.",
+  "how_to_play.desc.4": "Wenn sie nicht weiterkommen, können sie die runde bestehen/überspringen. Du hast {{passes}} pässe pro spiel.",
+  "how_to_play.scoring": "Wertung: rundenergebnis * multiplikator.",
+  "how_to_play.round_scores": "Der rundenwert beträgt {{g0}} für das raten ohne hinweise, {{g1}} für das raten, nachdem die beschreibung enthüllt wurde, und {{g2}} für das raten, nachdem das bild enthüllt wurde.",
+  "how_to_play.multiplier": "Der multiplikator erhöht sich jede runde um 1, wenn Sie bestehen, maximal {{max}}. wenn sie scheitern, wird der multiplikator auf 1 zurückgesetzt."
 }

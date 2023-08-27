@@ -15,56 +15,56 @@ import {
 } from "@chakra-ui/react";
 
 import { JUMBLE } from "@/utils/constants";
+import { useTranslation } from "@/app/i18n/client";
 
 export const JumbleHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
+  const { t } = useTranslation();
+  const { t: j } = useTranslation(undefined, "jumble");
+
   return (
-    <Modal onClose={onClose} isOpen={isOpen} isCentered closeOnEsc={false} closeOnOverlayClick={false} {...props}>
+    <Modal
+      size={{ base: "full", md: "2xl" }}
+      onClose={onClose}
+      isOpen={isOpen}
+      isCentered
+      closeOnEsc={false}
+      closeOnOverlayClick={false}
+      {...props}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          Jumble: How to play
+          {j("how_to_play.title")}
         </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
-            <ListItem>
-              You will be given a scrambled IKEA product name. Unscramble the letters to guess the product.
-            </ListItem>
+            <ListItem>{j("how_to_play.desc.1")}</ListItem>
 
-            <ListItem>
-              There are {JUMBLE.MAX_ROUNDS} rounds. Each round, you will be given a new product to guess.
-            </ListItem>
+            <ListItem>{j("how_to_play.desc.2", { rounds: JUMBLE.MAX_ROUNDS })}</ListItem>
 
-            <ListItem>
-              You have {JUMBLE.MAX_ATTEMPTS} attempts to guess the product in each round. The faster you guess, the more
-              points you will score. The game will reveal the description and image of the product as you use up your
-              attempts.
-            </ListItem>
+            <ListItem>{j("how_to_play.desc.3", { attempts: JUMBLE.MAX_ATTEMPTS })}</ListItem>
 
-            <ListItem>
-              If you are stuck, you can pass/skip the round. You have {JUMBLE.MAX_PASSES} passes per game.
-            </ListItem>
+            <ListItem>{j("how_to_play.desc.4", { passes: JUMBLE.MAX_PASSES })}</ListItem>
 
             <Divider />
 
-            <ListItem>
-              <strong>Scoring:</strong> Round score * multiplier.
-            </ListItem>
+            <ListItem>{j("how_to_play.scoring")}</ListItem>
 
             <ListItem>
-              Round score is {JUMBLE.ROUND_SCORE_G0} for guessing without hints, {JUMBLE.ROUND_SCORE_G1} for guessing
-              after the description is revealed, and {JUMBLE.ROUND_SCORE_G2} for guessing after the image is revealed.
+              {j("how_to_play.round_scores", {
+                g0: JUMBLE.ROUND_SCORE_G0,
+                g1: JUMBLE.ROUND_SCORE_G1,
+                g2: JUMBLE.ROUND_SCORE_G2,
+              })}
             </ListItem>
 
-            <ListItem>
-              Multiplier increases by 1 each round if you pass, max {JUMBLE.MAX_MULTIPLIER}. If you fail, the
-              multiplier resets to 1.
-            </ListItem>
+            <ListItem>{j("how_to_play.multiplier", { max: JUMBLE.MAX_MULTIPLIER })}</ListItem>
 
-            <Text>Enjoy!</Text>
+            <Text>{t("enjoy")}</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>Let me play!</Button>
+          <Button onClick={onClose}>{t("let_me_play")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

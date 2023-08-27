@@ -19,16 +19,21 @@ import { event } from "nextjs-google-analytics";
 
 import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
-import { IKEAJumbleWord, GAME_MODE } from "@/interfaces";
+import { IKEAJumbleWord, GAME_MODE, ModePageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { PATH_JUMBLE } from "@/utils/paths";
 import { JUMBLE } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
+import { useTranslation } from "@/app/i18n/client";
 
-function JumbleGameMode({ params }: { params: { mode: string } }) {
+function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
   const [difficulty, setDifficulty] = useState<GAME_MODE>("easy");
+
+  // Translations
+  const { t } = useTranslation(lang);
+  const { t: j } = useTranslation(lang, "jumble");
 
   // Modals
   const {
@@ -68,15 +73,15 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
 
   // Check difficulty param
   useEffect(() => {
-    if (params.mode) {
-      if (["easy", "medium", "hard", "insane"].includes(params.mode)) {
-        setDifficulty(params.mode as GAME_MODE);
+    if (mode) {
+      if (["easy", "medium", "hard", "insane"].includes(mode)) {
+        setDifficulty(mode as GAME_MODE);
       } else {
         alert("Invalid mode");
         router.replace(PATH_JUMBLE);
       }
     }
-  }, [params.mode, router]);
+  }, [mode, router]);
 
   const getWords = useCallback(async () => {
     // Fetch new jumble word
@@ -198,14 +203,14 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
       <HStack justifyContent="center" spacing="4">
         <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-          Jumble {difficulty}
+          {j("title_difficulty", { difficulty: t(mode) })}
         </Heading>
         <IconButton
           variant="outline"
           size="sm"
           isRound
           icon={<Text>?</Text>}
-          aria-label="How to play"
+          aria-label={t('how_to_play')}
           onClick={onOpenHowToPlayModal}
         />
       </HStack>
@@ -213,7 +218,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
       {round > 0 && (
         <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
           <Tag ref={roundRef} size="lg" bg="blue.500" color="white">
-            Round {round} of {JUMBLE.MAX_ROUNDS}
+            {t("rounds", { count: round, max: JUMBLE.MAX_ROUNDS })}
           </Tag>
 
           <Spacer />
@@ -223,7 +228,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
           </Tag>
 
           <Tag ref={scoreRef} size="lg" bg="black" color="white">
-            Score {score}
+            {t("score", { score })}
           </Tag>
         </HStack>
       )}
@@ -241,7 +246,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
           >
             {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
               <Text fontSize="sm" color="gray.400">
-                {attempts} of {JUMBLE.MAX_ATTEMPTS} attempts
+                {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
               </Text>
             )}
           </IKEAProductCard>
@@ -268,7 +273,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
                 round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > JUMBLE.MAX_ATTEMPTS
               }
             >
-              Pass ({JUMBLE.MAX_PASSES - passCount})
+              {t("pass_count", { count: JUMBLE.MAX_PASSES - passCount })}
             </Button>
 
             <Button
@@ -279,7 +284,7 @@ function JumbleGameMode({ params }: { params: { mode: string } }) {
               isDisabled={round > JUMBLE.MAX_ROUNDS && (success || attempts >= JUMBLE.MAX_ATTEMPTS)}
               alignSelf="center"
             >
-              {round === 0 ? "Start" : round === JUMBLE.MAX_ROUNDS ? "Finish" : "Next"}
+              {round === 0 ? t("start") : round === JUMBLE.MAX_ROUNDS ? t("finish") : t("next")}
             </Button>
           </HStack>
         </VStack>

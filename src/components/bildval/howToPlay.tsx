@@ -18,7 +18,15 @@ import { BILDVAL } from "@/utils/constants";
 
 export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
   return (
-    <Modal onClose={onClose} isOpen={isOpen} isCentered closeOnEsc={false} closeOnOverlayClick={false} {...props}>
+    <Modal
+      size={{ base: "full", md: "2xl" }}
+      onClose={onClose}
+      isOpen={isOpen}
+      isCentered
+      closeOnEsc={false}
+      closeOnOverlayClick={false}
+      {...props}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">

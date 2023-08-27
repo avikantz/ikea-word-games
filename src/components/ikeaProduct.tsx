@@ -19,6 +19,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
 import { replaceWithQuestionMarks } from "@/utils/words";
+import { useTranslation } from "@/app/i18n/client";
 
 interface IKEAProductProps extends CardProps {
   product: IKEAProduct;
@@ -40,6 +41,8 @@ export const IKEAProductCard = ({
   children,
   ...props
 }: IKEAProductProps) => {
+  const { t } = useTranslation();
+
   const [cardRef, animateCard] = useAnimate();
 
   // Jiggle card on failure
@@ -107,15 +110,8 @@ export const IKEAProductCard = ({
 
         <CardFooter p={{ base: 2, md: 4 }}>
           {showName ? (
-            <Button
-              as="a"
-              size="sm"
-              href={product.url}
-              target="_blank"
-              variant={{ base: "link", md: "solid" }}
-              colorScheme="blue"
-            >
-              View Product
+            <Button as="a" size="sm" href={product.url} target="_blank" variant="link" colorScheme="blue">
+              {t("view_product")}
             </Button>
           ) : (
             children

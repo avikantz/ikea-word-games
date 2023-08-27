@@ -12,6 +12,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Scores } from "@/interfaces";
+import { useTranslation } from "@/app/i18n/client";
 
 interface GameOverModalProps extends Omit<ModalProps, "children"> {
   title?: string;
@@ -33,6 +34,8 @@ export const GameOverModal = ({
   onClose,
   ...props
 }: GameOverModalProps) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       onClose={onClose}
@@ -47,7 +50,7 @@ export const GameOverModal = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          {title || "Game over!"}
+          {title || t("game_over")}
         </ModalHeader>
         <ModalBody>
           <VStack
@@ -59,7 +62,7 @@ export const GameOverModal = ({
             bg="yellow.500"
           >
             <Text fontWeight="semibold" fontSize="sm" mb="-4">
-              Final score
+              {t("final_score")}
             </Text>
             <Text fontSize="5xl" fontWeight="bold">
               {score}
@@ -67,19 +70,21 @@ export const GameOverModal = ({
 
             {scores?.highscore && (
               <Text fontWeight="semibold">
-                {score >= scores?.highscore.value ? "New highscore!" : `Highscore ${scores.highscore.value}`}
+                {score >= scores?.highscore.value
+                  ? t("new_highscore")
+                  : t("highscore", { score: scores?.highscore.value })}
               </Text>
             )}
           </VStack>
 
           <Text textAlign="center" fontSize="sm" color="gray.500">
-            {desc || "Thanks for playing!"}
+            {desc || t("thanks_for_playing")}
           </Text>
 
           {children}
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>{buttonTitle || "Okay"}</Button>
+          <Button onClick={onClose}>{buttonTitle || t("okay")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
