@@ -92,6 +92,9 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
     if (bildvalRound) words.push(bildvalRound.solution.name);
 
+    // Unfocus next button
+    nextButtonRef.current?.blur();
+
     // Track round event
     event(BILDVAL.ROUND_EVENT, { category: difficulty });
 

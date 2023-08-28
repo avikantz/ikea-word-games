@@ -30,6 +30,9 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
     // Fetch new bildval round
     setBildvalRound(getBildvalRound());
 
+    // Unfocus next button
+    nextButtonRef.current?.blur();
+
     // Track round event
     event(BILDVAL.ROUND_EVENT, { category: "unlimited" });
 
