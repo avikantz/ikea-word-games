@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "@fontsource-variable/open-sans";
 import { dir } from "i18next";
 
-import { languages } from "@/app/i18n/settings";
+import { LANGUAGES } from "@/app/i18n/settings";
 import { Providers } from "../providers";
 
 export async function generateStaticParams() {
-  return languages.map((lang) => ({ lang }));
+  return LANGUAGES.map((lang) => ({ lang }));
 }
 
 export const metadata: Metadata = {

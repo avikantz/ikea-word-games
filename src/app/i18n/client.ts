@@ -6,7 +6,7 @@ import { initReactI18next, useTranslation as useTranslationOrg } from "react-i18
 import resourcesToBackend from "i18next-resources-to-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import { defaultNS, getOptions, languages } from "./settings";
+import { DEFAULT_NS, getOptions, LANGUAGES } from "./settings";
 
 const runsOnServerSide = typeof window === "undefined";
 
@@ -21,10 +21,10 @@ i18next
     detection: {
       order: ["path", "htmlTag", "cookie", "navigator"],
     },
-    preload: runsOnServerSide ? languages : [],
+    preload: runsOnServerSide ? LANGUAGES : [],
   });
 
-export function useTranslation(lng?: string, ns: string = defaultNS, options: any = {}) {
+export function useTranslation(lng?: string, ns: string = DEFAULT_NS, options: any = {}) {
   const ret = useTranslationOrg(ns, options);
   const { i18n } = ret;
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {

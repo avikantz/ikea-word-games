@@ -1,15 +1,29 @@
-export const fallbackLng = "en";
-export const languages = [fallbackLng, "de"];
-export const defaultNS = "common";
+export const FALLBACK_LANG = "en";
+export const DEFAULT_NS = "common";
 
-export function getOptions(lng = fallbackLng, ns = defaultNS) {
+export const LANGUAGE_LIST = [
+  {
+    label: "English",
+    emoji: "🇬🇧",
+    value: FALLBACK_LANG,
+  },
+  {
+    label: "Deutsch",
+    emoji: "🇩🇪",
+    value: "de",
+  },
+];
+
+export const LANGUAGES = LANGUAGE_LIST.map(({ value }) => value);
+
+export function getOptions(lng = FALLBACK_LANG, ns = DEFAULT_NS) {
   return {
     // debug: true,
-    supportedLngs: languages,
-    fallbackLng,
+    supportedLngs: LANGUAGES,
+    fallbackLng: FALLBACK_LANG,
     lng,
-    fallbackNS: defaultNS,
-    defaultNS,
+    fallbackNS: DEFAULT_NS,
+    defaultNS: DEFAULT_NS,
     ns,
   };
 }

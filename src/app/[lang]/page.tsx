@@ -14,7 +14,7 @@ export default function Home({ params: { lang } }: PageProps) {
 
   return (
     <main>
-      <Box h="100vh">
+      <Box minH="100vh">
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.xl">
           <Heading textAlign="center" mb={{ base: 4, md: 8 }}>
             {t("title")}

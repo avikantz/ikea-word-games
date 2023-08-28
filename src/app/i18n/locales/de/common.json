@@ -27,5 +27,9 @@
   "new_highscore": "Neuer Highscore!",
   "highscore": "Highscore {{score}}",
   "thanks_for_playing": "Danke fürs spielen!",
-  "okay": "okay"
+  "okay": "okay",
+  "home": "Heim",
+  "faq": "FAQ",
+  "about": "Um",
+  "contact": "Kontakt"
 }
