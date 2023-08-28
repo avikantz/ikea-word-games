@@ -83,7 +83,8 @@ export const GameOverModal = ({
 
           {children}
         </ModalBody>
-        <ModalFooter justifyContent="center">
+        <ModalFooter justifyContent="space-between">
+          <Button autoFocus variant="outline" onClick={() => window.location.reload()}>{t("play_again")}</Button>
           <Button onClick={onClose}>{buttonTitle || t("okay")}</Button>
         </ModalFooter>
       </ModalContent>
