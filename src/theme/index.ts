@@ -1,7 +1,13 @@
 // 1. Import `extendTheme`
 import { extendTheme } from "@chakra-ui/react";
 
+import { Badge } from "./badge";
 import { Button } from "./button";
+import { Card } from "./card";
+import { Input } from "./input";
+import { Modal } from "./modal";
+import { Select } from "./select";
+import { Tag } from "./tag";
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
@@ -62,7 +68,13 @@ const theme = extendTheme({
     "blue-xl": "0 0 0 6px #008AFF",
   },
   components: {
+    Badge,
     Button,
+    Card,
+    Input,
+    Modal,
+    Select,
+    Tag,
   },
 });
 

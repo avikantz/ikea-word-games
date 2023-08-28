@@ -138,11 +138,11 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
           isDisabled={isDisabled}
           isInvalid={isInvalid}
         >
-          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" />
+          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" rounded="none" />
           {Array(length - 1)
             .fill(0)
             .map((_, i) => (
-              <PinInputField textTransform="uppercase" key={i} />
+              <PinInputField textTransform="uppercase" key={i} rounded="none" />
             ))}
         </PinInput>
       )}

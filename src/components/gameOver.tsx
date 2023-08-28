@@ -53,14 +53,7 @@ export const GameOverModal = ({
           {title || t("game_over")}
         </ModalHeader>
         <ModalBody>
-          <VStack
-            w="full"
-            rounded="md"
-            textAlign="center"
-            p={{ base: 4, md: 8 }}
-            mb={{ base: 4, md: 8 }}
-            bg="yellow.500"
-          >
+          <VStack w="full" textAlign="center" p={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }} bg="yellow.500">
             <Text fontWeight="semibold" fontSize="sm" mb="-4">
               {t("final_score")}
             </Text>
@@ -84,7 +77,9 @@ export const GameOverModal = ({
           {children}
         </ModalBody>
         <ModalFooter justifyContent="space-between">
-          <Button autoFocus variant="outline" onClick={() => window.location.reload()}>{t("play_again")}</Button>
+          <Button autoFocus variant="outline" onClick={() => window.location.reload()}>
+            {t("play_again")}
+          </Button>
           <Button onClick={onClose}>{buttonTitle || t("okay")}</Button>
         </ModalFooter>
       </ModalContent>

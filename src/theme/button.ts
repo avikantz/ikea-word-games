@@ -5,6 +5,7 @@ export const Button: ComponentStyleConfig = {
   baseStyle: {
     fontWeight: "bold",
     cursor: "pointer",
+    borderRadius: 0,
   },
   // styles for different sizes ("sm", "md", "lg")
   // sizes: {},
@@ -16,7 +17,6 @@ export const Button: ComponentStyleConfig = {
       backgroundColor: "black",
       textTransform: "uppercase",
       letterSpacing: "wide",
-      borderRadius: 0,
       _hover: {
         opacity: 0.4,
         backgroundColor: "black",
@@ -34,6 +34,7 @@ export const Button: ComponentStyleConfig = {
       px: 6,
       colorScheme: "black",
       borderColor: "black",
+      borderWidth: 1.5,
       color: "black",
       backgroundColor: "transparent",
       _hover: {

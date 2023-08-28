@@ -11,15 +11,7 @@ export const WordDisplay = ({ word, guess, stackProps, ...props }: WordDisplayPr
   const isMobile = useBreakpointValue({ base: true, md: false }, { fallback: "md" });
 
   return (
-    <HStack
-      w={{ base: "full", md: "auto" }}
-      justifyContent="center"
-      spacing="8"
-      px="6"
-      py="2"
-      rounded="md"
-      bg="gray.50"
-    >
+    <HStack w={{ base: "full", md: "auto" }} justifyContent="center" spacing="8" px="6" py="2" bg="gray.50">
       {isMobile ? (
         <Text as="span" textAlign="center" fontSize="xl" letterSpacing="8px" {...props}>
           {word.split("").map((w, i) => (
