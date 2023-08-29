@@ -5,6 +5,8 @@ export const Tag: ComponentStyleConfig = {
   baseStyle: {
     container: {
       borderRadius: 0,
+      px: { base: 3, md: 4 },
+      py: { base: 2, md: 3 },
     },
   },
   // styles for different sizes ("sm", "md", "lg")

@@ -92,7 +92,6 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
             {/* Skip */}
             <Button
               ref={nextButtonRef as Ref<HTMLButtonElement>}
-              size="sm"
               variant="outline"
               alignSelf="center"
               onClick={onPass}

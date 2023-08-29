@@ -114,7 +114,6 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
 
       <Button
         ref={nextButtonRef as Ref<HTMLButtonElement>}
-        size="sm"
         variant="outline"
         onClick={getWords}
         isLoading={!jumbleWord}

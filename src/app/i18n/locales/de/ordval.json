@@ -8,7 +8,7 @@
   "insane.desc": "Alle produkte sind auf der \"lagkapten\"",
   "unlimited": "Ordval ∞",
   "unlimited.desc": "Unbegrenztes raten!",
-  "question": "Was ist... \"{{product}}\"?",
+  "question": "Was ist ein \"{{product}}\"?",
   "how_to_play.title": "Ordval: Spielanleitung",
   "how_to_play.desc.1": "Sie erhalten eine beschreibung eines ikea-produkts. Wählen sie den namen aus, der am besten zur beschreibung passt.",
   "how_to_play.desc.2": "Es gibt {{runden}} runden. In jeder runde erhalten sie ein neues produkt zur identifizierung.",

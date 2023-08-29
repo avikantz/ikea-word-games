@@ -205,7 +205,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
           <VStack alignItems="stretch" spacing="8">
             <Box px="6" py="4" bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
-                {o("question", { product: ordvalRound.solution.desc })}
+                {o("question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>
 
@@ -224,7 +224,6 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             <HStack justifyContent="space-between">
               {/* Skip */}
               <Button
-                size="sm"
                 variant="outline"
                 alignSelf="center"
                 onClick={onPass}
@@ -235,7 +234,6 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
               </Button>
 
               <Button
-                size="sm"
                 variant="outline"
                 ref={nextButtonRef as Ref<HTMLButtonElement>}
                 onClick={onNextRound}

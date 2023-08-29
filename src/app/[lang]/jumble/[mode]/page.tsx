@@ -265,7 +265,6 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
           <HStack justifyContent="space-between">
             <Button
-              size="sm"
               variant="outline"
               onClick={onPass}
               isLoading={!jumbleWord}
@@ -277,7 +276,6 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
             </Button>
 
             <Button
-              size="sm"
               variant="outline"
               ref={nextButtonRef as Ref<HTMLButtonElement>}
               onClick={onNextRound}

@@ -71,7 +71,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
         {/* Active game */}
         {(bildvalRound && (
           <VStack alignItems="stretch" spacing="8">
-            <Box px="6" py="2" bg="gray.50">
+            <Box px="6" py="4" bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
                 {b("question", { product: bildvalRound.solution.name })}
               </Text>
@@ -92,7 +92,6 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
             {/* Skip */}
             <Button
               ref={nextButtonRef as Ref<HTMLButtonElement>}
-              size="sm"
               variant="outline"
               alignSelf="center"
               onClick={onPass}
