@@ -25,6 +25,7 @@ import { PATH_JUMBLE } from "@/utils/paths";
 import { JUMBLE } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useTranslation } from "@/app/i18n/client";
+import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 
 function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -106,11 +107,13 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   }, [difficulty, getJumbleWord, words]);
 
   // Get a new word on load after delay
-  useEffect(() => {
-    setTimeout(() => {
+  useEffectTimeout(
+    () => {
       getWords();
-    }, 500);
-  }, [getWords]);
+    },
+    [getWords],
+    1000,
+  );
 
   // Animate score on change
   useEffect(() => {

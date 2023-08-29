@@ -9,8 +9,8 @@ import {
   HStack,
   IconButton,
   SimpleGrid,
+  Skeleton,
   Spacer,
-  Spinner,
   Text,
   useDisclosure,
   VStack,
@@ -25,8 +25,9 @@ import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useBildval } from "@/hooks/useBildval";
-import { BildvalGuessOption, BildvalHowToPlayModal } from "@/components/bildval";
+import { BildvalGuessOption, BildvalGuessOptionSkeleton, BildvalHowToPlayModal } from "@/components/bildval";
 import { useTranslation } from "@/app/i18n/client";
+import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 
 function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -101,9 +102,13 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   }, [difficulty, getBildvalRound, words]);
 
   // Get a new word on load
-  useEffect(() => {
-    getBildvalWords();
-  }, [getBildvalWords]);
+  useEffectTimeout(
+    () => {
+      getBildvalWords();
+    },
+    [getBildvalWords],
+    1000,
+  );
 
   // Animate score on change
   useEffect(() => {
@@ -213,31 +218,44 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
                 />
               ))}
             </SimpleGrid>
-
-            <HStack justifyContent="space-between">
-              {/* Skip */}
-              <Button
-                variant="outline"
-                alignSelf="center"
-                onClick={onPass}
-                isLoading={!bildvalRound}
-                isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
-              >
-                {t("pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
-              </Button>
-
-              <Button
-                variant="outline"
-                ref={nextButtonRef as Ref<HTMLButtonElement>}
-                onClick={onNextRound}
-                isDisabled={round > BILDVAL.MAX_ROUNDS || !showSolution}
-                alignSelf="center"
-              >
-                {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
-              </Button>
-            </HStack>
           </VStack>
-        )) || <Spinner size="lg" />}
+        )) || (
+          <VStack alignItems="stretch" spacing="8">
+            <Skeleton h="84px" />
+
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+            </SimpleGrid>
+          </VStack>
+        )}
+
+        <HStack justifyContent="space-between">
+          {/* Skip */}
+          <Button
+            variant="outline"
+            alignSelf="center"
+            onClick={onPass}
+            isLoading={!bildvalRound}
+            loadingText={t("pass")}
+            isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
+          >
+            {t("pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
+          </Button>
+
+          {/* Next */}
+          <Button
+            variant="outline"
+            ref={nextButtonRef as Ref<HTMLButtonElement>}
+            onClick={onNextRound}
+            isDisabled={!bildvalRound || round > BILDVAL.MAX_ROUNDS || !showSolution}
+            alignSelf="center"
+          >
+            {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
+          </Button>
+        </HStack>
 
         <BildvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 

@@ -118,3 +118,9 @@ export const BildvalGuessOption = ({
     </Box>
   );
 };
+
+export const BildvalGuessOptionSkeleton = () => (
+  <Box border="2px solid" borderColor="black" position="relative" w="full" h={{ base: "25vh", md: "72", lg: "96" }}>
+    <Skeleton w="full" h="full" />
+  </Box>
+);

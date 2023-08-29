@@ -10,6 +10,7 @@ import { matchWords } from "@/utils/words";
 import { IKEAProductCard, IKEAProductCardSkeleton, WordDisplay, WordInput, WordInputSkeleton } from "@/components";
 import { JUMBLE } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
+import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 
 function JumbleGameCustom({ params: { lang } }: PageProps) {
   // Translations
@@ -49,11 +50,13 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
   }, [getJumbleWord]);
 
   // Load words on mount after delay
-  useEffect(() => {
-    setTimeout(() => {
+  useEffectTimeout(
+    () => {
       getWords();
-    }, 500);
-  }, [getWords]);
+    },
+    [getWords],
+    1000,
+  );
 
   const onMatch = (value: string) => {
     if (!jumbleWord) return;

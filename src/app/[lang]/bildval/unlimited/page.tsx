@@ -1,14 +1,15 @@
 "use client";
 
-import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Box, Button, Container, Heading, SimpleGrid, Spinner, Text, VStack } from "@chakra-ui/react";
+import { Ref, useCallback, useRef, useState } from "react";
+import { Box, Button, Container, Heading, SimpleGrid, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
 import { useBildval } from "@/hooks/useBildval";
-import { BildvalGuessOption } from "@/components/bildval";
+import { BildvalGuessOption, BildvalGuessOptionSkeleton } from "@/components/bildval";
 import { BILDVAL } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
+import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 
 function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
@@ -40,9 +41,13 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   }, [getBildvalRound]);
 
   // Get a new word on load
-  useEffect(() => {
-    getBildvalWords();
-  }, [getBildvalWords]);
+  useEffectTimeout(
+    () => {
+      getBildvalWords();
+    },
+    [getBildvalWords],
+    1000,
+  );
 
   const onPass = () => {
     getBildvalWords();
@@ -88,19 +93,31 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
                 />
               ))}
             </SimpleGrid>
-
-            {/* Skip */}
-            <Button
-              ref={nextButtonRef as Ref<HTMLButtonElement>}
-              variant="outline"
-              alignSelf="center"
-              onClick={onPass}
-              isLoading={!bildvalRound}
-            >
-              {showSolution ? t("next") : t("pass")}
-            </Button>
           </VStack>
-        )) || <Spinner size="lg" />}
+        )) || (
+          <VStack alignItems="stretch" spacing="8">
+            <Skeleton h="84px" />
+
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+              <BildvalGuessOptionSkeleton />
+            </SimpleGrid>
+          </VStack>
+        )}
+
+        {/* Skip */}
+        <Button
+          ref={nextButtonRef as Ref<HTMLButtonElement>}
+          variant="outline"
+          alignSelf="center"
+          onClick={onPass}
+          isLoading={!bildvalRound}
+          loadingText={t("pass")}
+        >
+          {showSolution ? t("next") : t("pass")}
+        </Button>
       </VStack>
     </Container>
   );
