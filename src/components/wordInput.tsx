@@ -11,7 +11,16 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { HStack, IconButton, Input, PinInput, PinInputField, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  HStack,
+  IconButton,
+  Input,
+  PinInput,
+  PinInputField,
+  Skeleton,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
 
 import { matchCharacters } from "@/utils/words";
@@ -159,5 +168,14 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     </HStack>
   );
 });
-
 WordInput.displayName = "WordInput";
+
+export const WordInputSkeleton = () => (
+  <HStack justifyContent="center" w={{ base: "full", md: "auto" }}>
+    {Array(7)
+      .fill(0)
+      .map((_, i) => (
+        <Skeleton key={`wi-skeleton-${i}`} w="12" h="12" />
+      ))}
+  </HStack>
+);

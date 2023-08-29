@@ -1,13 +1,13 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, Container, Divider, Heading, Select, Text, VStack } from "@chakra-ui/react";
+import { Button, Container, Divider, Heading, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
-import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
+import { IKEAProductCard, IKEAProductCardSkeleton, WordDisplay, WordInput, WordInputSkeleton } from "@/components";
 import { JUMBLE } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 
@@ -48,8 +48,11 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
     }, 100);
   }, [getJumbleWord]);
 
+  // Load words on mount after delay
   useEffect(() => {
-    getWords();
+    setTimeout(() => {
+      getWords();
+    }, 500);
   }, [getWords]);
 
   const onMatch = (value: string) => {
@@ -81,43 +84,52 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
         {j("title_difficulty", { difficulty: t("custom") })}
       </Heading>
 
-      {jumbleWord?.product && (
-        <IKEAProductCard
-          product={jumbleWord.product}
-          showDesc={attempts > 0 || success}
-          showImage={attempts > 1 || success}
-          showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-          isSuccess={success}
-          isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
-        >
-          {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
-            <Text fontSize="sm" color="gray.400">
-              {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
-            </Text>
-          )}
-        </IKEAProductCard>
-      )}
+      {(jumbleWord && (
+        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+          <IKEAProductCard
+            product={jumbleWord.product}
+            showDesc={attempts > 0 || success}
+            showImage={attempts > 1 || success}
+            showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+            isSuccess={success}
+            isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
+          >
+            {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
+              <Text fontSize="sm" color="gray.400">
+                {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
+              </Text>
+            )}
+          </IKEAProductCard>
 
-      {jumbleWord?.shuffledWord && <WordDisplay word={jumbleWord?.shuffledWord} guess={guess} />}
+          <WordDisplay word={jumbleWord?.shuffledWord} guess={guess} />
 
-      {jumbleWord?.word && (
-        <WordInput
-          ref={inputRef as Ref<HTMLInputElement>}
-          value={guess}
-          setValue={setGuess}
-          length={jumbleWord.word.length}
-          targetValue={jumbleWord.word}
-          onSubmit={onMatch}
-          isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-        />
+          <WordInput
+            ref={inputRef as Ref<HTMLInputElement>}
+            value={guess}
+            setValue={setGuess}
+            length={jumbleWord.word.length}
+            targetValue={jumbleWord.word}
+            onSubmit={onMatch}
+            isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+          />
+        </VStack>
+      )) || (
+        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+          <IKEAProductCardSkeleton />
+
+          <Skeleton h="52px" />
+
+          <WordInputSkeleton />
+        </VStack>
       )}
 
       <Button
         ref={nextButtonRef as Ref<HTMLButtonElement>}
         variant="outline"
         onClick={getWords}
-        isLoading={!jumbleWord}
         alignSelf="center"
+        isLoading={!jumbleWord}
+        loadingText={t("pass")}
       >
         {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
       </Button>

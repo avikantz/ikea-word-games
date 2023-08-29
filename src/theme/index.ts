@@ -7,6 +7,7 @@ import { Card } from "./card";
 import { Input } from "./input";
 import { Modal } from "./modal";
 import { Select } from "./select";
+import { Skeleton } from "./skeleton";
 import { Tag } from "./tag";
 
 export const CONFETTI_COLORS = ["#FFDB00", "#008AFF", "#111111"];
@@ -76,6 +77,7 @@ const theme = extendTheme({
     Input,
     Modal,
     Select,
+    Skeleton,
     Tag,
   },
 });

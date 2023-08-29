@@ -11,6 +11,7 @@ import {
   Center,
   Heading,
   Image,
+  Skeleton,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -122,3 +123,23 @@ export const IKEAProductCard = ({
     </Card>
   );
 };
+
+export const IKEAProductCardSkeleton = () => (
+  <Card
+    w={{ base: "full", md: "auto" }}
+    direction="row"
+    overflow="hidden"
+    variant="outline"
+    boxSizing="border-box"
+    borderColor="gray.200"
+    position="relative"
+  >
+    <Skeleton w={{ base: "120px", md: "200px" }} h={{ base: "120px", md: "200px" }} overflow="hidden" />
+    <Stack flexGrow={1} minW={{ md: "300px" }} gap="0">
+      <CardBody p={{ base: 2, md: 4 }}>
+        <Skeleton w="24" h="5" mb={{ base: 1, md: 2 }} />
+        <Skeleton w="36" h="4" />
+      </CardBody>
+    </Stack>
+  </Card>
+);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, HStack, Heading, IconButton, Spacer, Text, VStack, useDisclosure, Spinner } from "@chakra-ui/react";
+import { Button, HStack, Heading, IconButton, Spacer, Text, VStack, useDisclosure, Skeleton } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
@@ -12,8 +12,10 @@ import {
   GameRound,
   GameScore,
   IKEAProductCard,
+  IKEAProductCardSkeleton,
   WordDisplay,
   WordInput,
+  WordInputSkeleton,
 } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
@@ -103,9 +105,11 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
     }, 100);
   }, [difficulty, getJumbleWord, words]);
 
-  // Get a new word on load
+  // Get a new word on load after delay
   useEffect(() => {
-    getWords();
+    setTimeout(() => {
+      getWords();
+    }, 500);
   }, [getWords]);
 
   // Animate score on change
@@ -277,7 +281,15 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
             </Button>
           </HStack>
         </VStack>
-      )) || <Spinner size="lg" />}
+      )) || (
+        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+          <IKEAProductCardSkeleton />
+
+          <Skeleton h="52px" />
+
+          <WordInputSkeleton />
+        </VStack>
+      )}
 
       <JumbleHowToPlayModal
         isOpen={isOpenHowToPlayModal}
