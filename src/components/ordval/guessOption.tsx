@@ -3,7 +3,7 @@ import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
-import { Box, BoxProps, Center, Link, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { CONFETTI_COLORS } from "@/theme";
 
 interface OrdvalGuessOptionProps extends BoxProps {
@@ -75,11 +75,7 @@ export const OrdvalGuessOption = ({
       onClick={onClick}
       cursor={showSolution ? "default" : "pointer"}
       transition="all 0.1s ease"
-      _hover={
-        showSolution
-          ? undefined
-          : { base: {}, md: { boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.05)" } }
-      }
+      _hover={showSolution ? undefined : { base: {}, md: { boxShadow: "blue-xl", borderColor: "blue.500" } }}
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
       borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
       boxShadow={showSolution ? (solution?.id === guess.id ? greenShadow : redShadow) : undefined}
@@ -109,3 +105,9 @@ export const OrdvalGuessOption = ({
     </Box>
   );
 };
+
+export const OrdvalGuessOptionSkeleton = () => (
+  <Center border="2px solid" borderColor="black" w="full" h={{ base: "16", md: "32", lg: "40" }}>
+    <Skeleton w="32" h="37px" />
+  </Center>
+);

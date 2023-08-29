@@ -9,8 +9,8 @@ import {
   HStack,
   IconButton,
   SimpleGrid,
+  Skeleton,
   Spacer,
-  Spinner,
   Text,
   useDisclosure,
   VStack,
@@ -25,8 +25,9 @@ import { PATH_ORDVAL } from "@/utils/paths";
 import { ORDVAL } from "@/utils/constants";
 import { useOrdval } from "@/hooks/useOrdval";
 import { useScores } from "@/hooks/useScores";
-import { OrdvalGuessOption, OrdvalHowToPlayModal } from "@/components/ordval";
+import { OrdvalGuessOption, OrdvalGuessOptionSkeleton, OrdvalHowToPlayModal } from "@/components/ordval";
 import { useTranslation } from "@/app/i18n/client";
+import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 
 function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -101,9 +102,13 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
   }, [difficulty, getOrdvalRound, words]);
 
   // Get a new word on load
-  useEffect(() => {
-    getOrdvalWords();
-  }, [getOrdvalWords]);
+  useEffectTimeout(
+    () => {
+      getOrdvalWords();
+    },
+    [getOrdvalWords],
+    1000,
+  );
 
   // Animate score on change
   useEffect(() => {
@@ -213,31 +218,44 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
                 />
               ))}
             </SimpleGrid>
-
-            <HStack justifyContent="space-between">
-              {/* Skip */}
-              <Button
-                variant="outline"
-                alignSelf="center"
-                onClick={onPass}
-                isLoading={!ordvalRound}
-                isDisabled={round > ORDVAL.MAX_ROUNDS || passCount >= ORDVAL.MAX_PASSES}
-              >
-                {t("pass_count", { count: ORDVAL.MAX_PASSES - passCount })}
-              </Button>
-
-              <Button
-                variant="outline"
-                ref={nextButtonRef as Ref<HTMLButtonElement>}
-                onClick={onNextRound}
-                isDisabled={round > ORDVAL.MAX_ROUNDS || !showSolution}
-                alignSelf="center"
-              >
-                {round === 0 ? t("start") : round === ORDVAL.MAX_ROUNDS ? t("finish") : t("next")}
-              </Button>
-            </HStack>
           </VStack>
-        )) || <Spinner size="lg" />}
+        )) || (
+          <VStack alignItems="stretch" spacing="8">
+            <Skeleton h="78px" />
+
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 8 }}>
+              <OrdvalGuessOptionSkeleton />
+              <OrdvalGuessOptionSkeleton />
+              <OrdvalGuessOptionSkeleton />
+              <OrdvalGuessOptionSkeleton />
+            </SimpleGrid>
+          </VStack>
+        )}
+
+        <HStack justifyContent="space-between">
+          {/* Skip */}
+          <Button
+            variant="outline"
+            alignSelf="center"
+            onClick={onPass}
+            isLoading={!ordvalRound}
+            loadingText={t("pass")}
+            isDisabled={round > ORDVAL.MAX_ROUNDS || passCount >= ORDVAL.MAX_PASSES}
+          >
+            {t("pass_count", { count: ORDVAL.MAX_PASSES - passCount })}
+          </Button>
+
+          {/* Next */}
+          <Button
+            variant="outline"
+            ref={nextButtonRef as Ref<HTMLButtonElement>}
+            onClick={onNextRound}
+            isDisabled={!ordvalRound || round > ORDVAL.MAX_ROUNDS || !showSolution}
+            alignSelf="center"
+          >
+            {round === 0 ? t("start") : round === ORDVAL.MAX_ROUNDS ? t("finish") : t("next")}
+          </Button>
+        </HStack>
 
         <OrdvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 
