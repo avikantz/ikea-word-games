@@ -4,7 +4,7 @@ import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Button, Container, Divider, Heading, Select, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { IKEAJumbleWord, PageProps } from "@/interfaces";
+import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { IKEAProductCard, WordDisplay, WordInput } from "@/components";
@@ -14,7 +14,7 @@ import { useTranslation } from "@/app/i18n/client";
 function JumbleGameCustom({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, "jumble");
+  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   // Refs
   const inputRef = useRef<HTMLInputElement>();

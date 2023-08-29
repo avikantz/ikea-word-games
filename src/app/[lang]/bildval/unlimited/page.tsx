@@ -4,7 +4,7 @@ import { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, Container, Heading, SimpleGrid, Spinner, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { BildvalRound, IKEAProduct, PageProps } from "@/interfaces";
+import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
 import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption } from "@/components/bildval";
 import { BILDVAL } from "@/utils/constants";
@@ -13,7 +13,7 @@ import { useTranslation } from "@/app/i18n/client";
 function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, "bildval");
+  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   // Refs
   const nextButtonRef = useRef<HTMLButtonElement>();

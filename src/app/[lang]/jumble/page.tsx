@@ -13,10 +13,11 @@ import {
   PATH_JUMBLE_INSANE,
   PATH_JUMBLE_MEDIUM,
 } from "@/utils/paths";
+import { GAMES } from "@/interfaces";
 
 function JumbleGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, "jumble");
+  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   return (
     <>
@@ -26,7 +27,7 @@ function JumbleGame({ params: { lang } }: PageProps) {
 
       <Text textAlign="center">{j("desc")}</Text>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }} py={{ base: 4, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }} py={{ base: 4, md: 8 }}>
         <ModeCard
           title={t("easy")}
           desc={j("easy.desc")}

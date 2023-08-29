@@ -13,10 +13,11 @@ import {
   PATH_BILDVAL_MEDIUM,
   PATH_BILDVAL_UNLIMITED,
 } from "@/utils/paths";
+import { GAMES } from "@/interfaces";
 
 function BildvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, "bildval");
+  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   return (
     <>
@@ -26,7 +27,7 @@ function BildvalGame({ params: { lang } }: PageProps) {
 
       <Text textAlign="center">{b("desc")}</Text>
 
-      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, lg: 8 }} py={{ base: 4, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }} py={{ base: 4, md: 8 }}>
         <ModeCard
           title={t("easy")}
           desc={b("easy.desc")}

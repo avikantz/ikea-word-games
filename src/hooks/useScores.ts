@@ -1,12 +1,11 @@
 import { useEffect, useCallback, useState } from "react";
 
-import { Score, Scores } from "@/interfaces";
+import { GAMES, Score, Scores } from "@/interfaces";
 
 const SCORES_KEY = "scores";
 
 interface UseScoresProps {
-  // TODO: refactor
-  game: "jumble" | "bildval" | "scrabble";
+  game: GAMES;
   mode: string;
 }
 

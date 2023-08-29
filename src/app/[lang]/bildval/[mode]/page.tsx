@@ -21,7 +21,7 @@ import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
 import { GameOverModal } from "@/components";
-import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps } from "@/interfaces";
+import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
@@ -35,7 +35,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   // Translations
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, "bildval");
+  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   // Modals
   const {
@@ -62,7 +62,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const [showSolution, setShowSolution] = useState<boolean>(false);
 
   // Scoring
-  const { scores, saveScore } = useScores({ game: "bildval", mode: difficulty });
+  const { scores, saveScore } = useScores({ game: GAMES.BILDVAL, mode: difficulty });
 
   // Bildval round
   const [bildvalRound, setBildvalRound] = useState<BildvalRound>();

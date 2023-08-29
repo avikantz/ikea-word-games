@@ -19,7 +19,7 @@ import { event } from "nextjs-google-analytics";
 
 import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
-import { IKEAJumbleWord, GAME_MODE, ModePageProps } from "@/interfaces";
+import { IKEAJumbleWord, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import { PATH_JUMBLE } from "@/utils/paths";
@@ -33,7 +33,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
   // Translations
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, "jumble");
+  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   // Modals
   const {
@@ -64,7 +64,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   const [success, setSuccess] = useState<boolean>(false);
 
   // Scoring
-  const { scores, saveScore } = useScores({ game: "jumble", mode: difficulty });
+  const { scores, saveScore } = useScores({ game: GAMES.JUMBLE, mode: difficulty });
 
   // Jumble words
   const [jumbleWord, setJumbleWord] = useState<IKEAJumbleWord>();
