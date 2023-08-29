@@ -27,6 +27,9 @@ export const BildvalGuessOption = ({
   const greenShadow = useBreakpointValue({ base: "green-md", md: "green-xl" }, { fallback: "md" });
 
   const onClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    // Nothing if solution is shown
+    if (showSolution) return;
+
     if (isLoaded) {
       // Check if correct
       if (solution?.id === guess.id) {
