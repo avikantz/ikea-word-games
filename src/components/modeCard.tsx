@@ -2,11 +2,14 @@
 
 import React, { ReactNode } from "react";
 import {
+  Box,
   BoxProps,
   Button,
   Heading,
   LinkBox,
   LinkOverlay,
+  Skeleton,
+  SkeletonText,
   Spacer,
   Text,
 } from "@chakra-ui/react";
@@ -59,3 +62,22 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
     </LinkBox>
   );
 };
+
+export const ModeCardSkeleton = () => (
+  <Box
+    p={{ base: 4, md: 8 }}
+    minH={{ base: "15vh", md: "30vh" }}
+    display="flex"
+    flexDirection="column"
+    gap="2"
+    alignItems="flex-start"
+    justifyContent="space-between"
+    border="2px solid"
+    borderColor="black"
+  >
+    <Skeleton w="36" h="6" />
+    <SkeletonText noOfLines={2} w="full" />
+    <Spacer />
+    <Skeleton w="24" h="12" rounded="full" />
+  </Box>
+);
