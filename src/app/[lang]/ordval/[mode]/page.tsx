@@ -171,7 +171,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
         <HStack justifyContent="center" spacing="4">
           <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
             {o("title_difficulty", { difficulty })}
@@ -200,14 +200,14 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
         {/* Active game */}
         {(ordvalRound && round > 0 && round <= ORDVAL.MAX_ROUNDS && (
-          <VStack alignItems="stretch" spacing="8">
-            <Box px="6" py="4" bg="gray.50">
+          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+            <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
                 {o("question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 8 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
               {ordvalRound.guesses.map((guess) => (
                 <OrdvalGuessOption
                   key={guess.name}
@@ -220,10 +220,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             </SimpleGrid>
           </VStack>
         )) || (
-          <VStack alignItems="stretch" spacing="8">
+          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
             <Skeleton h="78px" />
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 4, md: 8 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />

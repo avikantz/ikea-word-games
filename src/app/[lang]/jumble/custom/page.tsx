@@ -82,13 +82,13 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
   };
 
   return (
-    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 4, md: 8 }}>
+    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 6, md: 8 }}>
       <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
         {j("title_difficulty", { difficulty: t("custom") })}
       </Heading>
 
       {(jumbleWord && (
-        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
           <IKEAProductCard
             product={jumbleWord.product}
             showDesc={attempts > 0 || success}
@@ -117,7 +117,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
           />
         </VStack>
       )) || (
-        <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
           <IKEAProductCardSkeleton />
 
           <Skeleton h="52px" />

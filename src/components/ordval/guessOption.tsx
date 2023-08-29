@@ -75,7 +75,9 @@ export const OrdvalGuessOption = ({
       onClick={onClick}
       cursor={showSolution ? "default" : "pointer"}
       transition="all 0.1s ease"
-      _hover={showSolution ? undefined : { base: {}, md: { boxShadow: "blue-xl", borderColor: "blue.500" } }}
+      _hover={
+        showSolution ? undefined : { base: { bg: "gray.100" }, md: { boxShadow: "blue-xl", borderColor: "blue.500" } }
+      }
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
       borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
       boxShadow={showSolution ? (solution?.id === guess.id ? greenShadow : redShadow) : undefined}

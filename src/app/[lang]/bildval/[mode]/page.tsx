@@ -171,7 +171,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 4, md: 8 }}>
+      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
         <HStack justifyContent="center" spacing="4">
           <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
             {b("title_difficulty", { difficulty })}
@@ -200,8 +200,8 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
         {/* Active game */}
         {(bildvalRound && round > 0 && round <= BILDVAL.MAX_ROUNDS && (
-          <VStack alignItems="stretch" spacing="8">
-            <Box px="6" py="4" bg="gray.50">
+          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+            <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
                 {b("question", { product: bildvalRound.solution.name })}
               </Text>
@@ -220,7 +220,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             </SimpleGrid>
           </VStack>
         )) || (
-          <VStack alignItems="stretch" spacing="8">
+          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
             <Skeleton h="84px" />
 
             <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
