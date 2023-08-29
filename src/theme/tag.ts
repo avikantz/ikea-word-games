@@ -1,5 +1,6 @@
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
+// @ts-ignore
 export const Tag: ComponentStyleConfig = {
   // style object for base or default style
   baseStyle: {
