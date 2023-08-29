@@ -11,7 +11,6 @@ import {
   SimpleGrid,
   Spacer,
   Spinner,
-  Tag,
   Text,
   useDisclosure,
   VStack,
@@ -20,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
-import { GameOverModal } from "@/components";
+import { GameMultiplier, GameOverModal, GameRound, GameScore } from "@/components";
 import { OrdvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { PATH_ORDVAL } from "@/utils/paths";
 import { ORDVAL } from "@/utils/constants";
@@ -184,19 +183,13 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
-            <Tag size="lg" bg="blue.500" color="white">
-              {t("rounds", { count: round, max: ORDVAL.MAX_ROUNDS })}
-            </Tag>
+            <GameRound round={round} maxRounds={ORDVAL.MAX_ROUNDS} />
 
             <Spacer />
 
-            <Tag ref={multiplierRef} size="lg" bg="yellow.500" color="black">
-              {multiplier}x
-            </Tag>
+            <GameMultiplier multiplier={multiplier} ref={multiplierRef} />
 
-            <Tag ref={scoreRef} size="lg" bg="black" color="white">
-              {t("score", { score })}
-            </Tag>
+            <GameScore score={score} ref={scoreRef} />
           </HStack>
         )}
 

@@ -1,23 +1,20 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import {
-  Button,
-  HStack,
-  Heading,
-  IconButton,
-  Spacer,
-  Tag,
-  Text,
-  VStack,
-  useDisclosure,
-  Spinner,
-} from "@chakra-ui/react";
+import { Button, HStack, Heading, IconButton, Spacer, Text, VStack, useDisclosure, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
-import { GameOverModal, IKEAProductCard, WordDisplay, WordInput } from "@/components";
+import {
+  GameMultiplier,
+  GameOverModal,
+  GameRound,
+  GameScore,
+  IKEAProductCard,
+  WordDisplay,
+  WordInput,
+} from "@/components";
 import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
@@ -210,26 +207,20 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
           size="sm"
           isRound
           icon={<Text>?</Text>}
-          aria-label={t('how_to_play')}
+          aria-label={t("how_to_play")}
           onClick={onOpenHowToPlayModal}
         />
       </HStack>
 
       {round > 0 && (
         <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
-          <Tag ref={roundRef} size="lg" bg="blue.500" color="white">
-            {t("rounds", { count: round, max: JUMBLE.MAX_ROUNDS })}
-          </Tag>
+          <GameRound ref={roundRef} round={round} maxRounds={JUMBLE.MAX_ROUNDS} />
 
           <Spacer />
 
-          <Tag ref={multiplierRef} size="lg" bg="yellow.500" color="black">
-            {multiplier}x
-          </Tag>
+          <GameMultiplier ref={multiplierRef} multiplier={multiplier} />
 
-          <Tag ref={scoreRef} size="lg" bg="black" color="white">
-            {t("score", { score })}
-          </Tag>
+          <GameScore ref={scoreRef} score={score} />
         </HStack>
       )}
 
