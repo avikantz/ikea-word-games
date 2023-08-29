@@ -16,4 +16,11 @@ export const PATH_BILDVAL_HARD = `${PATH_BILDVAL}/hard`;
 export const PATH_BILDVAL_INSANE = `${PATH_BILDVAL}/insane`;
 export const PATH_BILDVAL_UNLIMITED = `${PATH_BILDVAL}/unlimited`;
 
-export const PATH_SCRABBLE = "/scrabble";
+export const PATH_ORDVAL = "/ordval";
+export const PATH_ORDVAL_EASY = `${PATH_ORDVAL}/easy`;
+export const PATH_ORDVAL_MEDIUM = `${PATH_ORDVAL}/medium`;
+export const PATH_ORDVAL_HARD = `${PATH_ORDVAL}/hard`;
+export const PATH_ORDVAL_INSANE = `${PATH_ORDVAL}/insane`;
+export const PATH_ORDVAL_UNLIMITED = `${PATH_ORDVAL}/unlimited`;
+
+export const PATH_WORDLE = "/wordle";
