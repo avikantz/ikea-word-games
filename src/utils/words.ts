@@ -4,6 +4,8 @@ declare global {
     shuffle(): string;
     /// Remove accents from word
     removeAccents(): string;
+    /// Clean word
+    clean(): string;
     /// Sort characters in word
     sortCharacters(): string;
     /// Filter string to only include the given string/character(s)
@@ -28,6 +30,11 @@ String.prototype.removeAccents = function () {
   return this.normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toUpperCase();
+};
+
+/// Clean a string
+String.prototype.clean = function () {
+  return this.normalize("NFD").replace(/[^\w\s]+/g, '');
 };
 
 /// Sort characters in word
