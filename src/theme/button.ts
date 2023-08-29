@@ -1,6 +1,6 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { defineStyleConfig } from "@chakra-ui/react";
 
-export const Button: ComponentStyleConfig = {
+export const Button = defineStyleConfig({
   // style object for base or default style
   baseStyle: {
     fontWeight: "bold",
@@ -57,4 +57,4 @@ export const Button: ComponentStyleConfig = {
   defaultProps: {
     colorScheme: "black",
   },
-};
+});

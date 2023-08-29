@@ -1,6 +1,8 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
-export const Card: ComponentStyleConfig = {
+const helpers = createMultiStyleConfigHelpers(["container"]);
+
+export const Card = helpers.defineMultiStyleConfig({
   // style object for base or default style
   baseStyle: {
     container: {
@@ -13,4 +15,4 @@ export const Card: ComponentStyleConfig = {
   // variants: {},
   // default values
   // defaultProps: {},
-};
+});

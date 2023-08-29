@@ -1,6 +1,6 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { defineStyleConfig } from "@chakra-ui/react";
 
-export const Skeleton: ComponentStyleConfig = {
+export const Skeleton = defineStyleConfig({
   // style object for base or default style
   baseStyle: {
     borderRadius: 0,
@@ -11,4 +11,4 @@ export const Skeleton: ComponentStyleConfig = {
   // variants: {},
   // default values
   // defaultProps: {},
-};
+});

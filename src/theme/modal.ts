@@ -1,6 +1,8 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
-export const Modal: ComponentStyleConfig = {
+const helpers = createMultiStyleConfigHelpers(["dialog", "header", "closeButton"]);
+
+export const Modal = helpers.defineMultiStyleConfig({
   // style object for base or default style
   baseStyle: {
     dialog: {
@@ -27,4 +29,4 @@ export const Modal: ComponentStyleConfig = {
   // variants: {},
   // default values
   // defaultProps: {},
-};
+});

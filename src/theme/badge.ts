@@ -1,6 +1,6 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { defineStyleConfig } from "@chakra-ui/react";
 
-export const Badge: ComponentStyleConfig = {
+export const Badge = defineStyleConfig({
   // style object for base or default style
   baseStyle: {
     borderRadius: 0,
@@ -11,4 +11,4 @@ export const Badge: ComponentStyleConfig = {
   // variants: {},
   // default values
   // defaultProps: {},
-};
+});

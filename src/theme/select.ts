@@ -1,6 +1,8 @@
-import { ComponentStyleConfig } from "@chakra-ui/react";
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
-export const Select: ComponentStyleConfig = {
+const helpers = createMultiStyleConfigHelpers(["field"]);
+
+export const Select = helpers.defineMultiStyleConfig({
   // style object for base or default style
   baseStyle: {
     field: {
@@ -13,4 +15,4 @@ export const Select: ComponentStyleConfig = {
   // variants: {},
   // default values
   // defaultProps: {},
-};
+});
