@@ -9,6 +9,8 @@ import { Modal } from "./modal";
 import { Select } from "./select";
 import { Tag } from "./tag";
 
+export const CONFETTI_COLORS = ["#FFDB00", "#008AFF", "#111111"];
+
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
   fonts: {

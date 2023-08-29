@@ -3,7 +3,8 @@ import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
-import { Box, BoxProps, Center, Collapse, Image, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Link, Text, useBreakpointValue } from "@chakra-ui/react";
+import { CONFETTI_COLORS } from "@/theme";
 
 interface OrdvalGuessOptionProps extends BoxProps {
   guess: IKEAProduct;
@@ -88,19 +89,23 @@ export const OrdvalGuessOption = ({
       h={{ base: "16", md: "32", lg: "40" }}
       {...props}
     >
+      {isSuccess && (
+        <Center position="absolute" top="0" bottom="0" left="0" right="0">
+          <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
+        </Center>
+      )}
+
       <Text
+        as={showSolution ? Link : undefined}
+        href={showSolution ? guess.url : undefined}
+        target="_blank"
         textAlign="center"
+        letterSpacing="wider"
         fontSize={{ base: "xl", md: "2xl" }}
         fontWeight={showSolution && solution?.id === guess.id ? "bold" : "normal"}
       >
         {guess.name}
       </Text>
-
-      {isSuccess && (
-        <Center position="absolute" top="0" bottom="0" left="0" right="0" zIndex="2">
-          <ConfettiExplosion colors={["#FFDB00", "#008AFF", "#111111"]} height="80vh" />
-        </Center>
-      )}
     </Box>
   );
 };

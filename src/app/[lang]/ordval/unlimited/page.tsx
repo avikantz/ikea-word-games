@@ -72,7 +72,7 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
         {(ordvalRound && (
           <VStack alignItems="stretch" spacing="8">
             <Box px={{ base: 6, md: 12 }} py="4" bg="gray.50">
-              <Text textAlign="center" fontSize={{ base: "2xl", md: "3xl" }} fontWeight="semibold">
+              <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
                 {o("question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>

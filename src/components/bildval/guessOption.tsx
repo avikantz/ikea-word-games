@@ -4,6 +4,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 
 import { IKEAProduct } from "@/interfaces";
 import { Box, BoxProps, Center, Collapse, Image, Link, Skeleton, useBreakpointValue } from "@chakra-ui/react";
+import { CONFETTI_COLORS } from "@/theme";
 
 interface BildvalGuessOptionProps extends BoxProps {
   guess: IKEAProduct;
@@ -102,7 +103,7 @@ export const BildvalGuessOption = ({
       />
       {isSuccess && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0" zIndex="2">
-          <ConfettiExplosion colors={["#FFDB00", "#008AFF", "#111111"]} height="80vh" />
+          <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
         </Center>
       )}
       <Box position="absolute" bottom="0" left="0" right="0">

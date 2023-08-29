@@ -20,6 +20,7 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { IKEAProduct } from "@/interfaces";
 import { replaceWithQuestionMarks } from "@/utils/words";
 import { useTranslation } from "@/app/i18n/client";
+import { CONFETTI_COLORS } from "@/theme";
 
 interface IKEAProductProps extends CardProps {
   product: IKEAProduct;
@@ -86,7 +87,7 @@ export const IKEAProductCard = ({
       {/* Success confetti */}
       {isSuccess && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
-          <ConfettiExplosion colors={["#FFDB00", "#008AFF", "#111111"]} height="80vh" />
+          <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
         </Center>
       )}
 
