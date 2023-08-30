@@ -82,8 +82,8 @@ export const BildvalGuessOption = ({
         showSolution
           ? undefined
           : {
-              base: { bg: "gray.100" },
-              md: { boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.025)" },
+              base: { bg: "gray.50" },
+              md: { bg: "white", boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.025)" },
             }
       }
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}

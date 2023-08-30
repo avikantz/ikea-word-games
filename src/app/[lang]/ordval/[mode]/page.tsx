@@ -240,7 +240,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             onClick={onPass}
             isLoading={!ordvalRound}
             loadingText={t("pass")}
-            isDisabled={round > ORDVAL.MAX_ROUNDS || passCount >= ORDVAL.MAX_PASSES}
+            isDisabled={round > ORDVAL.MAX_ROUNDS || passCount >= ORDVAL.MAX_PASSES || showSolution}
           >
             {t("pass_count", { count: ORDVAL.MAX_PASSES - passCount })}
           </Button>

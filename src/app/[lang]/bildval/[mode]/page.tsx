@@ -240,7 +240,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             onClick={onPass}
             isLoading={!bildvalRound}
             loadingText={t("pass")}
-            isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES}
+            isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES || showSolution}
           >
             {t("pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
           </Button>
