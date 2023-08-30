@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ChangeEvent } from "react";
-import { Box, Center, Container, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Container, Image, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useRouter, usePathname } from "next/navigation";
 import NextLink from "next/link";
 
@@ -26,8 +26,6 @@ export const Footer = ({ lang }: FooterProps) => {
   return (
     <Box as="footer">
       <Box bg="blue.700" color="white" py={{ base: 6, md: 12 }}>
-        {/* <Logo /> */}
-
         <Container
           as={Stack}
           direction={{ base: "column", md: "row" }}
@@ -38,7 +36,10 @@ export const Footer = ({ lang }: FooterProps) => {
         >
           {/* Footer links */}
           <Link as={NextLink} href={`/${lang}`}>
-            {t("home")}
+            <Stack direction={{ base: "column", md: "row" }} alignItems="center">
+              <Image src="/assets/logo.svg" alt="Ordspel logo" h="16" />
+              <Text>{t("home")}</Text>
+            </Stack>
           </Link>
           <Link>{t("faq")}</Link>
           <Link>{t("about")}</Link>

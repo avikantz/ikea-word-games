@@ -10,8 +10,24 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
+  applicationName: "Ordspel",
   title: "IKEA Word Games",
   description: "Word games with IKEA product names",
+  openGraph: {
+    type: "website",
+    title: "IKEA Word Games",
+    description: "Word games with IKEA product names",
+    images: [{ url: "/assets/cover.jpg" }],
+  },
+  authors: { name: "avikantz", url: "https://avikantz.xyz" },
+  themeColor: "#005399",
+  manifest: "/assets/site.webmanifest",
+  icons: [
+    { sizes: "180x180", url: "/assets/apple-touch-icon.png", rel: "apple-touch-icon" },
+    { sizes: "32x32", url: "/assets/favicon-32x32.png", rel: "icon" },
+    { sizes: "16x16", url: "/assets/favicon-16x16.png", rel: "icon" },
+    { url: "/assets/safari-pinned-tab.svg", rel: "mask-icon", color: "#005399" },
+  ],
 };
 
 interface RootLayoutParams {
