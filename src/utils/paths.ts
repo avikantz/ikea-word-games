@@ -2,6 +2,11 @@ export const getLocalizedPath = (path: string, locale: string = "en") => {
   return `/${locale}${path}`;
 };
 
+export const PATH_EMAIL = "mailto:avikantsainidbz@gmail.com?subject=Hello%20from%20ordspel";
+
+export const PATH_FAQ = "/faq";
+export const PATH_CONTACT = "/contact";
+
 export const PATH_JUMBLE = "/jumble";
 export const PATH_JUMBLE_EASY = `${PATH_JUMBLE}/easy`;
 export const PATH_JUMBLE_MEDIUM = `${PATH_JUMBLE}/medium`;

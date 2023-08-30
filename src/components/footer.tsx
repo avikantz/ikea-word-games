@@ -7,6 +7,7 @@ import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
+import { getLocalizedPath, PATH_FAQ } from "@/utils/paths";
 
 interface FooterProps {
   lang: string;
@@ -41,7 +42,10 @@ export const Footer = ({ lang }: FooterProps) => {
               <Text>{t("home")}</Text>
             </Stack>
           </Link>
-          <Link>{t("faq")}</Link>
+
+          <Link as={NextLink} href={getLocalizedPath(PATH_FAQ, lang)}>
+            {t("faq")}
+          </Link>
           <Link>{t("about")}</Link>
           <Link>{t("contact")}</Link>
 

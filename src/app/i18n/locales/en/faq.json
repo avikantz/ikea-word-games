@@ -1,0 +1,16 @@
+{
+  "q.1": "What even is this? What kind of name is Ordspel!",
+  "a.1": "A collection of simple word games based on IKEA product names. Ordspel is just Swedish for \"word game\".",
+  "q.2": "But why make an entire game of IKEA products?",
+  "a.2": "Because, why not! It's fun, isn't it? Don't tell me I wasted a lot of hours!",
+  "q.3": "How do I play?",
+  "a.3": "Select on the game you want to play and follow the instructions, it's that simple!",
+  "q.4": "How do I change the language?",
+  "a.4": "Use the selector in the footer.",
+  "q.5": "What data are you collecting?",
+  "a.5": "Just basic events for game analytics, no personal data is collected.",
+  "q.6": "Uhh, I maybe found a bug?",
+  "a.6": "Awh, that sucks, please describe it over <email>email</email>. I shall try my best to fix it.",
+  "q.7": "How do I get in touch?",
+  "a.7": "Please send me an <email>email</email>."
+}
