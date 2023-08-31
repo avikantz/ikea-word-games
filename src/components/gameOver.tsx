@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import {
   Button,
+  HStack,
   Modal,
   ModalBody,
   ModalContent,
@@ -8,11 +9,14 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalProps,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
+
 import { Scores } from "@/interfaces";
 import { useTranslation } from "@/app/i18n/client";
+import { BuyMeACoffeeButton } from ".";
 
 interface GameOverModalProps extends Omit<ModalProps, "children"> {
   title?: string;
@@ -76,11 +80,25 @@ export const GameOverModal = ({
 
           {children}
         </ModalBody>
-        <ModalFooter justifyContent="space-between">
-          <Button autoFocus variant="outline" onClick={() => window.location.reload()}>
-            {t("play_again")}
-          </Button>
-          <Button onClick={onClose}>{buttonTitle || t("okay")}</Button>
+        <ModalFooter>
+          <Stack
+            w="full"
+            direction={{ base: "column", md: "row" }}
+            spacing={{ base: 4, md: 2 }}
+            justifyContent="space-between"
+          >
+            <BuyMeACoffeeButton />
+
+            <HStack justifyContent="space-between">
+              <Button variant="outline" onClick={onClose}>
+                {buttonTitle || t("close")}
+              </Button>
+
+              <Button autoFocus onClick={() => window.location.reload()}>
+                {t("play_again")}
+              </Button>
+            </HStack>
+          </Stack>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -8,6 +8,7 @@ import NextLink from "next/link";
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
 import { getLocalizedPath, PATH_FAQ } from "@/utils/paths";
+import { BuyMeACoffeeButton } from ".";
 
 interface FooterProps {
   lang: string;
@@ -50,6 +51,8 @@ export const Footer = ({ lang }: FooterProps) => {
           <Link>{t("contact")}</Link>
 
           <Spacer />
+
+          <BuyMeACoffeeButton size="sm" />
 
           {/* Language switcher */}
           <Select maxW="32" size="sm" defaultValue={lang} onChange={onChangeLanguage}>

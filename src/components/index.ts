@@ -6,3 +6,4 @@ export * from "./wordDisplay";
 export * from "./modeCard";
 export * from "./game";
 export * from "./gameOver";
+export * from "./coffeeButton";
