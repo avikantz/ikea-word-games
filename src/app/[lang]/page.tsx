@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Container, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE, PATH_ORDVAL } from "@/utils/paths";
@@ -18,9 +18,17 @@ export default function Home({ params: { lang } }: PageProps) {
     <main>
       <Box minH="100vh">
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.xl">
-          <Heading textAlign="center" mb={{ base: 4, md: 8 }}>
-            {t("title")}
-          </Heading>
+          <Stack
+            direction={{ base: "column", md: "row" }}
+            justifyContent="center"
+            alignItems="center"
+            mb={{ base: 4, md: 8 }}
+          >
+            <Image src="/assets/logo_wide.svg" alt="Ordspel logo" h="16" />
+            <Heading fontSize={{ base: "2xl", md: "4xl" }} textAlign="center">
+              {t("title")}
+            </Heading>
+          </Stack>
 
           <Text textAlign="center">{t("desc")}</Text>
 
