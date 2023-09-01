@@ -9,6 +9,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
 import { getLocalizedPath, PATH_CONTACT, PATH_FAQ } from "@/utils/paths";
 import { BuyMeACoffeeButton } from ".";
+import { SocialShareButtons } from "./socialShares";
 
 interface FooterProps {
   lang: string;
@@ -66,9 +67,15 @@ export const Footer = ({ lang }: FooterProps) => {
         </Container>
       </Box>
 
-      <Center py={{ base: 6, md: 12 }} bg="yellow.300" color="black">
+      <Center py={{ base: 6, md: 12 }} bg="yellow.300" color="black" flexDirection="column" gap="4">
         <Text fontSize="lg" textAlign="center" fontWeight="semibold">
           {t("title")}
+        </Text>
+
+        <SocialShareButtons />
+
+        <Text textAlign="center" fontWeight="semibold">
+          {t("share")}
         </Text>
       </Center>
     </Box>

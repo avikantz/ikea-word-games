@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import {
   Button,
+  Divider,
   HStack,
   Modal,
   ModalBody,
@@ -17,6 +18,7 @@ import {
 import { Scores } from "@/interfaces";
 import { useTranslation } from "@/app/i18n/client";
 import { BuyMeACoffeeButton } from ".";
+import { SocialShareButtons } from "./socialShares";
 
 interface GameOverModalProps extends Omit<ModalProps, "children"> {
   title?: string;
@@ -74,12 +76,27 @@ export const GameOverModal = ({
             )}
           </VStack>
 
-          <Text textAlign="center" fontSize="sm" color="gray.500">
+          <Text textAlign="center" fontSize="lg" color="gray.500">
             {desc || t("thanks_for_playing")}
           </Text>
 
           {children}
+
+          <Divider my="4" />
+
+          <SocialShareButtons
+            iconSize="24"
+            size="sm"
+            iconColor="black"
+            bgColor="white"
+            stackProps={{ gap: 2, my: 2 }}
+          />
+
+          <Text textAlign="center" fontSize="sm" color="gray.500">
+            {t("share")}
+          </Text>
         </ModalBody>
+
         <ModalFooter>
           <Stack
             w="full"
