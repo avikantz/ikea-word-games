@@ -1,9 +1,11 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { event } from "nextjs-google-analytics";
 
 import { Q_MAP_KEY, Q_UNIQUE_KEY, UniqueQuery, fetchMap, fetchUnique } from "@/queries";
 import { IKEAProduct } from "@/interfaces";
 import { getLevenshteinDistance } from "@/utils/levenshtein";
+import { VADARJAG } from "@/utils/constants";
 
 type VadarjagListFunction = (searchTerm: string) => IKEAProduct[];
 
@@ -51,6 +53,8 @@ export const useVadarjag = ({ count = 10 }: useVadarjagProps) => {
         closestProducts.push(ikeaMap[item]);
         i++;
       }
+
+      event(VADARJAG.ROUND_EVENT);
 
       return closestProducts;
     },
