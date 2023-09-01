@@ -9,13 +9,11 @@ export interface UniqueQuery {
   mode?: GAME_MODE;
 }
 
-export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({
-  queryKey,
-}) => {
+export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ queryKey }) => {
   const [_key, { mode, length }] = queryKey;
 
   // Get from local storage if available
-  const lsKey = `${Q_UNIQUE_KEY}_${mode || length}`;
+  const lsKey = `${Q_UNIQUE_KEY}_${mode || length || "all"}`;
   if (typeof window !== "undefined") {
     const list = window.localStorage.getItem(lsKey);
     if (list) {

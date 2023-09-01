@@ -10,7 +10,7 @@ export const PATH_IKEA_NAGASANDRA = "https://ritvishree.com/";
 export const PATH_FAQ = "/faq";
 export const PATH_CONTACT = "/contact";
 
-export const PATH_JUMBLE = "/jumble";
+export const PATH_JUMBLE = "/jumble"; // TODO: virrvarr
 export const PATH_JUMBLE_EASY = `${PATH_JUMBLE}/easy`;
 export const PATH_JUMBLE_MEDIUM = `${PATH_JUMBLE}/medium`;
 export const PATH_JUMBLE_HARD = `${PATH_JUMBLE}/hard`;
@@ -30,5 +30,7 @@ export const PATH_ORDVAL_MEDIUM = `${PATH_ORDVAL}/medium`;
 export const PATH_ORDVAL_HARD = `${PATH_ORDVAL}/hard`;
 export const PATH_ORDVAL_INSANE = `${PATH_ORDVAL}/insane`;
 export const PATH_ORDVAL_UNLIMITED = `${PATH_ORDVAL}/unlimited`;
+
+export const PATH_VADARJAG = "/vadarjag";
 
 export const PATH_WORDLE = "/wordle";

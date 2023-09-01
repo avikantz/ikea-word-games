@@ -6,6 +6,8 @@ declare global {
     removeAccents(): string;
     /// Clean word
     clean(): string;
+    /// Remove whitespaces
+    removeWhitespaces(): string;
     /// Sort characters in word
     sortCharacters(): string;
     /// Filter string to only include the given string/character(s)
@@ -34,7 +36,12 @@ String.prototype.removeAccents = function () {
 
 /// Clean a string
 String.prototype.clean = function () {
-  return this.normalize("NFD").replace(/[^\w\s]+/g, '');
+  return this.normalize("NFD").replace(/[^\w\s]+/g, "");
+};
+
+/// Remove whitespaces
+String.prototype.removeWhitespaces = function () {
+  return this.replace(/\s/g, "");
 };
 
 /// Sort characters in word

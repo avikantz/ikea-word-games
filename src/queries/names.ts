@@ -12,8 +12,9 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({
   const [_key, { length }] = queryKey;
 
   // Get from local storage if available
+  const lsKey = `${Q_NAMES_KEY}_${length || "all"}`;
   if (typeof window !== "undefined") {
-    const list = window.localStorage.getItem(`${Q_NAMES_KEY}_${length}`);
+    const list = window.localStorage.getItem(lsKey);
     if (list) {
       return JSON.parse(list);
     }
@@ -34,7 +35,7 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({
   // Save to local storage
   if (typeof window !== "undefined") {
     const list = await response.text();
-    window.localStorage.setItem(`${Q_NAMES_KEY}_${length}`, list);
+    window.localStorage.setItem(lsKey, list);
   }
 
   return response.json();
