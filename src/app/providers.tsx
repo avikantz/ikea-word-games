@@ -8,6 +8,7 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import theme from "@/theme";
 import { Footer } from "@/components/footer";
+import { CacheProvider } from "@chakra-ui/next-js";
 
 const CACHE_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -22,17 +23,19 @@ const queryClient = new QueryClient({
 
 export function Providers({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
-    <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
+    <CacheProvider>
+      <ChakraProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
 
-        <Analytics />
-        <GoogleAnalytics trackPageViews={false} />
+          <Analytics />
+          <GoogleAnalytics trackPageViews={false} />
 
-        {children}
+          {children}
 
-        <Footer lang={lang} />
-      </QueryClientProvider>
-    </ChakraProvider>
+          <Footer lang={lang} />
+        </QueryClientProvider>
+      </ChakraProvider>
+    </CacheProvider>
   );
 }

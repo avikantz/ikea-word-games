@@ -3,6 +3,9 @@ export const getLocalizedPath = (path: string, locale: string = "en") => {
 };
 
 export const PATH_EMAIL = "mailto:avikantsainidbz@gmail.com?subject=Hello%20from%20ordspel";
+export const PATH_AVIKANTZ = "https://avikantz.xyz/";
+export const PATH_RITVISHREE = "https://ritvishree.com/";
+export const PATH_IKEA_NAGASANDRA = "https://ritvishree.com/";
 
 export const PATH_FAQ = "/faq";
 export const PATH_CONTACT = "/contact";

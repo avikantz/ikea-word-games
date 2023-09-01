@@ -7,7 +7,7 @@ import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
-import { getLocalizedPath, PATH_FAQ } from "@/utils/paths";
+import { getLocalizedPath, PATH_CONTACT, PATH_FAQ } from "@/utils/paths";
 import { BuyMeACoffeeButton } from ".";
 
 interface FooterProps {
@@ -40,15 +40,16 @@ export const Footer = ({ lang }: FooterProps) => {
           <Link as={NextLink} href={`/${lang}`}>
             <Stack direction={{ base: "column", md: "row" }} alignItems="center">
               <Image src="/assets/logo.svg" alt="Ordspel logo" h="16" />
-              <Text>{t("home")}</Text>
+              <Text>{t("play")}</Text>
             </Stack>
           </Link>
 
           <Link as={NextLink} href={getLocalizedPath(PATH_FAQ, lang)}>
             {t("faq")}
           </Link>
-          <Link>{t("about")}</Link>
-          <Link>{t("contact")}</Link>
+          <Link as={NextLink} href={getLocalizedPath(PATH_CONTACT, lang)}>
+            {t("contact")}
+          </Link>
 
           <Spacer />
 

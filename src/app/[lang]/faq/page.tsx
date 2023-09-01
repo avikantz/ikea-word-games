@@ -18,7 +18,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
     <main>
       <Box minH="100vh">
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.sm">
-          <Heading textAlign="center" mb="8">
+          <Heading textAlign="center" mb={{ base: 8, md: 16 }}>
             {t("faq")}
           </Heading>
 
@@ -26,7 +26,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
             {Array(FAQ_COUNT)
               .fill(0)
               .map((_, i) => (
-                <VStack key={i} textAlign="start" alignItems="stretch">
+                <VStack key={i} textAlign="start" alignItems="stretch" spacing="4">
                   <Heading as="h3" fontSize="lg">
                     {f(`q.${i + 1}`)}
                   </Heading>
