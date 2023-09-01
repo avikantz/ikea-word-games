@@ -9,11 +9,19 @@ import { ChangeEventHandler, KeyboardEventHandler, LegacyRef, useEffect, useRef,
 import { useVadarjag } from "@/hooks/useVadarjag";
 import { IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
 import { useDebounce } from "@/hooks/useDebounce";
+import { VadarjagWhatIsThisModal } from "@/components/vadarjag";
 
 export default function Vadarjag({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
   const { t: v } = useTranslation(lang, GAMES.VADARJAG);
+
+  // Modals
+  const {
+    isOpen: isOpenWhatIsThisModal,
+    onOpen: onOpenWhatIsThisModal,
+    onClose: onCloseWhatIsThisModal,
+  } = useDisclosure();
 
   // Refs
   const inputRef = useRef<HTMLInputElement>();
@@ -21,7 +29,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
   // State
   const [value, setValue] = useState<string>("");
   const debouncedValue = useDebounce<string>(value, 1000);
-  
+
   const [products, setProducts] = useState<IKEAProduct[]>([]);
   const { isOpen: showMore, onToggle: toggleMore, onClose: hideMore } = useDisclosure();
 
@@ -59,7 +67,19 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
 
   return (
     <VStack spacing={{ base: 4, md: 8 }} alignItems="stretch">
-      <Heading textAlign="center">{v("title")}</Heading>
+      <HStack justifyContent="center" spacing="4">
+        <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
+          {v("title")}
+        </Heading>
+        <IconButton
+          variant="outline"
+          size="sm"
+          isRound
+          icon={<Text>?</Text>}
+          aria-label={v("what_is_this.title")}
+          onClick={onOpenWhatIsThisModal}
+        />
+      </HStack>
 
       <Text textAlign="center">{v("desc")}</Text>
 
@@ -101,6 +121,8 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
           {showMore ? t("show_less") : t("show_more")}
         </Button>
       )}
+
+      <VadarjagWhatIsThisModal isOpen={isOpenWhatIsThisModal} onClose={onCloseWhatIsThisModal} />
     </VStack>
   );
 }
