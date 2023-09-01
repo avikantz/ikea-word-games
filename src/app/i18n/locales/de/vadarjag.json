@@ -1,0 +1,9 @@
+{
+  "title": "Vadarjag",
+  "desc": "Vad-är-jag oder \"Was bin ich\". Finden sie heraus, welches IKEA produkt sie sind!",
+  "cta": "Sag es mir!",
+  "placeholder": "Geben sie ihren namen oder ein wort oder etwas ein",
+  "what_is_this.title": "Vadarjag: Was ist das?",
+  "what_is_this.desc.1": "Dies verleiht dem eingegebenen namen das nächste IKEA produkt.",
+  "what_is_this.desc.2": "Das war's, nichts besonderes oder AI erzeugt oder so."
+}

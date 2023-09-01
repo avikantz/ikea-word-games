@@ -1,0 +1,9 @@
+{
+  "title": "Vadarjag",
+  "desc": "Vad-är-jag or \"What am I\". Find out what IKEA product you are!",
+  "cta": "Do tell me!",
+  "placeholder": "Enter your name or a word or something",
+  "what_is_this.title": "Vadarjag: What is this?",
+  "what_is_this.desc.1": "This gives the closest IKEA product to the entered name.",
+  "what_is_this.desc.2": "That's it, nothing fancy or AI generated or anything."
+}

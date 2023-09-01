@@ -3,7 +3,7 @@
 import { Box, Container, Heading, Image, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE, PATH_ORDVAL } from "@/utils/paths";
+import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE, PATH_ORDVAL, PATH_VADARJAG } from "@/utils/paths";
 import { ModeCard } from "@/components";
 import { PageProps } from "@/interfaces/page";
 import { GAMES } from "@/interfaces";
@@ -13,6 +13,7 @@ export default function Home({ params: { lang } }: PageProps) {
   const { t: j } = useTranslation(lang, GAMES.JUMBLE);
   const { t: b } = useTranslation(lang, GAMES.BILDVAL);
   const { t: o } = useTranslation(lang, GAMES.ORDVAL);
+  const { t: v } = useTranslation(lang, GAMES.VADARJAG);
 
   return (
     <main>
@@ -36,7 +37,13 @@ export default function Home({ params: { lang } }: PageProps) {
             <ModeCard title={j("title")} desc={j("desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />
             <ModeCard title={b("title")} desc={b("desc")} href={getLocalizedPath(PATH_BILDVAL, lang)} />
             <ModeCard title={o("title")} desc={o("desc")} href={getLocalizedPath(PATH_ORDVAL, lang)} />
-            <ModeCard title="Wordle" isDisabled desc="Coming soon!" />
+            <ModeCard
+              title={v("title")}
+              desc={v("desc")}
+              buttonTitle={v("cta")}
+              href={getLocalizedPath(PATH_VADARJAG, lang)}
+            />
+            {/* <ModeCard title="Wordle" isDisabled desc="Coming soon!" /> */}
           </SimpleGrid>
         </Container>
       </Box>

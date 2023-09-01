@@ -4,6 +4,7 @@ export enum GAMES {
   JUMBLE = "jumble",
   BILDVAL = "bildval",
   ORDVAL = "ordval",
+  VADARJAG = "vadarjag",
 }
 
 export * from "./page";
