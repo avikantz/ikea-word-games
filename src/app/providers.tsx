@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 import theme from "@/theme";
 import { Footer } from "@/components/footer";
 import { CacheProvider } from "@chakra-ui/next-js";
+import { HomeButton } from "@/components/homeButton";
 
 const CACHE_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -34,6 +35,7 @@ export function Providers({ lang, children }: { lang: string; children: React.Re
           {children}
 
           <Footer lang={lang} />
+          <HomeButton lang={lang} />
         </QueryClientProvider>
       </ChakraProvider>
     </CacheProvider>

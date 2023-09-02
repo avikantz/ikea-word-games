@@ -7,3 +7,4 @@ export * from "./modeCard";
 export * from "./game";
 export * from "./gameOver";
 export * from "./coffeeButton";
+export * from "./homeButton";

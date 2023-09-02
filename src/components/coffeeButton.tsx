@@ -12,7 +12,7 @@ export const BuyMeACoffeeButton = (props: ButtonProps) => {
       target="_blank"
       bg="yellow.300"
       color="black"
-      _hover={{ bg: "yellow.600", color: "black" }}
+      _hover={{ opacity: 0.5 }}
       {...props}
     >
       ☕️ {t("buy_me_a_coffee")}
