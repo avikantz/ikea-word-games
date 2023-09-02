@@ -27,3 +27,11 @@ export function getOptions(lng = FALLBACK_LANG, ns = DEFAULT_NS) {
     ns,
   };
 }
+
+export function getLanguagesMap() {
+  const languageMap = {};
+  LANGUAGES.forEach((lang) => {
+    languageMap[lang] = `/${lang}`;
+  });
+  return languageMap;
+}

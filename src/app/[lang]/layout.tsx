@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "@fontsource-variable/open-sans";
 import { dir } from "i18next";
 
-import { LANGUAGES } from "@/app/i18n/settings";
+import { getLanguagesMap, LANGUAGES } from "@/app/i18n/settings";
 import { Providers } from "../providers";
 
 export async function generateStaticParams() {
@@ -17,7 +17,11 @@ export const metadata: Metadata = {
     type: "website",
     title: "IKEA Word Games",
     description: "Word games with IKEA product names",
-    images: [{ url: "/assets/cover.jpg" }],
+    images: "/assets/cover.jpg",
+  },
+  alternates: {
+    canonical: "/",
+    languages: getLanguagesMap(),
   },
   authors: { name: "avikantz", url: "https://avikantz.xyz" },
   themeColor: "#005399",
