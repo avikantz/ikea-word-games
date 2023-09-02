@@ -1,9 +1,9 @@
 "use client";
 
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { ModeCard } from "@/components";
+import { ModeCard, PageTitle } from "@/components";
 import { PageProps } from "@/interfaces/page";
 import {
   getLocalizedPath,
@@ -21,13 +21,9 @@ function OrdvalGame({ params: { lang } }: PageProps) {
 
   return (
     <>
-      <Heading textAlign="center" mb={{ base: 4, md: 8 }}>
-        {o("title")}
-      </Heading>
+      <PageTitle title={t("ordval")} desc={o("desc")} />
 
-      <Text textAlign="center">{o("desc")}</Text>
-
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }} py={{ base: 4, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }}>
         <ModeCard
           title={t("easy")}
           desc={o("easy.desc")}

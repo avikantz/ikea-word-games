@@ -1,9 +1,9 @@
 "use client";
 
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { ModeCard } from "@/components";
+import { ModeCard, PageTitle } from "@/components";
 import { PageProps } from "@/interfaces/page";
 import {
   getLocalizedPath,
@@ -20,14 +20,10 @@ function BildvalGame({ params: { lang } }: PageProps) {
   const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   return (
-    <>
-      <Heading textAlign="center" mb={{ base: 4, md: 8 }}>
-        {b("title")}
-      </Heading>
+    <Box>
+      <PageTitle title={b("title")} desc={b("desc")} />
 
-      <Text textAlign="center">{b("desc")}</Text>
-
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }} py={{ base: 4, md: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }}>
         <ModeCard
           title={t("easy")}
           desc={b("easy.desc")}
@@ -58,7 +54,7 @@ function BildvalGame({ params: { lang } }: PageProps) {
           href={getLocalizedPath(PATH_BILDVAL_UNLIMITED, lang)}
         />
       </SimpleGrid>
-    </>
+    </Box>
   );
 }
 

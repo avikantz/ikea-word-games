@@ -7,5 +7,6 @@ export * from "./header";
 export * from "./homeButton";
 export * from "./ikeaProduct";
 export * from "./modeCard";
+export * from "./pageTitle";
 export * from "./wordDisplay";
 export * from "./wordInput";

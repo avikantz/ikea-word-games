@@ -40,7 +40,7 @@ export const Footer = ({ lang }: FooterProps) => {
           {/* Footer links */}
           <Link as={NextLink} href={`/${lang}`}>
             <Stack direction={{ base: "column", md: "row" }} alignItems="center">
-              <Image src="/assets/logo.svg" alt="Ordspel logo" h="16" />
+              <Image src="/assets/logo_wide.svg" alt="Ordspel logo" h="16" w="auto" />
               <Text>{t("play")}</Text>
             </Stack>
           </Link>

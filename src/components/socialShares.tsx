@@ -90,7 +90,7 @@ export const SocialShareButtons = ({
       <PinterestShareButton
         description={desc || t("share.desc")}
         url={shareUrl}
-        media={`${window.location.href}/assets/cover.jpg`}
+        media={`${process.env.NEXT_PUBLIC_BASE_URL ?? window.location.href}/assets/cover.jpg`}
       >
         <IconButton
           as="span"

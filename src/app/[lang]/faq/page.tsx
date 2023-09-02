@@ -7,6 +7,7 @@ import { Trans } from "react-i18next";
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
 import { getLocalizedPath, PATH_ABOUT, PATH_EMAIL } from "@/utils/paths";
+import { PageTitle } from "@/components/pageTitle";
 
 const FAQ_COUNT = 7;
 
@@ -18,9 +19,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
     <main>
       <Box minH="100vh">
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.sm">
-          <Heading textAlign="center" mb={{ base: 8, md: 16 }}>
-            {t("faq")}
-          </Heading>
+          <PageTitle title={t("faq")} />
 
           <VStack w="full" alignItems="stretch" spacing="8" divider={<Divider />}>
             {Array(FAQ_COUNT)
