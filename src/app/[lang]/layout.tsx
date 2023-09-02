@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import "@fontsource-variable/open-sans";
 import { dir } from "i18next";
 
-import { getLanguagesMap, LANGUAGES } from "@/app/i18n/settings";
 import { Providers } from "../providers";
+import { getLanguagesMap, LANGUAGES } from "@/app/i18n/settings";
+import { BASE_URL } from "@/utils/constants";
 
 export async function generateStaticParams() {
   return LANGUAGES.map((lang) => ({ lang }));
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_VERCEL_URL ?? `http://localhost:${process.env.PORT ?? 3000}/`),
+  metadataBase: new URL(BASE_URL),
   applicationName: "Ordspel",
   title: "IKEA Word Games",
   description: "Word games with IKEA product names",

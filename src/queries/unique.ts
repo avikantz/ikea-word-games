@@ -1,6 +1,7 @@
 import { QueryFunction } from "@tanstack/react-query";
 
 import { GAME_MODE } from "@/interfaces";
+import { BASE_URL } from "@/utils/constants";
 
 export const Q_UNIQUE_KEY = "q_unique";
 
@@ -21,7 +22,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
     }
   }
 
-  const url = new URL("/api/list/unique", process.env.NEXT_PUBLIC_VERCEL_URL ?? window.location.origin);
+  const url = new URL("/api/list/unique", BASE_URL);
 
   if (mode) {
     url.searchParams.append("mode", mode);
