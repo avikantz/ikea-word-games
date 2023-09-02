@@ -6,7 +6,7 @@ import { Trans } from "react-i18next";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
-import { getLocalizedPath, PATH_CONTACT, PATH_EMAIL } from "@/utils/paths";
+import { getLocalizedPath, PATH_ABOUT, PATH_EMAIL } from "@/utils/paths";
 
 const FAQ_COUNT = 7;
 
@@ -38,7 +38,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
                           <Link
                             as={NextLink}
                             color="blue.500"
-                            href={getLocalizedPath(PATH_CONTACT, lang)}
+                            href={getLocalizedPath(PATH_ABOUT, lang)}
                             target="_blank"
                           />
                         ),
