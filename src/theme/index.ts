@@ -13,6 +13,7 @@ import { Tag } from "./tag";
 export const CONFETTI_COLORS = ["#FFDB00", "#008AFF", "#111111"];
 
 export const PADDING = {
+  SM: { base: 3, md: 4, xl: 6 },
   DEFAULT: { base: 4, md: 6, xl: 8 },
   LG: { base: 6, md: 8 },
 };

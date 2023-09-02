@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next/initReactI18next";
 
 import { DEFAULT_NS, getOptions } from "./settings";
 
-const initI18next = async (lng: string, ns: string) => {
+export const initI18next = async (lng: string, ns: string = DEFAULT_NS) => {
   const i18nInstance = createInstance();
   await i18nInstance
     .use(initReactI18next)
@@ -19,4 +19,8 @@ export async function useTranslation(lng: string, ns: string = DEFAULT_NS, optio
     t: i18nextInstance.getFixedT(lng, Array.isArray(ns) ? ns[0] : ns, options.keyPrefix),
     i18n: i18nextInstance,
   };
+}
+
+export async function getTFunction(lng: string, ns?: string) {
+  return await (await initI18next(lng, ns)).getFixedT(lng, ns);
 }

@@ -10,6 +10,7 @@ import { LANGUAGE_LIST } from "@/app/i18n/settings";
 import { getLocalizedPath, PATH_ABOUT, PATH_FAQ } from "@/utils/paths";
 import { SocialShareButtons } from "./socialShares";
 import { BuyMeACoffeeButton } from ".";
+import { PADDING } from "@/theme/index";
 
 interface FooterProps {
   lang: string;
@@ -66,7 +67,7 @@ export const Footer = ({ lang }: FooterProps) => {
       </Box>
 
       {!pathname.endsWith(PATH_ABOUT) && (
-        <Center py={{ base: 6, md: 12 }} bg="yellow.300" color="black" flexDirection="column" gap="4">
+        <Center py={PADDING.DEFAULT} bg="yellow.300" color="black" flexDirection="column" gap={PADDING.SM}>
           <Text textAlign="center" fontWeight="semibold">
             {t("share")}
           </Text>

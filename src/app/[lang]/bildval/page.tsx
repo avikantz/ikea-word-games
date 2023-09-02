@@ -15,6 +15,7 @@ import {
 } from "@/utils/paths";
 import { GAMES } from "@/interfaces";
 import { PADDING } from "@/theme";
+import Head from "next/head";
 
 function BildvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -23,6 +24,9 @@ function BildvalGame({ params: { lang } }: PageProps) {
   return (
     <Box>
       <PageTitle title={b("title")} desc={b("desc")} />
+      <Head>
+        <title>{b("title")}</title>
+      </Head>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
