@@ -1,13 +1,13 @@
 "use client";
 
-import { Button, Divider, HStack, Heading, IconButton, Input, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Button, Divider, HStack, IconButton, Input, Text, VStack, useDisclosure } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
 import { GAMES, IKEAProduct } from "@/interfaces";
 import { ChangeEventHandler, KeyboardEventHandler, LegacyRef, useEffect, useRef, useState } from "react";
 import { useVadarjag } from "@/hooks/useVadarjag";
-import { IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
+import { GameTitle, IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
 import { useDebounce } from "@/hooks/useDebounce";
 import { VadarjagWhatIsThisModal } from "@/components/vadarjag";
 
@@ -67,19 +67,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
 
   return (
     <VStack spacing={{ base: 4, md: 8 }} alignItems="stretch">
-      <HStack justifyContent="center" spacing="4">
-        <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-          {v("title")}
-        </Heading>
-        <IconButton
-          variant="outline"
-          size="sm"
-          isRound
-          icon={<Text>?</Text>}
-          aria-label={v("what_is_this.title")}
-          onClick={onOpenWhatIsThisModal}
-        />
-      </HStack>
+      <GameTitle title={v("title")} onInfoClick={onOpenWhatIsThisModal} />
 
       <Text textAlign="center">{v("desc")}</Text>
 

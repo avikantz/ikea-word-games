@@ -1,13 +1,20 @@
 "use client";
 
-import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, Container, Divider, Heading, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Ref, useCallback, useRef, useState } from "react";
+import { Button, Container, Divider, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
-import { IKEAProductCard, IKEAProductCardSkeleton, WordDisplay, WordInput, WordInputSkeleton } from "@/components";
+import {
+  GameTitle,
+  IKEAProductCard,
+  IKEAProductCardSkeleton,
+  WordDisplay,
+  WordInput,
+  WordInputSkeleton,
+} from "@/components";
 import { JUMBLE } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
@@ -83,9 +90,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
 
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 6, md: 8 }}>
-      <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-        {j("title_difficulty", { difficulty: t("custom") })}
-      </Heading>
+      <GameTitle title={j("title_difficulty", { difficulty: t("custom") })} />
 
       {(jumbleWord && (
         <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>

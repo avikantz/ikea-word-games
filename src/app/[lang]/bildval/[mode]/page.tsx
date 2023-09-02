@@ -5,9 +5,7 @@ import {
   Box,
   Button,
   Container,
-  Heading,
   HStack,
-  IconButton,
   SimpleGrid,
   Skeleton,
   Spacer,
@@ -19,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
-import { GameMultiplier, GameOverModal, GameRound, GameScore } from "@/components";
+import { GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
 import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
@@ -172,19 +170,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   return (
     <Container maxW="container.lg" px="0">
       <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <HStack justifyContent="center" spacing="4">
-          <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-            {b("title_difficulty", { difficulty })}
-          </Heading>
-          <IconButton
-            variant="outline"
-            size="sm"
-            isRound
-            icon={<Text>?</Text>}
-            aria-label={t("how_to_play")}
-            onClick={onOpenHowToPlayModal}
-          />
-        </HStack>
+        <GameTitle title={b("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
 
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">

@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Box, Button, Container, Heading, SimpleGrid, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, SimpleGrid, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
@@ -10,6 +10,7 @@ import { BildvalGuessOption, BildvalGuessOptionSkeleton } from "@/components/bil
 import { BILDVAL } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
+import { GameTitle } from "@/components/gameTitle";
 
 function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
@@ -69,9 +70,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   return (
     <Container maxW="container.lg" px="0">
       <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-          {b("title_difficulty", { difficulty: "∞" })}
-        </Heading>
+        <GameTitle title={b("title_difficulty", { difficulty: "∞" })} />
 
         {/* Active game */}
         {(bildvalRound && (

@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, HStack, Heading, IconButton, Spacer, Text, VStack, useDisclosure, Skeleton } from "@chakra-ui/react";
+import { Button, HStack, Spacer, Text, VStack, useDisclosure, Skeleton } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
@@ -11,6 +11,7 @@ import {
   GameOverModal,
   GameRound,
   GameScore,
+  GameTitle,
   IKEAProductCard,
   IKEAProductCardSkeleton,
   WordDisplay,
@@ -205,19 +206,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 6, md: 8 }}>
-      <HStack justifyContent="center" spacing="4">
-        <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }}>
-          {j("title_difficulty", { difficulty: t(mode) })}
-        </Heading>
-        <IconButton
-          variant="outline"
-          size="sm"
-          isRound
-          icon={<Text>?</Text>}
-          aria-label={t("how_to_play")}
-          onClick={onOpenHowToPlayModal}
-        />
-      </HStack>
+      <GameTitle title={j("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
 
       {round > 0 && (
         <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
