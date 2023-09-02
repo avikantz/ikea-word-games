@@ -21,7 +21,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
     }
   }
 
-  const url = new URL("/api/list/unique", window.location.origin);
+  const url = new URL("/api/list/unique", process.env.NEXT_PUBLIC_VERCEL_URL ?? window.location.origin);
 
   if (mode) {
     url.searchParams.append("mode", mode);

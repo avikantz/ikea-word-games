@@ -1,5 +1,7 @@
 "use client";
 
+import { Suspense } from "react";
+import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Next13ProgressBar } from "next13-progressbar";
@@ -8,16 +10,15 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 
 import theme from "@/theme";
 import { Footer } from "@/components/footer";
-import { CacheProvider } from "@chakra-ui/next-js";
 import { HomeButton } from "@/components/homeButton";
 
-const CACHE_TIME = 1000 * 60 * 60 * 24 * 30; // 30 days
+const CACHE_TIME = 60 * 60 * 24 * 30; // 30 days
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       cacheTime: CACHE_TIME,
-      staleTime: Infinity,
+      staleTime: CACHE_TIME,
     },
   },
 });
@@ -27,10 +28,12 @@ export function Providers({ lang, children }: { lang: string; children: React.Re
     <CacheProvider>
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
-
-          <Analytics />
-          <GoogleAnalytics trackPageViews={false} />
+          {/* Use suspense for providers, else this causes "deopted to client rendering warning" */}
+          <Suspense fallback={<div />}>
+            <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
+            <Analytics />
+            <GoogleAnalytics trackPageViews={false} />
+          </Suspense>
 
           {children}
 

@@ -10,6 +10,7 @@ export async function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_VERCEL_URL ?? `http://localhost:${process.env.PORT ?? 3000}/`),
   applicationName: "Ordspel",
   title: "IKEA Word Games",
   description: "Word games with IKEA product names",
