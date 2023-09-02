@@ -46,9 +46,10 @@ export const SocialShareButtons = ({
   const shareUrl = process.env.NEXT_PUBLIC_BASE_URL ?? window.location.href;
 
   return (
-    <HStack spacing="0" gap="4" flexWrap="wrap" justifyContent="center" {...stackProps}>
+    <HStack spacing="0" gap={{ base: 2, md: 3 }} flexWrap="wrap" justifyContent="center" {...stackProps}>
       <EmailShareButton subject={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<EmailIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -58,6 +59,7 @@ export const SocialShareButtons = ({
       </EmailShareButton>
       <FacebookShareButton quote={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<FacebookIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -67,6 +69,7 @@ export const SocialShareButtons = ({
       </FacebookShareButton>
       <LineShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<LineIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -76,6 +79,7 @@ export const SocialShareButtons = ({
       </LineShareButton>
       <LinkedinShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<LinkedinIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -89,6 +93,7 @@ export const SocialShareButtons = ({
         media={`${window.location.href}/assets/cover.jpg`}
       >
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<PinterestIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -98,6 +103,7 @@ export const SocialShareButtons = ({
       </PinterestShareButton>
       <RedditShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<RedditIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -107,6 +113,7 @@ export const SocialShareButtons = ({
       </RedditShareButton>
       <TelegramShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<TelegramIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -116,6 +123,7 @@ export const SocialShareButtons = ({
       </TelegramShareButton>
       <TumblrShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<TumblrIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -125,6 +133,7 @@ export const SocialShareButtons = ({
       </TumblrShareButton>
       <TwitterShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<TwitterIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
@@ -134,6 +143,7 @@ export const SocialShareButtons = ({
       </TwitterShareButton>
       <WhatsappShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
+          as="span"
           size="lg"
           variant="outline"
           icon={<WhatsappIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}

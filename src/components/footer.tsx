@@ -7,9 +7,9 @@ import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
-import { getLocalizedPath, PATH_CONTACT, PATH_FAQ } from "@/utils/paths";
-import { BuyMeACoffeeButton } from ".";
+import { getLocalizedPath, PATH_ABOUT, PATH_FAQ } from "@/utils/paths";
 import { SocialShareButtons } from "./socialShares";
+import { BuyMeACoffeeButton } from ".";
 
 interface FooterProps {
   lang: string;
@@ -48,13 +48,11 @@ export const Footer = ({ lang }: FooterProps) => {
           <Link as={NextLink} href={getLocalizedPath(PATH_FAQ, lang)}>
             {t("faq")}
           </Link>
-          <Link as={NextLink} href={getLocalizedPath(PATH_CONTACT, lang)}>
-            {t("contact")}
+          <Link as={NextLink} href={getLocalizedPath(PATH_ABOUT, lang)}>
+            {t("about")}
           </Link>
 
           <Spacer />
-
-          <BuyMeACoffeeButton size="sm" />
 
           {/* Language switcher */}
           <Select maxW="32" size="sm" defaultValue={lang} onChange={onChangeLanguage}>
@@ -67,17 +65,17 @@ export const Footer = ({ lang }: FooterProps) => {
         </Container>
       </Box>
 
-      <Center py={{ base: 6, md: 12 }} bg="yellow.300" color="black" flexDirection="column" gap="4">
-        <Text fontSize="lg" textAlign="center" fontWeight="semibold">
-          {t("title")}
-        </Text>
+      {!pathname.endsWith(PATH_ABOUT) && (
+        <Center py={{ base: 6, md: 12 }} bg="yellow.300" color="black" flexDirection="column" gap="4">
+          <Text textAlign="center" fontWeight="semibold">
+            {t("share")}
+          </Text>
 
-        <SocialShareButtons />
+          <SocialShareButtons />
 
-        <Text textAlign="center" fontWeight="semibold">
-          {t("share")}
-        </Text>
-      </Center>
+          <BuyMeACoffeeButton bg="blue.700" color="white" />
+        </Center>
+      )}
     </Box>
   );
 };

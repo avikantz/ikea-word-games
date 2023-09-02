@@ -8,7 +8,7 @@ export const PATH_RITVISHREE = "https://ritvishree.com/";
 export const PATH_IKEA_NAGASANDRA = "https://ritvishree.com/";
 
 export const PATH_FAQ = "/faq";
-export const PATH_CONTACT = "/contact";
+export const PATH_ABOUT = "/about";
 
 export const PATH_JUMBLE = "/jumble"; // TODO: virrvarr
 export const PATH_JUMBLE_EASY = `${PATH_JUMBLE}/easy`;
