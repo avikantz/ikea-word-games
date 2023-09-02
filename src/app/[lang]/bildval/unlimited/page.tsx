@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Box, Button, Container, SimpleGrid, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
@@ -11,6 +11,8 @@ import { BILDVAL } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 import { GameTitle } from "@/components/gameTitle";
+import { PADDING } from "@/theme";
+import { GameContainer } from "@/components/gameContainer";
 
 function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
@@ -18,6 +20,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
 
   // Game state
@@ -31,6 +34,9 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   const getBildvalWords = useCallback(async () => {
     // Fetch new bildval round
     setBildvalRound(getBildvalRound());
+
+    // Scroll game container into view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Unfocus next button
     nextButtonRef.current?.blur();
@@ -68,43 +74,32 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   };
 
   return (
-    <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <GameTitle title={b("title_difficulty", { difficulty: "∞" })} />
+    <Box>
+      <GameTitle title={b("title_difficulty", { difficulty: "∞" })} stackProps={{ mb: PADDING.LG }} />
 
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(bildvalRound && (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-            <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
-              <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
-                {b("question", { product: bildvalRound.solution.name })}
-              </Text>
-            </Box>
+          <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
+            <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
+              {b("question", { product: bildvalRound.solution.name })}
+            </Text>
+          </Box>
+        )) || <Skeleton h="84px" />}
 
-            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
-              {bildvalRound.guesses.map((guess) => (
-                <BildvalGuessOption
-                  key={guess.name}
-                  guess={guess}
-                  solution={bildvalRound.solution}
-                  showSolution={showSolution}
-                  onClick={() => onMatch(guess)}
-                />
-              ))}
-            </SimpleGrid>
-          </VStack>
-        )) || (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-            <Skeleton h="84px" />
-
-            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
-              <BildvalGuessOptionSkeleton />
-              <BildvalGuessOptionSkeleton />
-              <BildvalGuessOptionSkeleton />
-              <BildvalGuessOptionSkeleton />
-            </SimpleGrid>
-          </VStack>
-        )}
+        <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
+          {(bildvalRound &&
+            bildvalRound.guesses.map((guess) => (
+              <BildvalGuessOption
+                key={guess.name}
+                guess={guess}
+                solution={bildvalRound.solution}
+                showSolution={showSolution}
+                onClick={() => onMatch(guess)}
+              />
+            ))) ||
+            [1, 2, 3, 4].map((i) => <BildvalGuessOptionSkeleton key={`guess-skel-${i}`} />)}
+        </SimpleGrid>
 
         {/* Skip */}
         <Button
@@ -117,8 +112,8 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
         >
           {showSolution ? t("next") : t("pass")}
         </Button>
-      </VStack>
-    </Container>
+      </GameContainer>
+    </Box>
   );
 }
 

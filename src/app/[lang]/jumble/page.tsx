@@ -14,6 +14,7 @@ import {
   PATH_JUMBLE_MEDIUM,
 } from "@/utils/paths";
 import { GAMES } from "@/interfaces";
+import { PADDING } from "@/theme";
 
 function JumbleGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -23,7 +24,7 @@ function JumbleGame({ params: { lang } }: PageProps) {
     <>
       <PageTitle title={j("title")} desc={j("desc")} />
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
           title={t("easy")}
           desc={j("easy.desc")}

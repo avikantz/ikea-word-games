@@ -1,6 +1,7 @@
 export * from "./coffeeButton";
 export * from "./footer";
 export * from "./game";
+export * from "./gameContainer";
 export * from "./gameOver";
 export * from "./gameTitle";
 export * from "./header";

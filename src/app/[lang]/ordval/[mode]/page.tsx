@@ -1,23 +1,12 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  HStack,
-  SimpleGrid,
-  Skeleton,
-  Spacer,
-  Text,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, HStack, SimpleGrid, Skeleton, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
-import { GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
+import { GameContainer, GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
 import { OrdvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { PATH_ORDVAL } from "@/utils/paths";
 import { ORDVAL } from "@/utils/constants";
@@ -26,6 +15,7 @@ import { useScores } from "@/hooks/useScores";
 import { OrdvalGuessOption, OrdvalGuessOptionSkeleton, OrdvalHowToPlayModal } from "@/components/ordval";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
+import { PADDING } from "@/theme";
 
 function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -45,6 +35,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const { isOpen: isOpenGameOverModal, onOpen: onOpenGameOverModal, onClose: onCloseGameOverModal } = useDisclosure();
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
   const [multiplierRef, animateMultiplier] = useAnimate();
   const [scoreRef, animateScore] = useAnimate();
@@ -89,6 +80,9 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
     setOrdvalRound(ordvalRound);
 
     if (ordvalRound) words.push(ordvalRound.solution.name);
+
+    // Scroll game container in view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Unfocus next button
     nextButtonRef.current?.blur();
@@ -168,10 +162,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
   };
 
   return (
-    <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <GameTitle title={o("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
+    <Box>
+      <GameTitle title={o("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
 
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <GameRound round={round} maxRounds={ORDVAL.MAX_ROUNDS} />
@@ -186,14 +180,14 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
         {/* Active game */}
         {(ordvalRound && round > 0 && round <= ORDVAL.MAX_ROUNDS && (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+          <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
                 {o("question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
               {ordvalRound.guesses.map((guess) => (
                 <OrdvalGuessOption
                   key={guess.name}
@@ -206,10 +200,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             </SimpleGrid>
           </VStack>
         )) || (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+          <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Skeleton h="78px" />
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />
@@ -242,18 +236,18 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             {round === 0 ? t("start") : round === ORDVAL.MAX_ROUNDS ? t("finish") : t("next")}
           </Button>
         </HStack>
+      </GameContainer>
 
-        <OrdvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
+      <OrdvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 
-        <GameOverModal
-          isOpen={isOpenGameOverModal}
-          onClose={onCloseGameOverModal}
-          score={score}
-          scores={scores}
-          onCloseComplete={() => router.replace(PATH_ORDVAL)}
-        />
-      </VStack>
-    </Container>
+      <GameOverModal
+        isOpen={isOpenGameOverModal}
+        onClose={onCloseGameOverModal}
+        score={score}
+        scores={scores}
+        onCloseComplete={() => router.replace(PATH_ORDVAL)}
+      />
+    </Box>
   );
 }
 

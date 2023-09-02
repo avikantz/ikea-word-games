@@ -1,23 +1,12 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  HStack,
-  SimpleGrid,
-  Skeleton,
-  Spacer,
-  Text,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, HStack, SimpleGrid, Skeleton, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
-import { GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
+import { GameContainer, GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
 import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { PATH_BILDVAL } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
@@ -26,6 +15,7 @@ import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption, BildvalGuessOptionSkeleton, BildvalHowToPlayModal } from "@/components/bildval";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
+import { PADDING } from "@/theme";
 
 function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -45,6 +35,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   const { isOpen: isOpenGameOverModal, onOpen: onOpenGameOverModal, onClose: onCloseGameOverModal } = useDisclosure();
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
   const [multiplierRef, animateMultiplier] = useAnimate();
   const [scoreRef, animateScore] = useAnimate();
@@ -89,6 +80,9 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
     setBildvalRound(bildvalRound);
 
     if (bildvalRound) words.push(bildvalRound.solution.name);
+
+    // Scroll game container in view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Unfocus next button
     nextButtonRef.current?.blur();
@@ -168,10 +162,14 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   };
 
   return (
-    <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <GameTitle title={b("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
+    <Box>
+      <GameTitle
+        title={b("title_difficulty", { difficulty })}
+        onInfoClick={onOpenHowToPlayModal}
+        stackProps={{ mb: PADDING.LG }}
+      />
 
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <GameRound round={round} maxRounds={BILDVAL.MAX_ROUNDS} />
@@ -186,14 +184,14 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
         {/* Active game */}
         {(bildvalRound && round > 0 && round <= BILDVAL.MAX_ROUNDS && (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+          <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
                 {b("question", { product: bildvalRound.solution.name })}
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
               {bildvalRound.guesses.map((guess) => (
                 <BildvalGuessOption
                   key={guess.name}
@@ -206,10 +204,10 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             </SimpleGrid>
           </VStack>
         )) || (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
+          <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Skeleton h="84px" />
 
-            <SimpleGrid columns={{ base: 2, md: 4 }} gap={{ base: 4, md: 8 }}>
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
               <BildvalGuessOptionSkeleton />
               <BildvalGuessOptionSkeleton />
               <BildvalGuessOptionSkeleton />
@@ -242,18 +240,18 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
           </Button>
         </HStack>
+      </GameContainer>
 
-        <BildvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
+      <BildvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />
 
-        <GameOverModal
-          isOpen={isOpenGameOverModal}
-          onClose={onCloseGameOverModal}
-          score={score}
-          scores={scores}
-          onCloseComplete={() => router.replace(PATH_BILDVAL)}
-        />
-      </VStack>
-    </Container>
+      <GameOverModal
+        isOpen={isOpenGameOverModal}
+        onClose={onCloseGameOverModal}
+        score={score}
+        scores={scores}
+        onCloseComplete={() => router.replace(PATH_BILDVAL)}
+      />
+    </Box>
   );
 }
 

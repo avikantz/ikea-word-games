@@ -1,12 +1,13 @@
 "use client";
 
 import { Ref, useCallback, useEffect, useRef, useState } from "react";
-import { Button, HStack, Spacer, Text, VStack, useDisclosure, Skeleton } from "@chakra-ui/react";
+import { Button, HStack, Spacer, Text, VStack, useDisclosure, Skeleton, Box } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useAnimate } from "framer-motion";
 import { event } from "nextjs-google-analytics";
 
 import {
+  GameContainer,
   GameMultiplier,
   GameOverModal,
   GameRound,
@@ -27,6 +28,7 @@ import { JUMBLE } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
+import { PADDING } from "@/theme";
 
 function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   const router = useRouter();
@@ -46,6 +48,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   const { isOpen: isOpenGameOverModal, onOpen: onOpenGameOverModal, onClose: onCloseGameOverModal } = useDisclosure();
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
   const [roundRef, animateRound] = useAnimate();
@@ -100,6 +103,9 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
     // Track round event
     event(JUMBLE.ROUND_EVENT, { category: difficulty });
+
+    // Scroll game container in view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Focus input after delay
     setTimeout(() => {
@@ -205,83 +211,87 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
   };
 
   return (
-    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 6, md: 8 }}>
+    <Box>
       <GameTitle title={j("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
 
-      {round > 0 && (
-        <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
-          <GameRound ref={roundRef} round={round} maxRounds={JUMBLE.MAX_ROUNDS} />
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+        {round > 0 && (
+          <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
+            <GameRound ref={roundRef} round={round} maxRounds={JUMBLE.MAX_ROUNDS} />
 
-          <Spacer />
+            <Spacer />
 
-          <GameMultiplier ref={multiplierRef} multiplier={multiplier} />
+            <GameMultiplier ref={multiplierRef} multiplier={multiplier} />
 
-          <GameScore ref={scoreRef} score={score} />
-        </HStack>
-      )}
-
-      {/* Active game */}
-      {(jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
-        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-          <IKEAProductCard
-            product={jumbleWord.product}
-            showDesc={attempts > 0 || success}
-            showImage={attempts > 1 || success}
-            showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-            isSuccess={success}
-            isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
-          >
-            {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
-              <Text fontSize="sm" color="gray.400">
-                {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
-              </Text>
-            )}
-          </IKEAProductCard>
-
-          <WordDisplay word={jumbleWord.shuffledWord} guess={guess} />
-
-          <WordInput
-            ref={inputRef as Ref<HTMLInputElement>}
-            value={guess}
-            setValue={setGuess}
-            length={jumbleWord.word.length}
-            targetValue={jumbleWord.word}
-            onSubmit={onMatch}
-            isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-          />
-
-          <HStack justifyContent="space-between">
-            <Button
-              variant="outline"
-              onClick={onPass}
-              isLoading={!jumbleWord}
-              isDisabled={
-                round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > JUMBLE.MAX_ATTEMPTS
-              }
-            >
-              {t("pass_count", { count: JUMBLE.MAX_PASSES - passCount })}
-            </Button>
-
-            <Button
-              variant="outline"
-              ref={nextButtonRef as Ref<HTMLButtonElement>}
-              onClick={onNextRound}
-              isDisabled={round > JUMBLE.MAX_ROUNDS && (success || attempts >= JUMBLE.MAX_ATTEMPTS)}
-              alignSelf="center"
-            >
-              {round === 0 ? t("start") : round === JUMBLE.MAX_ROUNDS ? t("finish") : t("next")}
-            </Button>
+            <GameScore ref={scoreRef} score={score} />
           </HStack>
-        </VStack>
-      )) || (
-        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-          <IKEAProductCardSkeleton />
+        )}
 
-          <Skeleton h="52px" />
+        {/* Active game */}
+        {(jumbleWord && round > 0 && round <= JUMBLE.MAX_ROUNDS && (
+          <VStack alignItems={{ base: "stretch", md: "center" }} spacing={PADDING.LG}>
+            <IKEAProductCard
+              product={jumbleWord.product}
+              showDesc={attempts > 0 || success}
+              showImage={attempts > 1 || success}
+              showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+              isSuccess={success}
+              isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
+            >
+              {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
+                <Text fontSize="sm" color="gray.400">
+                  {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
+                </Text>
+              )}
+            </IKEAProductCard>
 
-          <WordInputSkeleton />
-        </VStack>
-      )}
+            <WordDisplay word={jumbleWord.shuffledWord} guess={guess} />
+
+            <WordInput
+              ref={inputRef as Ref<HTMLInputElement>}
+              value={guess}
+              setValue={setGuess}
+              length={jumbleWord.word.length}
+              targetValue={jumbleWord.word}
+              onSubmit={onMatch}
+              isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+            />
+          </VStack>
+        )) || (
+          <VStack alignItems={{ base: "stretch", md: "center" }} spacing={PADDING.LG}>
+            <IKEAProductCardSkeleton />
+
+            <Skeleton w="96" h="52px" />
+
+            <WordInputSkeleton />
+          </VStack>
+        )}
+
+        <Spacer display={{ base: "flex", md: "none" }} />
+
+        <HStack justifyContent="space-between">
+          <Button
+            variant="outline"
+            onClick={onPass}
+            isLoading={!jumbleWord}
+            isDisabled={
+              round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > JUMBLE.MAX_ATTEMPTS
+            }
+          >
+            {t("pass_count", { count: JUMBLE.MAX_PASSES - passCount })}
+          </Button>
+
+          <Button
+            variant="outline"
+            ref={nextButtonRef as Ref<HTMLButtonElement>}
+            onClick={onNextRound}
+            isDisabled={round > JUMBLE.MAX_ROUNDS && (success || attempts >= JUMBLE.MAX_ATTEMPTS)}
+            alignSelf="center"
+          >
+            {round === 0 ? t("start") : round === JUMBLE.MAX_ROUNDS ? t("finish") : t("next")}
+          </Button>
+        </HStack>
+      </GameContainer>
 
       <JumbleHowToPlayModal
         isOpen={isOpenHowToPlayModal}
@@ -296,7 +306,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
         scores={scores}
         onCloseComplete={() => router.replace(PATH_JUMBLE)}
       />
-    </VStack>
+    </Box>
   );
 }
 

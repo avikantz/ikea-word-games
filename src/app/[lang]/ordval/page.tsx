@@ -14,6 +14,7 @@ import {
   PATH_ORDVAL_UNLIMITED,
 } from "@/utils/paths";
 import { GAMES } from "@/interfaces";
+import { PADDING } from "@/theme";
 
 function OrdvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -21,9 +22,9 @@ function OrdvalGame({ params: { lang } }: PageProps) {
 
   return (
     <>
-      <PageTitle title={t("ordval")} desc={o("desc")} />
+      <PageTitle title={o("title")} desc={o("desc")} />
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }}>
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
           title={t("easy")}
           desc={o("easy.desc")}

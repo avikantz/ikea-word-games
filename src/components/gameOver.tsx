@@ -19,6 +19,7 @@ import { Scores } from "@/interfaces";
 import { useTranslation } from "@/app/i18n/client";
 import { BuyMeACoffeeButton } from ".";
 import { SocialShareButtons } from "./socialShares";
+import { PADDING } from "@/theme";
 
 interface GameOverModalProps extends Omit<ModalProps, "children"> {
   title?: string;
@@ -59,7 +60,7 @@ export const GameOverModal = ({
           {title || t("game_over")}
         </ModalHeader>
         <ModalBody>
-          <VStack w="full" textAlign="center" p={{ base: 4, md: 8 }} mb={{ base: 4, md: 8 }} bg="yellow.500">
+          <VStack w="full" textAlign="center" p={PADDING.DEFAULT} mb={PADDING.DEFAULT} bg="yellow.500">
             <Text fontWeight="semibold" fontSize="sm" mb="-4">
               {t("final_score")}
             </Text>

@@ -7,6 +7,7 @@ import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE, PATH_ORDVAL, PATH_VADARJAG
 import { ModeCard, PageTitle } from "@/components";
 import { PageProps } from "@/interfaces/page";
 import { GAMES } from "@/interfaces";
+import { PADDING } from "@/theme";
 
 export default function Home({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -18,15 +19,15 @@ export default function Home({ params: { lang } }: PageProps) {
   return (
     <main>
       <Box minH="100vh">
-        <Container py={{ base: 4, md: 12 }} h="full" maxW="container.xl">
+        <Container py={PADDING.DEFAULT} h="full" maxW="container.xl">
           <PageTitle title={t("title")} desc={t("desc")}>
             <Image src="/assets/logo.svg" alt="Ordspel logo" h="16" />
           </PageTitle>
 
-          <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={{ base: 4, md: 6, xl: 8 }}>
-            <ModeCard title={j("title")} desc={j("desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />
+          <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
             <ModeCard title={b("title")} desc={b("desc")} href={getLocalizedPath(PATH_BILDVAL, lang)} />
             <ModeCard title={o("title")} desc={o("desc")} href={getLocalizedPath(PATH_ORDVAL, lang)} />
+            <ModeCard title={j("title")} desc={j("desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />
             <ModeCard
               title={v("title")}
               desc={v("desc")}

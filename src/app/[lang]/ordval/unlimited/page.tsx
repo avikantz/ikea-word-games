@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Box, Button, Container, SimpleGrid, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { GAMES, IKEAProduct, OrdvalRound, PageProps } from "@/interfaces";
@@ -11,6 +11,8 @@ import { ORDVAL } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
 import { GameTitle } from "@/components/gameTitle";
+import { PADDING } from "@/theme";
+import { GameContainer } from "@/components/gameContainer";
 
 function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
@@ -18,6 +20,7 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
   const { t: o } = useTranslation(lang, GAMES.ORDVAL);
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
 
   // Game state
@@ -31,6 +34,9 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
   const getOrdvalWords = useCallback(async () => {
     // Fetch new ordval round
     setOrdvalRound(getOrdvalRound());
+
+    // Scroll game container into view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Unfocus next button
     nextButtonRef.current?.blur();
@@ -68,43 +74,32 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
   };
 
   return (
-    <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-        <GameTitle title={o("title_difficulty", { difficulty: "∞" })} />
+    <Box>
+      <GameTitle title={o("title_difficulty", { difficulty: "∞" })} />
 
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(ordvalRound && (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-            <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
-              <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
-                {o("question", { product: ordvalRound.solution.desc.clean() })}
-              </Text>
-            </Box>
+          <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
+            <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
+              {o("question", { product: ordvalRound.solution.desc.clean() })}
+            </Text>
+          </Box>
+        )) || <Skeleton h="78px" />}
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
-              {ordvalRound.guesses.map((guess) => (
-                <OrdvalGuessOption
-                  key={guess.name}
-                  guess={guess}
-                  solution={ordvalRound.solution}
-                  showSolution={showSolution}
-                  onClick={() => onMatch(guess)}
-                />
-              ))}
-            </SimpleGrid>
-          </VStack>
-        )) || (
-          <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-            <Skeleton h="78px" />
-
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
-              <OrdvalGuessOptionSkeleton />
-              <OrdvalGuessOptionSkeleton />
-              <OrdvalGuessOptionSkeleton />
-              <OrdvalGuessOptionSkeleton />
-            </SimpleGrid>
-          </VStack>
-        )}
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+          {(ordvalRound &&
+            ordvalRound.guesses.map((guess) => (
+              <OrdvalGuessOption
+                key={guess.name}
+                guess={guess}
+                solution={ordvalRound.solution}
+                showSolution={showSolution}
+                onClick={() => onMatch(guess)}
+              />
+            ))) ||
+            [1, 2, 3, 4].map((i) => <OrdvalGuessOptionSkeleton key={`guess-skel-${i}`} />)}
+        </SimpleGrid>
 
         {/* Skip */}
         <Button
@@ -117,8 +112,8 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
         >
           {showSolution ? t("next") : t("pass")}
         </Button>
-      </VStack>
-    </Container>
+      </GameContainer>
+    </Box>
   );
 }
 

@@ -1,15 +1,16 @@
 "use client";
 
-import { Button, Divider, HStack, IconButton, Input, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Button, Divider, HStack, IconButton, Input, Text, VStack, useDisclosure, Box, Spacer } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
 import { GAMES, IKEAProduct } from "@/interfaces";
-import { ChangeEventHandler, KeyboardEventHandler, LegacyRef, useEffect, useRef, useState } from "react";
+import { ChangeEventHandler, KeyboardEventHandler, LegacyRef, Ref, useEffect, useRef, useState } from "react";
 import { useVadarjag } from "@/hooks/useVadarjag";
-import { GameTitle, IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
+import { GameContainer, GameTitle, IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
 import { useDebounce } from "@/hooks/useDebounce";
 import { VadarjagWhatIsThisModal } from "@/components/vadarjag";
+import { PADDING } from "@/theme";
 
 export default function Vadarjag({ params: { lang } }: PageProps) {
   // Translations
@@ -24,6 +25,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
   } = useDisclosure();
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
 
   // State
@@ -38,6 +40,9 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
   // Actions
   const findProducts = () => {
     if (!value) return;
+
+    // Scroll game container into view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     setProducts(getClosestProducts(value));
   };
@@ -62,55 +67,62 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
   useEffect(() => {
     if (!debouncedValue) return;
 
+    // Scroll game container into view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+
     setProducts(getClosestProducts(debouncedValue));
   }, [debouncedValue, getClosestProducts]);
 
   return (
-    <VStack spacing={{ base: 4, md: 8 }} alignItems="stretch">
+    <Box>
       <GameTitle title={v("title")} onInfoClick={onOpenWhatIsThisModal} />
 
-      <Text textAlign="center">{v("desc")}</Text>
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+        <Text textAlign="center">{v("desc")}</Text>
 
-      <HStack justifyContent="center">
-        <Input
-          size="lg"
-          autoFocus
-          autoCorrect="off"
-          autoCapitalize="off"
-          autoComplete="off"
-          autoSave="off"
-          type="text"
-          value={value}
-          onChange={onInputChange}
-          placeholder={v("placeholder")}
-          ref={inputRef as LegacyRef<HTMLInputElement>}
-          textAlign="center"
-          onKeyUp={onInputKeyUp}
-        />
-        <IconButton icon={<Text>⏎</Text>} aria-label="Hit me" size="lg" variant="outline" onClick={findProducts} />
-      </HStack>
+        <HStack justifyContent="center">
+          <Input
+            size="lg"
+            autoFocus
+            autoCorrect="off"
+            autoCapitalize="off"
+            autoComplete="off"
+            autoSave="off"
+            type="text"
+            value={value}
+            onChange={onInputChange}
+            placeholder={v("placeholder")}
+            ref={inputRef as LegacyRef<HTMLInputElement>}
+            textAlign="center"
+            onKeyUp={onInputKeyUp}
+          />
+          <IconButton icon={<Text>⏎</Text>} aria-label="Hit me" size="lg" variant="outline" onClick={findProducts} />
+        </HStack>
 
-      <Divider />
+        <Spacer />
 
-      {products.length === 0 && value.length > 0 && [1, 2, 3].map((i) => <IKEAProductCardSkeleton key={i} />)}
+        <VStack spacing={PADDING.DEFAULT} alignItems="stretch">
+          {products.length === 0 && value.length > 0 && [1, 2, 3].map((i) => <IKEAProductCardSkeleton key={i} />)}
 
-      {products.slice(0, 3).map((product) => (
-        <IKEAProductCard key={product.id} product={product} showName showImage showDesc />
-      ))}
+          {products.slice(0, 3).map((product) => (
+            <IKEAProductCard key={product.id} product={product} showName showImage showDesc />
+          ))}
 
-      {showMore &&
-        products.length > 3 &&
-        products
-          .slice(3)
-          .map((product) => <IKEAProductCard key={product.id} product={product} showName showImage showDesc />)}
+          {showMore &&
+            products.length > 3 &&
+            products
+              .slice(3)
+              .map((product) => <IKEAProductCard key={product.id} product={product} showName showImage showDesc />)}
 
-      {products.length > 3 && (
-        <Button variant={showMore ? "outline" : "solid"} onClick={toggleMore}>
-          {showMore ? t("show_less") : t("show_more")}
-        </Button>
-      )}
+          {products.length > 3 && (
+            <Button variant={showMore ? "outline" : "solid"} onClick={toggleMore}>
+              {showMore ? t("show_less") : t("show_more")}
+            </Button>
+          )}
+        </VStack>
+      </GameContainer>
 
       <VadarjagWhatIsThisModal isOpen={isOpenWhatIsThisModal} onClose={onCloseWhatIsThisModal} />
-    </VStack>
+    </Box>
   );
 }

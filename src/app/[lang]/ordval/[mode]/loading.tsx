@@ -3,14 +3,15 @@
 import { Container, SimpleGrid, Skeleton, VStack } from "@chakra-ui/react";
 
 import { OrdvalGuessOptionSkeleton } from "@/components/ordval";
+import { PADDING } from "@/theme";
 
 export default function Loading() {
   return (
     <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }} pt="138px">
+      <VStack alignItems="stretch" spacing={PADDING.LG} pt="138px">
         <Skeleton h="78px" />
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: 6, md: 8 }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
           <OrdvalGuessOptionSkeleton />
           <OrdvalGuessOptionSkeleton />
           <OrdvalGuessOptionSkeleton />

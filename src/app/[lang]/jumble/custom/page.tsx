@@ -1,13 +1,14 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Button, Container, Divider, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Divider, HStack, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import {
+  GameContainer,
   GameTitle,
   IKEAProductCard,
   IKEAProductCardSkeleton,
@@ -18,6 +19,7 @@ import {
 import { JUMBLE } from "@/utils/constants";
 import { useTranslation } from "@/app/i18n/client";
 import { useEffectTimeout } from "@/hooks/useEffectTimeout";
+import { PADDING } from "@/theme";
 
 function JumbleGameCustom({ params: { lang } }: PageProps) {
   // Translations
@@ -25,6 +27,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
   const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   // Refs
+  const containerRef = useRef<HTMLDivElement>();
   const inputRef = useRef<HTMLInputElement>();
   const nextButtonRef = useRef<HTMLButtonElement>();
 
@@ -49,6 +52,9 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
 
     // Track round event
     event(JUMBLE.ROUND_EVENT, { category: "custom" });
+
+    // Scroll game container into view
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
 
     // Focus input after delay
     setTimeout(() => {
@@ -89,80 +95,80 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
   };
 
   return (
-    <VStack alignItems={{ base: "stretch", md: "center" }} spacing={{ base: 6, md: 8 }}>
+    <Box>
       <GameTitle title={j("title_difficulty", { difficulty: t("custom") })} />
 
-      {(jumbleWord && (
-        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-          <IKEAProductCard
-            product={jumbleWord.product}
-            showDesc={attempts > 0 || success}
-            showImage={attempts > 1 || success}
-            showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-            isSuccess={success}
-            isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
+      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+        <HStack justifyContent="center" alignItems="center">
+          <Text color="gray.500" textAlign="center" fontSize="sm">
+            {t("size")}
+          </Text>
+          <Select
+            maxW="32"
+            aria-label={t("length")}
+            onChange={(e) => setLength(parseInt(e.target.value))}
+            value={length}
+            isDisabled={!jumbleWord}
           >
-            {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
-              <Text fontSize="sm" color="gray.400">
-                {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
-              </Text>
-            )}
-          </IKEAProductCard>
+            {[4, 5, 6, 7, 8, 9, 10].map((l) => (
+              <option key={`length-${l}`} value={l}>
+                {l}
+              </option>
+            ))}
+          </Select>
+        </HStack>
 
-          <WordDisplay word={jumbleWord?.shuffledWord} guess={guess} />
+        {(jumbleWord && (
+          <VStack alignItems={{ base: "stretch", md: "center" }} spacing={PADDING.LG}>
+            <IKEAProductCard
+              product={jumbleWord.product}
+              showDesc={attempts > 0 || success}
+              showImage={attempts > 1 || success}
+              showName={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+              isSuccess={success}
+              isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
+            >
+              {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
+                <Text fontSize="sm" color="gray.400">
+                  {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
+                </Text>
+              )}
+            </IKEAProductCard>
 
-          <WordInput
-            ref={inputRef as Ref<HTMLInputElement>}
-            value={guess}
-            setValue={setGuess}
-            length={jumbleWord.word.length}
-            targetValue={jumbleWord.word}
-            onSubmit={onMatch}
-            isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
-          />
-        </VStack>
-      )) || (
-        <VStack alignItems="stretch" spacing={{ base: 6, md: 8 }}>
-          <IKEAProductCardSkeleton />
+            <WordDisplay word={jumbleWord?.shuffledWord} guess={guess} />
 
-          <Skeleton h="52px" />
+            <WordInput
+              ref={inputRef as Ref<HTMLInputElement>}
+              value={guess}
+              setValue={setGuess}
+              length={jumbleWord.word.length}
+              targetValue={jumbleWord.word}
+              onSubmit={onMatch}
+              isDisabled={attempts >= JUMBLE.MAX_ATTEMPTS || success}
+            />
+          </VStack>
+        )) || (
+          <VStack alignItems={{ base: "stretch", md: "center" }} spacing={PADDING.LG}>
+            <IKEAProductCardSkeleton />
 
-          <WordInputSkeleton />
-        </VStack>
-      )}
+            <Skeleton w="96" h="52px" />
 
-      <Button
-        ref={nextButtonRef as Ref<HTMLButtonElement>}
-        variant="outline"
-        onClick={getWords}
-        alignSelf="center"
-        isLoading={!jumbleWord}
-        loadingText={t("pass")}
-      >
-        {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
-      </Button>
+            <WordInputSkeleton />
+          </VStack>
+        )}
 
-      <Container maxW="md">
-        <Divider mb={{ base: 4, md: 8 }} />
-        <Text color="gray.500" textAlign="center" fontSize="sm" mb="2">
-          {t("size")}
-        </Text>
-        <Select
-          maxW="32"
-          mx="auto"
-          aria-label={t("length")}
-          onChange={(e) => setLength(parseInt(e.target.value))}
-          value={length}
-          isDisabled={!jumbleWord}
+        <Button
+          ref={nextButtonRef as Ref<HTMLButtonElement>}
+          variant="outline"
+          onClick={getWords}
+          alignSelf="center"
+          isLoading={!jumbleWord}
+          loadingText={t("pass")}
         >
-          {[4, 5, 6, 7, 8, 9, 10].map((l) => (
-            <option key={`length-${l}`} value={l}>
-              {l}
-            </option>
-          ))}
-        </Select>
-      </Container>
-    </VStack>
+          {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
+        </Button>
+      </GameContainer>
+    </Box>
   );
 }
 

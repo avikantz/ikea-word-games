@@ -1,12 +1,13 @@
 "use client";
 
 import { Box, Container } from "@chakra-ui/react";
+import { PADDING } from "@/theme";
 
 export default function JumbleLayout({ children }: { children: React.ReactNode }) {
   return (
     <main>
-      <Box minH="100vh">
-        <Container py={{ base: 4, md: 12 }} h="full" maxW="container.xl">
+      <Box>
+        <Container py={PADDING.DEFAULT} maxW="container.xl">
           {children}
         </Container>
       </Box>

@@ -12,6 +12,11 @@ import { Tag } from "./tag";
 
 export const CONFETTI_COLORS = ["#FFDB00", "#008AFF", "#111111"];
 
+export const PADDING = {
+  DEFAULT: { base: 4, md: 6, xl: 8 },
+  LG: { base: 6, md: 8 },
+};
+
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({
   fonts: {

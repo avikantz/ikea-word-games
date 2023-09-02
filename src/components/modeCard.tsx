@@ -16,6 +16,7 @@ import {
 import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
+import { PADDING } from "@/theme";
 
 interface ModeCardProps extends BoxProps {
   title?: string;
@@ -30,7 +31,7 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
   const { t } = useTranslation();
   return (
     <LinkBox
-      p={{ base: 4, md: 8 }}
+      p={PADDING.DEFAULT}
       minH={{ base: "15vh", md: "30vh" }}
       display="flex"
       flexDirection="column"
@@ -65,7 +66,7 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
 
 export const ModeCardSkeleton = () => (
   <Box
-    p={{ base: 4, md: 8 }}
+    p={PADDING.DEFAULT}
     minH={{ base: "15vh", md: "30vh" }}
     display="flex"
     flexDirection="column"
