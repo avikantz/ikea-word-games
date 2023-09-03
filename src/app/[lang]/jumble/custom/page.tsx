@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Box, Button, Container, Divider, HStack, Select, Skeleton, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, HStack, Select, Skeleton, Spacer, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
@@ -167,6 +167,8 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
         >
           {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
         </Button>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
     </Box>
   );

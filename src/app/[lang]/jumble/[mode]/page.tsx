@@ -267,8 +267,6 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
           </VStack>
         )}
 
-        <Spacer display={{ base: "flex", md: "none" }} />
-
         <HStack justifyContent="space-between">
           <Button
             variant="outline"
@@ -291,6 +289,8 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
             {round === 0 ? t("start") : round === JUMBLE.MAX_ROUNDS ? t("finish") : t("next")}
           </Button>
         </HStack>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
 
       <JumbleHowToPlayModal

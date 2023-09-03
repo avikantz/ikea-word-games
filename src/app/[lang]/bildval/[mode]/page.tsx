@@ -163,11 +163,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Box>
-      <GameTitle
-        title={b("title_difficulty", { difficulty: t(difficulty) })}
-        onInfoClick={onOpenHowToPlayModal}
-        stackProps={{ mb: PADDING.LG }}
-      />
+      <GameTitle title={b("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
 
       <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
@@ -240,6 +236,8 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
           </Button>
         </HStack>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
 
       <BildvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />

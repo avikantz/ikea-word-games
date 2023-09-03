@@ -236,6 +236,8 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             {round === 0 ? t("start") : round === ORDVAL.MAX_ROUNDS ? t("finish") : t("next")}
           </Button>
         </HStack>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
 
       <OrdvalHowToPlayModal isOpen={isOpenHowToPlayModal} onClose={onCloseHowToPlayModal} />

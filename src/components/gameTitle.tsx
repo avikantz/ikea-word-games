@@ -4,6 +4,7 @@ import React from "react";
 import { Heading, HeadingProps, HStack, IconButton, StackProps, Text } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
+import { PADDING } from "@/theme/index";
 
 interface GameTitleProps extends HeadingProps {
   title: string;
@@ -15,7 +16,7 @@ interface GameTitleProps extends HeadingProps {
 export const GameTitle = ({ title, stackProps, infoTitle, onInfoClick, ...props }: GameTitleProps) => {
   const { t } = useTranslation();
   return (
-    <HStack justifyContent="center" spacing="4" {...stackProps}>
+    <HStack justifyContent="center" spacing="4" mb={PADDING.DEFAULT} {...stackProps}>
       <Heading textAlign="center" textTransform="capitalize" fontSize={{ base: "xl", md: "2xl" }} {...props}>
         {title}
       </Heading>

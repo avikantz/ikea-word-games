@@ -1,7 +1,7 @@
 "use client";
 
 import { Ref, useCallback, useRef, useState } from "react";
-import { Box, Button, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Skeleton, Spacer, Text } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
 import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
@@ -75,7 +75,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
 
   return (
     <Box>
-      <GameTitle title={b("title_difficulty", { difficulty: "∞" })} stackProps={{ mb: PADDING.LG }} />
+      <GameTitle title={b("title_difficulty", { difficulty: "∞" })} />
 
       <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
@@ -112,6 +112,8 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
         >
           {showSolution ? t("next") : t("pass")}
         </Button>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
     </Box>
   );
