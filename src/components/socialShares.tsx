@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { HStack, IconButton, IconButtonProps, StackProps } from "@chakra-ui/react";
 import {

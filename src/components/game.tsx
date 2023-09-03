@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from "react";
 import { Tag } from "@chakra-ui/react";
+
 import { useTranslation } from "@/app/i18n/client";
 
 // ---------------------------------------------------------------------------------------------------------------------

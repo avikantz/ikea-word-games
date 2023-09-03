@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { HStack, StackProps, Text, TextProps, useBreakpointValue } from "@chakra-ui/react";
 

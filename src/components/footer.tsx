@@ -8,9 +8,9 @@ import NextLink from "next/link";
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
 import { getLocalizedPath, PATH_ABOUT, PATH_FAQ } from "@/utils/paths";
+import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
-import { BuyMeACoffeeButton } from ".";
-import { PADDING } from "@/theme/index";
+import { BuyMeACoffeeButton } from "./coffeeButton";
 
 interface FooterProps {
   lang: string;

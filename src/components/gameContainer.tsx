@@ -1,5 +1,8 @@
+"use client";
+
 import React, { forwardRef } from "react";
 import { Box, BoxProps, VStack } from "@chakra-ui/react";
+
 import { PADDING } from "@/theme";
 
 export const GameContainer = forwardRef<HTMLDivElement, Partial<BoxProps>>(({ children, ...props }, ref) => (

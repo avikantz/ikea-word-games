@@ -9,6 +9,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+
 import { PATH_JUMBLE } from "@/utils/paths";
 
 export const Header = () => {

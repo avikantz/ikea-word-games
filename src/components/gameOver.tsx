@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ReactNode } from "react";
 import {
   Button,
@@ -17,9 +19,9 @@ import {
 
 import { Scores } from "@/interfaces";
 import { useTranslation } from "@/app/i18n/client";
-import { BuyMeACoffeeButton } from ".";
-import { SocialShareButtons } from "./socialShares";
 import { PADDING } from "@/theme";
+import { BuyMeACoffeeButton } from "./coffeeButton";
+import { SocialShareButtons } from "./socialShares";
 
 interface GameOverModalProps extends Omit<ModalProps, "children"> {
   title?: string;

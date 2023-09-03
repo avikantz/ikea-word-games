@@ -1,5 +1,8 @@
+"use client";
+
 import React, { ReactNode } from "react";
 import { Heading, HeadingProps, Stack, StackProps, Text, VStack } from "@chakra-ui/react";
+
 import { PADDING } from "@/theme";
 
 interface PageTitleProps extends HeadingProps {
