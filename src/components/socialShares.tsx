@@ -44,11 +44,13 @@ export const SocialShareButtons = ({
   stackProps,
   ...props
 }: SocialShareButtonsProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const shareUrl = `${BASE_URL}/${i18n.language ?? "en"}`;
 
   return (
     <HStack spacing="0" gap={{ base: 2, md: 3 }} flexWrap="wrap" justifyContent="center" {...stackProps}>
-      <EmailShareButton subject={desc || t("share.desc")} url={BASE_URL}>
+      <EmailShareButton subject={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -58,7 +60,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </EmailShareButton>
-      <FacebookShareButton quote={desc || t("share.desc")} url={BASE_URL}>
+      <FacebookShareButton quote={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -68,7 +70,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </FacebookShareButton>
-      <LineShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <LineShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -78,7 +80,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </LineShareButton>
-      <LinkedinShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <LinkedinShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -88,7 +90,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </LinkedinShareButton>
-      <PinterestShareButton description={desc || t("share.desc")} url={BASE_URL} media={`${BASE_URL}/assets/cover.jpg`}>
+      <PinterestShareButton description={desc || t("share.desc")} url={shareUrl} media={`${shareUrl}/assets/cover.jpg`}>
         <IconButton
           as="span"
           size="lg"
@@ -98,7 +100,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </PinterestShareButton>
-      <RedditShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <RedditShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -108,7 +110,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </RedditShareButton>
-      <TelegramShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <TelegramShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -118,7 +120,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </TelegramShareButton>
-      <TumblrShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <TumblrShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -128,7 +130,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </TumblrShareButton>
-      <TwitterShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <TwitterShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
@@ -138,7 +140,7 @@ export const SocialShareButtons = ({
           {...props}
         />
       </TwitterShareButton>
-      <WhatsappShareButton title={desc || t("share.desc")} url={BASE_URL}>
+      <WhatsappShareButton title={desc || t("share.desc")} url={shareUrl}>
         <IconButton
           as="span"
           size="lg"
