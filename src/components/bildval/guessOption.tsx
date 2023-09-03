@@ -89,10 +89,7 @@ export const BildvalGuessOption = ({
       _hover={
         showSolution
           ? undefined
-          : {
-              base: { bg: "gray.50" },
-              md: { bg: "white", boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.025)" },
-            }
+          : { md: { bg: "white", boxShadow: "blue-xl", borderColor: "blue.500", transform: "scale(1.025)" } }
       }
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
       borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
