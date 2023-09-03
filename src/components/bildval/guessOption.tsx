@@ -7,6 +7,7 @@ import { Box, BoxProps, Center, Collapse, Image, Link, Skeleton, useBreakpointVa
 
 import { IKEAProduct } from "@/interfaces";
 import { CONFETTI_COLORS } from "@/theme";
+import { useAudio } from "@/hooks/useAudio";
 
 interface BildvalGuessOptionProps extends BoxProps {
   guess: IKEAProduct;
@@ -25,6 +26,7 @@ export const BildvalGuessOption = ({
   const [isSuccess, setSuccess] = useState(false);
 
   const [buttonRef, animateButton] = useAnimate();
+  const { playFailureAudio, playSuccessAudio } = useAudio();
 
   const redShadow = useBreakpointValue({ base: "red-md", md: "red-xl" }, { fallback: "md" });
   const greenShadow = useBreakpointValue({ base: "green-md", md: "green-xl" }, { fallback: "md" });
@@ -38,6 +40,8 @@ export const BildvalGuessOption = ({
       if (solution?.id === guess.id) {
         // Show confetti
         setSuccess(true);
+        // Play success audio
+        playSuccessAudio?.();
       } else {
         // Jiggle button
         animateButton(
@@ -51,6 +55,8 @@ export const BildvalGuessOption = ({
             repeat: 3,
           },
         );
+        // Play failure audio
+        playFailureAudio?.();
       }
 
       _onClick?.(event);

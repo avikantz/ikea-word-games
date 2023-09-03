@@ -22,6 +22,7 @@ import { IKEAProduct } from "@/interfaces";
 import { replaceWithQuestionMarks } from "@/utils/words";
 import { useTranslation } from "@/app/i18n/client";
 import { CONFETTI_COLORS } from "@/theme";
+import { useAudio } from "@/hooks/useAudio";
 
 interface IKEAProductProps extends CardProps {
   product: IKEAProduct;
@@ -46,10 +47,12 @@ export const IKEAProductCard = ({
   const { t } = useTranslation();
 
   const [cardRef, animateCard] = useAnimate();
+  const { playFailureAudio, playSuccessAudio } = useAudio();
 
   // Jiggle card on failure
   useEffect(() => {
     if (isFailure) {
+      playFailureAudio?.();
       animateCard(
         cardRef.current,
         {
@@ -62,14 +65,15 @@ export const IKEAProductCard = ({
         },
       );
     }
-  }, [animateCard, cardRef, isFailure]);
+  }, [animateCard, cardRef, isFailure, playFailureAudio]);
 
   // Zoom card on success
   useEffect(() => {
     if (isSuccess) {
+      playSuccessAudio?.();
       animateCard(cardRef.current, { scale: [1, 1.2, 1] }, { duration: 0.1 });
     }
-  }, [animateCard, cardRef, isSuccess]);
+  }, [animateCard, cardRef, isSuccess, playSuccessAudio]);
 
   return (
     <Card

@@ -38,5 +38,7 @@
   "show_less": "Show less",
   "buy_me_a_coffee": "Buy me a coffee",
   "share": "Share this app",
-  "share.desc": "Check out these silly IKEA word games!"
+  "share.desc": "Check out these silly IKEA word games!",
+  "mute": "Mute",
+  "unmute": "Unmute"
 }

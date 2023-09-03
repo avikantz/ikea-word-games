@@ -10,6 +10,7 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 import theme from "@/theme";
 import { Footer } from "@/components/footer";
 import { HomeButton } from "@/components/homeButton";
+import { AudioProvider } from "@/hooks/useAudio";
 
 const CACHE_TIME = 60 * 60 * 24 * 30; // 30 days
 
@@ -27,18 +28,20 @@ export function Providers({ lang, children }: { lang: string; children: React.Re
     <CacheProvider>
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          {/* Use suspense for analytics, else this causes "deopted to client rendering warning" */}
-          <Suspense fallback={<div />}>
-            <Analytics />
-            <GoogleAnalytics trackPageViews={false} />
-          </Suspense>
+          <AudioProvider>
+            {/* Use suspense for analytics, else this causes "deopted to client rendering warning" */}
+            <Suspense fallback={<div />}>
+              <Analytics />
+              <GoogleAnalytics trackPageViews={false} />
+            </Suspense>
 
-          {children}
+            {children}
 
-          <Suspense fallback={<div />}>
-            <Footer lang={lang} />
-            <HomeButton lang={lang} />
-          </Suspense>
+            <Suspense fallback={<div />}>
+              <Footer lang={lang} />
+              <HomeButton lang={lang} />
+            </Suspense>
+          </AudioProvider>
         </QueryClientProvider>
       </ChakraProvider>
     </CacheProvider>

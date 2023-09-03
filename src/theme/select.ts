@@ -6,11 +6,12 @@ export const Select = helpers.defineMultiStyleConfig({
   // style object for base or default style
   baseStyle: {
     field: {
+      borderWidth: 1.5,
       borderRadius: "full",
       cursor: "pointer",
       _hover: {
         opacity: 0.6,
-      }
+      },
     },
   },
   // styles for different sizes ("sm", "md", "lg")

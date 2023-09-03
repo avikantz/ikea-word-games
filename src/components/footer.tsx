@@ -1,13 +1,14 @@
 "use client";
 
 import React, { ChangeEvent } from "react";
-import { Box, Center, Container, Image, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Container, IconButton, Image, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { useRouter, usePathname } from "next/navigation";
 import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
 import { getLocalizedPath, PATH_ABOUT, PATH_FAQ } from "@/utils/paths";
+import { useAudio } from "@/hooks/useAudio";
 import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
 import { BuyMeACoffeeButton } from "./coffeeButton";
@@ -18,6 +19,8 @@ interface FooterProps {
 
 export const Footer = ({ lang }: FooterProps) => {
   const { t } = useTranslation();
+
+  const { isMuted, muteAudio, unmuteAudio } = useAudio();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -54,6 +57,16 @@ export const Footer = ({ lang }: FooterProps) => {
           </Link>
 
           <Spacer />
+
+          <IconButton
+            size="sm"
+            variant="outline"
+            borderColor="gray.200"
+            _hover={{ bg: "transparent", opacity: 0.5 }}
+            aria-label={isMuted ? t("unmute") : t("mute")}
+            onClick={isMuted ? unmuteAudio : muteAudio}
+            icon={<Text>{isMuted ? "🔇" : "🔊"}</Text>}
+          />
 
           {/* Language switcher */}
           <Select maxW="32" size="sm" defaultValue={lang} onChange={onChangeLanguage}>
