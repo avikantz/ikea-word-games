@@ -6,7 +6,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 
@@ -35,8 +34,14 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [style, setStyle] = useState<AudioStyle>(1);
   const [isMuted, setMuted] = useState(false);
 
-  const successAudio = useRef(new Audio(`/assets/audio/correct-${style}.mp3`));
-  const failureAudio = useRef(new Audio(`/assets/audio/wrong-${style}.mp3`));
+  const [successAudio, setSuccessAudio] = useState<HTMLAudioElement>();
+  const [failureAudio, setFailureAudio] = useState<HTMLAudioElement>();
+
+  // Populate audio elements
+  useEffect(() => {
+    setSuccessAudio(new Audio(`/assets/audio/correct-${style}.mp3`));
+    setFailureAudio(new Audio(`/assets/audio/wrong-${style}.mp3`));
+  }, [style]);
 
   // Get muted state from localStorage
   useEffect(() => {
@@ -58,13 +63,13 @@ export const AudioProvider = ({ children }: { children: ReactNode }) => {
   // Audios
   const playFailureAudio = useCallback(() => {
     if (isMuted) return;
-    failureAudio.current.play();
-  }, [isMuted]);
+    failureAudio?.play();
+  }, [failureAudio, isMuted]);
 
   const playSuccessAudio = useCallback(() => {
     if (isMuted) return;
-    successAudio.current.play();
-  }, [isMuted]);
+    successAudio?.play();
+  }, [isMuted, successAudio]);
 
   return (
     <AudioContext.Provider
