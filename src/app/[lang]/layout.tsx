@@ -40,6 +40,7 @@ export async function generateMetadata({ params: { lang } }: PageProps): Promise
     applicationName: "Ordspel",
     title: { default: title, template: `%s | ${title}` },
     description,
+    keywords: "hej, ordspel, ikea, word, games, jumble, wordle, bildval, ordval, bild, ord, val, spel",
     openGraph: {
       type: "website",
       title,
