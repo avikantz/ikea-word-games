@@ -164,7 +164,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
   return (
     <Box>
       <GameTitle
-        title={b("title_difficulty", { difficulty })}
+        title={b("title_difficulty", { difficulty: t(difficulty) })}
         onInfoClick={onOpenHowToPlayModal}
         stackProps={{ mb: PADDING.LG }}
       />

@@ -212,7 +212,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Box>
-      <GameTitle title={j("title_difficulty", { difficulty })} onInfoClick={onOpenHowToPlayModal} />
+      <GameTitle title={j("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
 
       <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (

@@ -1,17 +1,20 @@
 "use client";
 
-import { Skeleton } from "@chakra-ui/react";
+import { Skeleton, VStack } from "@chakra-ui/react";
 
 import { GameContainer, IKEAProductCardSkeleton, WordInputSkeleton } from "@/components";
+import { PADDING } from "@/theme";
 
 export default function Loading() {
   return (
     <GameContainer pt="60px">
-      <IKEAProductCardSkeleton />
+      <VStack alignItems={{ base: "stretch", md: "center" }} spacing={PADDING.LG}>
+        <IKEAProductCardSkeleton />
 
-      <Skeleton h="52px" />
+        <Skeleton h="52px" />
 
-      <WordInputSkeleton />
+        <WordInputSkeleton />
+      </VStack>
     </GameContainer>
   );
 }
