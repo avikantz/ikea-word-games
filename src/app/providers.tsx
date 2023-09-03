@@ -6,6 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "nextjs-google-analytics";
+import { Next13ProgressBar } from "next13-progressbar";
 
 import theme from "@/theme";
 import { Footer } from "@/components/footer";
@@ -31,6 +32,7 @@ export function Providers({ lang, children }: { lang: string; children: React.Re
           <AudioProvider>
             {/* Use suspense for analytics, else this causes "deopted to client rendering warning" */}
             <Suspense fallback={<div />}>
+              <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
               <Analytics />
               <GoogleAnalytics trackPageViews={false} />
             </Suspense>
