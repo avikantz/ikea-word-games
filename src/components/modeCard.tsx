@@ -42,9 +42,12 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
       borderColor="black"
       transition="all 0.2s ease"
       _hover={{
-        borderColor: isDisabled ? "black" : "blue.500",
-        cursor: isDisabled ? "not-allowed" : "pointer",
-        boxShadow: isDisabled ? "none" : "blue-xl",
+        base: { bg: "gray.100" },
+        md: {
+          borderColor: isDisabled ? "black" : "blue.500",
+          cursor: isDisabled ? "not-allowed" : "pointer",
+          boxShadow: isDisabled ? "none" : "blue-xl",
+        },
       }}
       opacity={isDisabled ? 0.5 : 1}
       {...props}
