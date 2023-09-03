@@ -22,7 +22,7 @@ export const PageTitle = ({ title, desc, children, containerProps, ...props }: P
     </Stack>
 
     {!!desc && (
-      <Text fontSize={{ base: "sm", md: "md" }} color="gray.500">
+      <Text fontSize={{ base: "sm", md: "md" }} px="12" color="gray.500">
         {desc}
       </Text>
     )}
@@ -31,10 +31,12 @@ export const PageTitle = ({ title, desc, children, containerProps, ...props }: P
 
 export const PageTitleSkeleton = ({ withDesc = false }: { withDesc?: boolean }) => (
   <VStack w="full" alignItems="center" textAlign="center" mb={PADDING.DEFAULT}>
-    <Heading fontSize={{ base: "2xl", md: "4xl" }}>☐☐☐☐☐☐</Heading>
+    <Heading fontSize={{ base: "2xl", md: "4xl" }}> </Heading>
 
-    <Text fontSize={{ base: "sm", md: "md" }} color="gray.500">
-      ☐☐☐☐☐☐
-    </Text>
+    {withDesc && (
+      <Text fontSize={{ base: "sm", md: "md" }} color="gray.500">
+        {" "}
+      </Text>
+    )}
   </VStack>
 );

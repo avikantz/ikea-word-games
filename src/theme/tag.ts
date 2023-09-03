@@ -8,7 +8,7 @@ export const Tag = helpers.defineMultiStyleConfig({
     container: {
       borderRadius: 0,
       px: { base: 3, md: 4 },
-      py: { base: 2, md: 3 },
+      minH: { base: 8, md: 12 },
     },
   },
   // styles for different sizes ("sm", "md", "lg")

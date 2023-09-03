@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Next13ProgressBar } from "next13-progressbar";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
@@ -28,17 +27,18 @@ export function Providers({ lang, children }: { lang: string; children: React.Re
     <CacheProvider>
       <ChakraProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          {/* Use suspense for providers, else this causes "deopted to client rendering warning" */}
+          {/* Use suspense for analytics, else this causes "deopted to client rendering warning" */}
           <Suspense fallback={<div />}>
-            <Next13ProgressBar height="4px" color="#008AFF" showOnShallow />
             <Analytics />
             <GoogleAnalytics trackPageViews={false} />
           </Suspense>
 
           {children}
 
-          <Footer lang={lang} />
-          <HomeButton lang={lang} />
+          <Suspense fallback={<div />}>
+            <Footer lang={lang} />
+            <HomeButton lang={lang} />
+          </Suspense>
         </QueryClientProvider>
       </ChakraProvider>
     </CacheProvider>

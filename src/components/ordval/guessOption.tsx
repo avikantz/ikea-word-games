@@ -1,9 +1,11 @@
+"use client";
+
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
+import { Box, BoxProps, Center, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 
 import { IKEAProduct } from "@/interfaces";
-import { Box, BoxProps, Center, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { CONFETTI_COLORS } from "@/theme";
 
 interface OrdvalGuessOptionProps extends BoxProps {
