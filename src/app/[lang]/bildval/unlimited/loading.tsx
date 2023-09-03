@@ -1,23 +1,22 @@
 "use client";
 
-import { Container, SimpleGrid, Skeleton, VStack } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 import { BildvalGuessOptionSkeleton } from "@/components/bildval";
 import { PADDING } from "@/theme";
+import { GameContainer } from "@/components/gameContainer";
 
 export default function Loading() {
   return (
-    <Container maxW="container.lg" px="0">
-      <VStack alignItems="stretch" spacing={PADDING.LG} pt="60px">
-        <Skeleton h="84px" />
+    <GameContainer pt="60px">
+      <Skeleton h="84px" />
 
-        <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
-          <BildvalGuessOptionSkeleton />
-          <BildvalGuessOptionSkeleton />
-          <BildvalGuessOptionSkeleton />
-          <BildvalGuessOptionSkeleton />
-        </SimpleGrid>
-      </VStack>
-    </Container>
+      <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
+        <BildvalGuessOptionSkeleton />
+        <BildvalGuessOptionSkeleton />
+        <BildvalGuessOptionSkeleton />
+        <BildvalGuessOptionSkeleton />
+      </SimpleGrid>
+    </GameContainer>
   );
 }
