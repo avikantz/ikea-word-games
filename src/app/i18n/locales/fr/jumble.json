@@ -1,0 +1,18 @@
+{
+  "title": "Jumble",
+  "title_difficulty": "Jumble {{difficulty}}",
+  "desc": "Form a word from the given letters to match an IKEA product.",
+  "easy.desc": "Devinez que les produits les plus populaires!",
+  "medium.desc": "Comprend la plupart des produits d'étagère!",
+  "hard.desc": "500 meilleurs produits de tous les temps",
+  "insane.desc": "Tous les produits sont sur le \"lagkapten\"",
+  "custom.desc": "Longueur de mot personnalisée",
+  "how_to_play.title": "Jumble: Comment jouer",
+  "how_to_play.desc.1": "Vous recevrez un nom de produit IKEA brouillé. Décroquez les lettres pour deviner le produit.",
+  "how_to_play.desc.2": "Il y a des tours {{rounds}}. Chaque tour, vous recevrez un nouveau produit à deviner.",
+  "how_to_play.desc.3": "Vous avez des tentatives {{attempts}} de deviner le produit à chaque tour. Plus vous devinez vite, plus vous obtiendrez de points. Le jeu révélera la description et l'image du produit lorsque vous utilisez vos tentatives.",
+  "how_to_play.desc.4": "Si vous êtes coincé, vous pouvez passer / sauter le tour. Vous avez des passes {{passes}} par jeu.",
+  "how_to_play.scoring": "Score: Score rond * Multiplicateur.",
+  "how_to_play.round_scores": "Le score rond est {{g0}} pour deviner sans indice, {{g1}} pour deviner après la révélation de la description, et {{g2}} pour deviner après la révélation de l'image.",
+  "how_to_play.multiplier": "Le multiplicateur augmente de 1 chaque tour si vous passez, max {{max}}. Si vous échouez, le multiplicateur réinitialise 1."
+}

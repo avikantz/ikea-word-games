@@ -8,14 +8,19 @@ export const LANGUAGE_LIST = [
     value: FALLBACK_LANG,
   },
   {
-    label: "Deutsch",
-    emoji: "🇩🇪",
-    value: "de",
-  },
-  {
     label: "Español",
     emoji: "🇪🇸",
     value: "es",
+  },
+  {
+    label: "Français",
+    emoji: "🇫🇷",
+    value: "fr",
+  },
+  {
+    label: "Deutsch",
+    emoji: "🇩🇪",
+    value: "de",
   },
 ];
 

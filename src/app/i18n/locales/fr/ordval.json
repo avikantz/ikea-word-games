@@ -1,0 +1,18 @@
+{
+  "title": "Ordval",
+  "title_difficulty": "Ordval {{difficulty}}",
+  "desc": "Devinez quel produit correspond le mieux à la description donnée.",
+  "easy.desc": "Devinez que les produits les plus populaires!",
+  "medium.desc": "Comprend la plupart des produits d'étagère!",
+  "hard.desc": "500 meilleurs produits de tous les temps",
+  "insane.desc": "Tous les produits sont sur le \"lagkapten\"",
+  "unlimited": "Ordval ∞",
+  "unlimited.desc": "Deviner illimité!",
+  "question": "Qu'est-ce qu'un \"{{product}}\"?",
+  "how_to_play.title": "Ordval: Comment jouer",
+  "how_to_play.desc.1": "Vous recevrez une description d'un produit IKEA. Choisissez le nom qui correspond le mieux à la description.",
+  "how_to_play.desc.2": "Il y a des tours {{rounds}}. Chaque tour, vous recevrez un nouveau produit à identifier.",
+  "how_to_play.desc.3": "Si vous êtes coincé, vous pouvez passer / sauter le tour. Vous avez des passes {{passes}} par jeu.",
+  "how_to_play.scoring": "Score: {{points}} Points par tour * Multiplicateur.",
+  "how_to_play.multiplier": "Le multiplicateur augmente de 1 chaque tour si vous passez, max {{max}}. Si vous échouez, le multiplicateur réinitialise 1."
+}
