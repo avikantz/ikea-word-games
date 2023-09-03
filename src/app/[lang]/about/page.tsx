@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Divider, Heading, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider, Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
@@ -56,6 +56,47 @@ export default function About({ params: { lang } }: PageProps) {
             <SocialShareButtons bgColor="#FFFEFB" iconColor="#111111" />
 
             <BuyMeACoffeeButton />
+
+            <Divider />
+
+            <Text>{a("about.credits")}</Text>
+
+            <HStack
+              flexWrap="wrap"
+              spacing="0"
+              gap="2"
+              divider={<Text color="gray.500">•</Text>}
+              justifyContent="center"
+              color="blue.500"
+            >
+              <Link href="https://nextjs.org" target="_blank" rel="noopener">
+                Next.js
+              </Link>
+              <Link href="https://vercel.com" target="_blank" rel="noopener">
+                Vercel
+              </Link>
+              <Link href="https://chakra-ui.com" target="_blank" rel="noopener">
+                Chakra UI
+              </Link>
+              <Link href="https://www.framer.com/motion/" target="_blank" rel="noopener">
+                Framer Motion
+              </Link>
+              <Link href="https://tanstack.com/query/latest" target="_blank" rel="noopener">
+                Tanstack Query
+              </Link>
+              <Link href="https://www.i18next.com" target="_blank" rel="noopener">
+                i18next
+              </Link>
+              <Link href="https://mixkit.co/free-sound-effects/game/" target="_blank" rel="noopener">
+                Mixkit
+              </Link>
+              <Link href="https://github.com/nygardk/react-share" target="_blank" rel="noopener">
+                React Share
+              </Link>
+              <Link href="https://github.com/herrethan/react-confetti-explosion" target="_blank" rel="noopener">
+                React Confetti Explosion
+              </Link>
+            </HStack>
           </VStack>
         </Container>
       </Box>
