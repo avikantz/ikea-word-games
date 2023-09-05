@@ -17,24 +17,14 @@ export const WordDisplay = ({ word, guess, stackProps, ...props }: WordDisplayPr
       {isMobile ? (
         <Text as="span" textAlign="center" fontSize="xl" letterSpacing="8px" {...props}>
           {word.split("").map((w, i) => (
-            <Text as="span" key={`word-${w}${i}`} color={guess?.includes(w.removeAccents()) ? "gray.200" : "black"}>
+            <Text as="span" key={`word-${w}${i}`}>
               {w}
             </Text>
           ))}
         </Text>
       ) : (
         word.split("").map((w, i) => (
-          <Text
-            as="span"
-            key={`word-${w}${i}`}
-            fontSize="2xl"
-            fontWeight="light"
-            color={
-              // TODO: fix this to be more accurate
-              guess?.includes(w.removeAccents()) ? "gray.200" : "black"
-            }
-            {...props}
-          >
+          <Text as="span" key={`word-${w}${i}`} fontSize="2xl" fontWeight="light" {...props}>
             {w}
           </Text>
         ))
