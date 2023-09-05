@@ -98,7 +98,10 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
     <Box>
       <GameTitle title={j("title_difficulty", { difficulty: t("custom") })} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer
+        shouldSnap={!success || (attempts <= JUMBLE.MAX_ATTEMPTS && !success)}
+        ref={containerRef as Ref<HTMLDivElement>}
+      >
         <HStack justifyContent="center" alignItems="center">
           <Text color="gray.500" textAlign="center" fontSize="sm">
             {t("size")}

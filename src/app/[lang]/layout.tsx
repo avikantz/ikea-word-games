@@ -1,6 +1,7 @@
 import "@fontsource-variable/open-sans";
 import type { Metadata } from "next";
 import { dir } from "i18next";
+import "@/app/global.css";
 
 import { getTFunction } from "../i18n";
 import { Providers } from "../providers";

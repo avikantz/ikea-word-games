@@ -77,7 +77,7 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
     <Box>
       <GameTitle title={b("title_difficulty", { difficulty: "∞" })} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer shouldSnap={bildvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(bildvalRound && (
           <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">

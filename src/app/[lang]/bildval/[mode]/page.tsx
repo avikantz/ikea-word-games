@@ -165,7 +165,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
     <Box>
       <GameTitle title={b("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer shouldSnap={bildvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <GameRound round={round} maxRounds={BILDVAL.MAX_ROUNDS} />

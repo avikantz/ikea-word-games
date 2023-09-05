@@ -1,0 +1,7 @@
+html {
+	scroll-snap-type: y proximity;
+}
+
+body {
+	scroll-snap-type: y proximity;
+}

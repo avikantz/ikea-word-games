@@ -214,7 +214,10 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
     <Box>
       <GameTitle title={j("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer
+        shouldSnap={!success || (attempts <= JUMBLE.MAX_ATTEMPTS && !success)}
+        ref={containerRef as Ref<HTMLDivElement>}
+      >
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <GameRound ref={roundRef} round={round} maxRounds={JUMBLE.MAX_ROUNDS} />

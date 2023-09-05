@@ -165,7 +165,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
     <Box>
       <GameTitle title={o("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer shouldSnap={ordvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
           <HStack minW={{ base: "full", md: "500" }} justifyContent="space-between">
             <GameRound round={round} maxRounds={ORDVAL.MAX_ROUNDS} />

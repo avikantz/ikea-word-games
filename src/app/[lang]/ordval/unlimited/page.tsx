@@ -77,7 +77,7 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
     <Box>
       <GameTitle title={o("title_difficulty", { difficulty: "∞" })} />
 
-      <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
+      <GameContainer shouldSnap={ordvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(ordvalRound && (
           <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
