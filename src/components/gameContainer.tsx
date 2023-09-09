@@ -11,7 +11,13 @@ interface GameContainerProps extends Partial<BoxProps> {
 
 export const GameContainer = forwardRef<HTMLDivElement, GameContainerProps>(
   ({ shouldSnap, children, ...props }, ref) => (
-    <Box minH="100vh" id="gameContainer" scrollSnapAlign={shouldSnap ? "center" : undefined} {...props} ref={ref}>
+    <Box
+      minH="100vh"
+      id="gameContainer"
+      scrollSnapAlign={shouldSnap ? { md: "center" } : undefined}
+      {...props}
+      ref={ref}
+    >
       <VStack
         alignItems="stretch"
         py={PADDING.DEFAULT}
