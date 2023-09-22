@@ -18,7 +18,7 @@ const CACHE_TIME = 60 * 60 * 24 * 30; // 30 days
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      cacheTime: CACHE_TIME,
+      cacheTime: 1,
       staleTime: CACHE_TIME,
     },
   },
