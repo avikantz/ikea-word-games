@@ -23,5 +23,5 @@ export const fetchItems: QueryFunction<any, [string, ItemsQuery]> = async ({ que
     throw new Error(response.statusText);
   }
 
-  return response.json();
+  return await response.json();
 };

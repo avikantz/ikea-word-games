@@ -37,7 +37,7 @@ export async function GET(request: Request) {
     }
   }
 
-  const filepath = join(process.cwd(), "src", "data", lang, "unique", `${fileName}.json`);
+  const filepath = join(process.cwd(), "data", lang, "unique", `${fileName}.json`);
   const list = JSON.parse(readFileSync(filepath, { encoding: "utf8" }));
 
   return NextResponse.json(list);

@@ -44,5 +44,5 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
     window.localStorage.setItem(storageKey, list);
   }
 
-  return response.json();
+  return await response.json();
 };

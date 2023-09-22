@@ -28,5 +28,5 @@ export const fetchMap: QueryFunction = async ({ queryKey }) => {
     window.localStorage.setItem(storageKey, map);
   }
 
-  return response.json();
+  return await response.json();
 };

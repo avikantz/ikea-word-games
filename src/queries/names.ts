@@ -38,5 +38,5 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({ quer
     window.localStorage.setItem(storageKey, list);
   }
 
-  return response.json();
+  return await response.json();
 };

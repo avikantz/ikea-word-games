@@ -41,10 +41,10 @@ export async function GET(request: Request) {
     count = DEFAULT_COUNT;
   }
 
-  const listPath = join(process.cwd(), "src", "data", lang, "unique", "all.json");
+  const listPath = join(process.cwd(), "data", lang, "unique", "all.json");
   const list = JSON.parse(readFileSync(listPath, { encoding: "utf8" }));
 
-  const itemMapPath = join(process.cwd(), "src", "data", lang, "items", "map.json");
+  const itemMapPath = join(process.cwd(), "data", lang, "items", "map.json");
   const itemMap: Record<string, IKEAProduct> = JSON.parse(readFileSync(itemMapPath, { encoding: "utf8" }));
 
   const wordList = [];

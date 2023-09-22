@@ -29,10 +29,10 @@ export async function GET(request: Request) {
     length = DEFAULT_LENGTH;
   }
 
-  const listPath = join(process.cwd(), "src", "data", lang, "unique", `${length}.json`);
+  const listPath = join(process.cwd(), "data", lang, "unique", `${length}.json`);
   const list = JSON.parse(readFileSync(listPath, { encoding: "utf8" }));
 
-  const itemMapPath = join(process.cwd(), "src", "data", lang, "items", "map.json");
+  const itemMapPath = join(process.cwd(), "data", lang, "items", "map.json");
   const itemMap: Record<string, IKEAProduct> = JSON.parse(readFileSync(itemMapPath, { encoding: "utf8" }));
 
   // Get random word from unique item list
