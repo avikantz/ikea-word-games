@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     lang = FALLBACK_LANG;
   }
 
-  const itemMapPath = join(process.cwd(), "data", lang, "items", "map.json");
+  const itemMapPath = join(process.cwd(), "public", "data", lang, "items", "map.json");
   const itemMap: Record<string, IKEAProduct> = JSON.parse(readFileSync(itemMapPath, { encoding: "utf8" }));
   
   const { searchParams } = new URL(request.url);

@@ -28,7 +28,7 @@ export async function GET(request: Request) {
 	fileName = "all";
   }
 
-  const listPath = join(process.cwd(), "data", lang, "names", `${length}.json`);
+  const listPath = join(process.cwd(), "public", "data", lang, "names", `${length}.json`);
   const list = JSON.parse(readFileSync(listPath, { encoding: "utf8" }));
 
   return NextResponse.json(list);
