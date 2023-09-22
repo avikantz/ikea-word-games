@@ -1,3 +1,4 @@
+import { clearAllLocalesDataExcept } from "@/utils/storage";
 import { QueryFunction } from "@tanstack/react-query";
 import i18next from "i18next";
 
@@ -36,7 +37,12 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({ quer
   // Save to local storage
   if (typeof window !== "undefined") {
     const list = await response.text();
-    window.localStorage.setItem(storageKey, list);
+    try {
+      window.localStorage.setItem(storageKey, list);
+    } catch (error) {
+      console.warn(error);
+      clearAllLocalesDataExcept(i18next.language);
+    }
   }
 
   return await response.json();

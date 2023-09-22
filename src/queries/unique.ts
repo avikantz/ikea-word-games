@@ -2,6 +2,7 @@ import { QueryFunction } from "@tanstack/react-query";
 
 import { GAME_MODE } from "@/interfaces";
 import i18next from "i18next";
+import { clearAllLocalesDataExcept } from "@/utils/storage";
 
 export const Q_UNIQUE_KEY = "q_unique";
 
@@ -41,7 +42,12 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
   // Save to local storage
   if (typeof window !== "undefined") {
     const list = await response.text();
-    window.localStorage.setItem(storageKey, list);
+    try {
+      window.localStorage.setItem(storageKey, list);
+    } catch (error) {
+      console.warn(error);
+      clearAllLocalesDataExcept(i18next.language);
+    }
   }
 
   return await response.json();

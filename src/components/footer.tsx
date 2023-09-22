@@ -12,6 +12,7 @@ import { useAudio } from "@/hooks/useAudio";
 import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
 import { BuyMeACoffeeButton } from "./coffeeButton";
+import { clearAllLocalesDataExcept } from "@/utils/storage";
 
 interface FooterProps {
   lang: string;
@@ -27,7 +28,8 @@ export const Footer = ({ lang }: FooterProps) => {
 
   const onChangeLanguage = (event: ChangeEvent<HTMLSelectElement>) => {
     const locale = event.target.value;
-    router.replace(pathname.replace(`/${lang}`, `/${locale}`));
+    clearAllLocalesDataExcept(locale);
+    window.location.replace(pathname.replace(`/${lang}`, `/${locale}`));
   };
 
   return (

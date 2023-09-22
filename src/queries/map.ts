@@ -1,5 +1,6 @@
 import i18next from "i18next";
 import { QueryFunction } from "@tanstack/react-query";
+import { clearAllLocalesDataExcept } from "@/utils/storage";
 
 export const Q_MAP_KEY = "q_map";
 
@@ -25,7 +26,12 @@ export const fetchMap: QueryFunction = async ({ queryKey }) => {
   // Save to local storage
   if (typeof window !== "undefined") {
     const map = await response.text();
-    window.localStorage.setItem(storageKey, map);
+    try {
+      window.localStorage.setItem(storageKey, map);
+    } catch (error) {
+      console.warn(error);
+      clearAllLocalesDataExcept(i18next.language);
+    }
   }
 
   return await response.json();
