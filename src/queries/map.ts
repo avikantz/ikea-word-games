@@ -16,7 +16,7 @@ export const fetchMap: QueryFunction = async ({ queryKey }) => {
     }
   }
 
-  const response = await fetch("/api/map", { cache: "no-store" });
+  const response = await fetch(`/data/${i18next.language ?? "en"}/items/map.json`);
 
   if (!response.ok) {
     throw new Error(response.statusText);

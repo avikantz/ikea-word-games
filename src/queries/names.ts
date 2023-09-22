@@ -20,13 +20,20 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({ quer
     }
   }
 
-  const url = new URL("/api/list/names", window.location.origin);
-
-  if (length) {
-    url.searchParams.append("length", length.toString());
+  // Default file
+  let fileName = "all";
+  if (length && length >= 4 && length <= 10) {
+    // Fix length between 4 and 10
+    fileName = length.toString();
   }
 
-  const response = await fetch(url, { cache: "no-store" });
+  // const url = new URL("/api/list/names", window.location.origin);
+
+  // if (length) {
+  //   url.searchParams.append("length", length.toString());
+  // }
+
+  const response = await fetch(`/data/${i18next.language ?? "en"}/names/${fileName}.json`);
 
   if (!response.ok) {
     throw new Error(response.statusText);
