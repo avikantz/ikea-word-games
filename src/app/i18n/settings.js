@@ -3,24 +3,84 @@ export const DEFAULT_NS = "common";
 
 export const LANGUAGE_LIST = [
   {
-    label: "English",
+    label: "English (UK)",
     emoji: "🇬🇧",
     value: FALLBACK_LANG,
   },
   {
-    label: "Español",
+    label: "English (US)",
+    emoji: "🇺🇸",
+    value: "en-US",
+  },
+  {
+    label: "English (India)",
+    emoji: "🇮🇳",
+    value: "en-IN",
+  },
+  {
+    label: "English (Canada)",
+    emoji: "🇨🇦",
+    value: "en-CA",
+  },
+  {
+    label: "English (Australia)",
+    emoji: "🇦🇺",
+    value: "en-AU",
+  },
+  {
+    label: "English (China)",
+    emoji: "🇨🇳",
+    value: "en-CN",
+  },
+  {
+    label: "English (Japan)",
+    emoji: "🇯🇵",
+    value: "en-JP",
+  },
+  {
+    label: "English (Korea)",
+    emoji: "🇰🇷",
+    value: "en-KR",
+  },
+  {
+    label: "English (Portugal)",
+    emoji: "🇵🇹",
+    value: "en-PT",
+  },
+  {
+    label: "English (KSA)",
+    emoji: "🇸🇦",
+    value: "en-SA",
+  },
+  {
+    label: "English (UAE)",
+    emoji: "🇦🇪",
+    value: "en-AE",
+  },
+  {
+    label: "Español (Spain)",
     emoji: "🇪🇸",
     value: "es",
   },
   {
-    label: "Français",
+    label: "Español (Mexico)",
+    emoji: "🇲🇽",
+    value: "es-MX",
+  },
+  {
+    label: "Français (France)",
     emoji: "🇫🇷",
     value: "fr",
   },
   {
-    label: "Deutsch",
+    label: "Deutsch (Germany)",
     emoji: "🇩🇪",
     value: "de",
+  },
+  {
+    label: "Italiano (Italy)",
+    emoji: "🇮🇹",
+    value: "it",
   },
 ];
 
