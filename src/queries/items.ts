@@ -2,8 +2,6 @@ import { QueryFunction } from "@tanstack/react-query";
 
 import { BASE_URL } from "@/utils/constants";
 
-export const Q_ITEMS_KEY = "q_items";
-
 interface ItemsQuery {
   words: string | string[];
 }
@@ -19,7 +17,7 @@ export const fetchItems: QueryFunction<any, [string, ItemsQuery]> = async ({ que
     words.forEach((word) => url.searchParams.append("words", word));
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(response.statusText);

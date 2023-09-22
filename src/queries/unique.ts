@@ -2,6 +2,7 @@ import { QueryFunction } from "@tanstack/react-query";
 
 import { GAME_MODE } from "@/interfaces";
 import { BASE_URL } from "@/utils/constants";
+import i18next from "i18next";
 
 export const Q_UNIQUE_KEY = "q_unique";
 
@@ -14,9 +15,10 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
   const [_key, { mode, length }] = queryKey;
 
   // Get from local storage if available
-  const lsKey = `${Q_UNIQUE_KEY}_${mode || length || "all"}`;
+  const storageKey = `${i18next.language}_${Q_UNIQUE_KEY}_${mode || length || "all"}`;
+
   if (typeof window !== "undefined") {
-    const list = window.localStorage.getItem(lsKey);
+    const list = window.localStorage.getItem(storageKey);
     if (list) {
       return JSON.parse(list);
     }
@@ -30,7 +32,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
     url.searchParams.append("length", length.toString());
   }
 
-  const response = await fetch(url);
+  const response = await fetch(url, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -39,7 +41,7 @@ export const fetchUnique: QueryFunction<any, [string, UniqueQuery]> = async ({ q
   // Save to local storage
   if (typeof window !== "undefined") {
     const list = await response.text();
-    window.localStorage.setItem(lsKey, list);
+    window.localStorage.setItem(storageKey, list);
   }
 
   return response.json();
