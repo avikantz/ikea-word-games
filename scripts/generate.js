@@ -12,13 +12,11 @@ const LOCALES = {
   "en-IN": "en/in",
   fr: "fr/fr",
   es: "es/es",
-  //   "es-MX": "mx/es",
+  "es-MX": "mx/es",
   de: "de/de",
   it: "it/it",
   "en-PT": "pt/en",
   "en-AU": "au/en",
-  "en-NZ": "nz/en",
-  "en-MX": "mx/en",
   "en-CN": "cn/en",
   "en-JP": "jp/en",
   "en-KR": "kr/en",
@@ -36,108 +34,108 @@ const LOCALES = {
   //   "ar-SA": "sa/ar",
 
   // Locales on IKEA website
-  // "en-PH": "ph/en",
-  // "sl-SI": "si/sl",
-  // "en-MX": "mx/en",
-  // "es-MX": "mx/es",
-  // "en-CN": "cn/en",
-  // "zh-CN": "cn/zh",
-  // "en-JO": "jo/en",
-  // "ar-JO": "jo/ar",
   // "ar-AE": "ae/ar",
+  // "ar-BH": "bh/ar",
   // "ar-EG": "eg/ar",
+  // "ar-JO": "jo/ar",
   // "ar-KW": "kw/ar",
+  // "ar-MA": "ma/ar",
+  // "ar-OM": "om/ar",
   // "ar-QA": "qa/ar",
   // "ar-SA": "sa/ar",
   // "ca-ES": "es/ca",
-  // "th-TH": "th/th",
-  // "ms-MY": "my/ms",
-  // "en-PT": "pt/en",
-  // "sk-SK": "sk/sk",
-  // "pt-PT": "pt/pt",
-  // "hr-HR": "hr/hr",
   // "cs-CZ": "cz/cs",
+  // "da-DK": "dk/da",
+  // "de-AT": "at/de",
+  // "de-CH": "ch/de",
+  // "de-DE": "de/de",
+  // "ee-EE": "ee/et",
+  // "en-AE": "ae/en",
+  // "en-AT": "at/en",
   // "en-AU": "au/en",
+  // "en-BE": "be/en",
+  // "en-BH": "bh/en",
+  // "en-CA": "ca/en",
+  // "en-CH": "ch/en",
+  // "en-CN": "cn/en",
+  // "en-CY": "cy/en",
   // "en-CZ": "cz/en",
+  // "en-DO": "do/en",
+  // "en-EE": "ee/en",
   // "en-EG": "eg/en",
+  // "en-ES": "es/en",
+  // "en-GB": "gb/en",
+  // "en-GR": "gr/en",
+  // "en-HK": "hk/en",
+  // "en-ID": "id/en",
+  // "en-IE": "ie/en",
+  // "en-IN": "in/en",
+  // "en-JO": "jo/en",
   // "en-JP": "jp/en",
   // "en-KR": "kr/en",
   // "en-KW": "kw/en",
+  // "en-LT": "lt/en",
+  // "en-LV": "lv/en",
+  // "en-MA": "ma/en",
+  // "en-MX": "mx/en",
+  // "en-MY": "my/en",
+  // "en-NL": "nl/en",
+  // "en-NZ": "nz/en",
+  // "en-OM": "om/en",
+  // "en-PH": "ph/en",
+  // "en-PT": "pt/en",
   // "en-QA": "qa/en",
   // "en-SA": "sa/en",
+  // "en-SG": "sg/en",
+  // "en-TH": "th/en",
+  // "en-TR": "tr/en",
+  // "en-TW": "tw/en",
   // "en-US": "us/en",
+  // "es-CL": "cl/es",
+  // "es-CO": "co/es",
+  // "es-DO": "do/es",
+  // "es-ES": "es/es",
+  // "es-MX": "mx/es",
+  // "et-LV": "lv/lv",
+  // "eu-ES": "es/eu",
+  // "fi-FI": "fi/fi",
+  // "fr-BE": "be/fr",
+  // "fr-CA": "ca/fr",
   // "fr-CH": "ch/fr",
+  // "fr-FR": "fr/fr",
+  // "fr-MA": "ma/fr",
+  // "gl-ES": "es/gl",
+  // "he-IL": "il/he",
+  // "hr-HR": "hr/hr",
   // "hu-HU": "hu/hu",
+  // "in-ID": "id/in",
+  // "is-IS": "is/is",
+  // "it-CH": "ch/it",
+  // "it-IT": "it/it",
   // "ja-JP": "jp/ja",
   // "ko-KR": "kr/ko",
-  // "nl-NL": "nl/nl",
-  // "en-NL": "nl/en",
-  // "pl-PL": "pl/pl",
-  // "ro-RO": "ro/ro",
-  // "sr-RS": "rs/sr",
-  // "en-CH": "ch/en",
-  // "en-IN": "in/en",
-  // "en-BH": "bh/en",
-  // "ar-BH": "bh/ar",
-  // "no-NO": "no/no",
-  // "es-ES": "es/es",
-  // "en-ES": "es/en",
-  // "en-SG": "sg/en",
-  // "en-AE": "ae/en",
-  // "fi-FI": "fi/fi",
-  // "fr-FR": "fr/fr",
-  // "fr-CA": "ca/fr",
-  // "en-CA": "ca/en",
-  // "fr-BE": "be/fr",
-  // "nl-BE": "be/nl",
-  // "en-BE": "be/en",
-  // "en-TH": "th/en",
-  // "en-MY": "my/en",
-  // "en-IE": "ie/en",
-  // "da-DK": "dk/da",
-  // "en-GB": "gb/en",
-  // "gl-ES": "es/gl",
-  // "eu-ES": "es/eu",
-  // "en-MA": "ma/en",
-  // "fr-MA": "ma/fr",
-  // "ar-MA": "ma/ar",
-  // "es-CL": "cl/es",
-  // "he-IL": "il/he",
-  // "en-OM": "om/en",
-  // "ar-OM": "om/ar",
-  // "de-CH": "ch/de",
-  // "de-DE": "de/de",
-  // "de-AT": "at/de",
-  // "en-AT": "at/en",
-  // "it-IT": "it/it",
-  // "it-CH": "ch/it",
-  // "es-CO": "co/es",
-  // "sv-SE": "se/sv",
-  // "zh-HK": "hk/zh",
-  // "en-HK": "hk/en",
-  // "es-DO": "do/es",
-  // "en-DO": "do/en",
-  // "en-GR": "gr/en",
-  // "in-ID": "id/in",
-  // "en-ID": "id/en",
-  // "is-IS": "is/is",
-  // "en-TR": "tr/en",
   // "lt-LT": "lt/lt",
-  // "ru-LT": "lt/ru",
-  // "en-LT": "lt/en",
-  // "ru-RU": "ru/ru",
-  // "en-CY": "cy/en",
-  // "en-NZ": "nz/en",
-  // "ee-EE": "ee/et",
-  // "ru-EE": "ee/ru",
-  // "en-EE": "ee/en",
   // "lv-LV": "lv/lv",
+  // "ms-MY": "my/ms",
+  // "nl-BE": "be/nl",
+  // "nl-NL": "nl/nl",
+  // "no-NO": "no/no",
+  // "pl-PL": "pl/pl",
+  // "pt-PT": "pt/pt",
+  // "ro-RO": "ro/ro",
+  // "ru-EE": "ee/ru",
+  // "ru-LT": "lt/ru",
   // "ru-LV": "lv/ru",
-  // "en-LV": "lv/en",
-  // "et-LV": "lv/lv",
-  // "zh-TW": "tw/zh",
-  // "en-TW": "tw/en",
+  // "ru-RU": "ru/ru",
+  // "sk-SK": "sk/sk",
+  // "sl-SI": "si/sl",
+  // "sr-RS": "rs/sr",
+  // "sv-SE": "se/sv",
+  // "th-TH": "th/th",
   // "uk-UA": "ua/uk",
+  // "zh-CN": "cn/zh",
+  // "zh-HK": "hk/zh",
+  // "zh-TW": "tw/zh",
 };
 const SORT_ORDERS = ["MOST_POPULAR", "RELEVANCE", "RATING", "NAME_ASCENDING"];
 const COUNT = [10, 100, 500, 1000, 5000, 10000];
@@ -192,34 +190,35 @@ function generateFromMasterList(masterItems, locale) {
 
   for (var i = 0; i < masterItems.length; ++i) {
     const item = masterItems[i];
-    const { name, typeName, mainImageUrl, mainImageAlt, pipUrl, id, contextualImageUrl } =
-      item.type === "FEATURED_PRODUCT" ? item.featuredProduct : item.product;
-
-    // Only need all of these info
-    const filteredItem = {
-      name,
-      desc: typeName,
-      image: contextualImageUrl ?? mainImageUrl,
-      pImage: mainImageUrl,
-      alt: mainImageAlt,
-      url: pipUrl,
-      id,
-    };
-
-    // Filter out non unique, short, and multi word names
-    if (!names.includes(name) && !name.includes(" ") && name.length >= 4 && name.length <= 10) {
-      names.push(name);
-
-      itemsMap[name] = filteredItem;
-
-      filteredList.push(filteredItem);
+    try {
+      const { name, typeName, mainImageUrl, mainImageAlt, pipUrl, id, contextualImageUrl } =
+        item.type === "FEATURED_PRODUCT" ? item.featuredProduct : item.product;
+  
+      // Only need all of these info
+      const filteredItem = {
+        name,
+        desc: typeName,
+        image: contextualImageUrl ?? mainImageUrl,
+        pImage: mainImageUrl,
+        alt: mainImageAlt,
+        url: pipUrl,
+        id,
+      };
+  
+      // Filter out non unique, short, and multi word names
+      if (!names.includes(name) && !name.includes(" ") && name.length >= 4 && name.length <= 10) {
+        names.push(name);
+  
+        itemsMap[name] = filteredItem;
+  
+        filteredList.push(filteredItem);
+      }
+    } catch (error) {
+      console.error('>> Unable to parse item', locale, item);
     }
   }
 
   const uniqueNames = getUniqueCombinations(names);
-
-  console.log("names", names.length);
-  console.log("uniqueNames", uniqueNames.length);
 
   // Names of a certain length
   [4, 5, 6, 7, 8, 9, 10].map((length) => {
@@ -268,21 +267,15 @@ async function generate(locale, sortOrder, count) {
 
     // Generate the things we need
     generateFromMasterList(masterItems, locale);
+
+    console.log(`>> Generated ${count} products for "${locale}" with sort order ${sortOrder}.`);
+    console.log("Find your files here: ");
+    console.log(`${locale}/names - List of all non-duplicate product names`);
+    console.log(`${locale}/unique - List of all non-duplicate and non-combinatorial product names`);
+    console.log(`${locale}/items - List and name-item map of all products`);
   } catch (error) {
     console.error("! Failed to generate", error);
   }
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-
-function generateForLocale(locale, sortOrder, count) {
-  console.log(`>> Generating ${count} products for "${locale}" with sort order ${sortOrder}.`);
-  console.log("Find your files here: ");
-  console.log(`${locale}/names - List of all non-duplicate product names`);
-  console.log(`${locale}/unique - List of all non-duplicate and non-combinatorial product names`);
-  console.log(`${locale}/items - List and name-item map of all products`);
-
-  generate(locale, sortOrder, count);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -305,11 +298,11 @@ async function main() {
   });
 
   if (locale === "all") {
-    Object.keys(LOCALES).forEach((locale) => {
-      generateForLocale(locale, sortOrder, count);
+    Object.keys(LOCALES).forEach(async (locale) => {
+      await generate(locale, sortOrder, count);
     });
   } else {
-    generateForLocale(locale, sortOrder, count);
+    await generate(locale, sortOrder, count);
   }
 }
 
