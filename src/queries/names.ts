@@ -27,12 +27,6 @@ export const fetchNames: QueryFunction<any, [string, NameQuery]> = async ({ quer
     fileName = length.toString();
   }
 
-  // const url = new URL("/api/list/names", window.location.origin);
-
-  // if (length) {
-  //   url.searchParams.append("length", length.toString());
-  // }
-
   const response = await fetch(`/data/${i18next.language ?? "en"}/names/${fileName}.json`);
 
   if (!response.ok) {
