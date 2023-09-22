@@ -1,6 +1,18 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { join } from "path";
+import { readFileSync } from "fs";
+
+import { FALLBACK_LANG, LANGUAGES } from "@/app/i18n/settings";
 
 export async function GET(request: Request) {
+  const cookieStore = cookies();
+  const locale = cookieStore.get("i18next");
+  let lang = locale?.value ?? FALLBACK_LANG;
+  if (!LANGUAGES.includes(lang)) {
+    lang = FALLBACK_LANG;
+  }
+
   const { searchParams } = new URL(request.url);
 
   // Default file
@@ -25,7 +37,8 @@ export async function GET(request: Request) {
     }
   }
 
-  const list = require(`./${fileName}.json`);
+  const filepath = join(process.cwd(), "src", "data", lang, "unique", `${fileName}.json`);
+  const list = JSON.parse(readFileSync(filepath, { encoding: "utf8" }));
 
   return NextResponse.json(list);
 }
