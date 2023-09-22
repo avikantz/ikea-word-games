@@ -36,7 +36,7 @@ String.prototype.removeAccents = function () {
 
 /// Clean a string
 String.prototype.clean = function () {
-  return this.normalize("NFD").replace(/[^\w\s]+/g, "");
+  return this.normalize("NFD").replace(/[^\w\s]+/g, " ").replace(/\s+/g, " ").trim();
 };
 
 /// Remove whitespaces

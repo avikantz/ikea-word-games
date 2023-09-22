@@ -12,6 +12,7 @@ import { useAudio } from "@/hooks/useAudio";
 import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
 import { BuyMeACoffeeButton } from "./coffeeButton";
+import { clearAllLocalesDataExcept } from "@/utils/storage";
 
 interface FooterProps {
   lang: string;
@@ -27,7 +28,8 @@ export const Footer = ({ lang }: FooterProps) => {
 
   const onChangeLanguage = (event: ChangeEvent<HTMLSelectElement>) => {
     const locale = event.target.value;
-    router.replace(pathname.replace(`/${lang}`, `/${locale}`));
+    clearAllLocalesDataExcept(locale);
+    window.location.replace(pathname.replace(`/${lang}`, `/${locale}`));
   };
 
   return (
@@ -69,7 +71,7 @@ export const Footer = ({ lang }: FooterProps) => {
           />
 
           {/* Language switcher */}
-          <Select maxW="32" size="sm" defaultValue={lang} onChange={onChangeLanguage}>
+          <Select maxW="48" size="sm" defaultValue={lang} onChange={onChangeLanguage}>
             {LANGUAGE_LIST.map(({ label, emoji, value }) => (
               <option key={value} value={value}>
                 {emoji} {label}

@@ -103,6 +103,7 @@ export const GameOverModal = ({
         <ModalFooter>
           <Stack
             w="full"
+            wrap="wrap"
             direction={{ base: "column", md: "row" }}
             spacing={{ base: 4, md: 2 }}
             justifyContent="space-between"
