@@ -246,13 +246,13 @@ function generateFromMasterList(masterItems, locale) {
   });
 
   // List of top 100 names
-  fs.writeFileSync(`./${locale}/unique/easy.json`, JSON.stringify(uniqueNames.slice(0, 100).sort()));
+  fs.writeFileSync(`./${locale}/unique/easy.json`, JSON.stringify(uniqueNames.filter(u => u.length < 7).slice(0, 100).sort()));
   console.log(`\t./${locale}/unique/easy.json: ${uniqueNames.slice(0, 100).length} items`);
   // List of top 250 names
-  fs.writeFileSync(`./${locale}/unique/medium.json`, JSON.stringify(uniqueNames.slice(0, 250).sort()));
+  fs.writeFileSync(`./${locale}/unique/medium.json`, JSON.stringify(uniqueNames.filter(u => u.length < 8).slice(0, 250).sort()));
   console.log(`\t./${locale}/unique/medium.json: ${uniqueNames.slice(0, 250).length} items`);
   // List of top 500 names
-  fs.writeFileSync(`./${locale}/unique/hard.json`, JSON.stringify(uniqueNames.slice(0, 500).sort()));
+  fs.writeFileSync(`./${locale}/unique/hard.json`, JSON.stringify(uniqueNames.filter(u => u.length < 10).slice(0, 500).sort()));
   console.log(`\t./${locale}/unique/hard.json: ${uniqueNames.slice(0, 500).length} items`);
   // List of all names
   fs.writeFileSync(`./${locale}/unique/all.json`, JSON.stringify(uniqueNames.sort()));
