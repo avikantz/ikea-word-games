@@ -2,6 +2,7 @@ import "@fontsource-variable/open-sans";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import "@/app/global.css";
+import "react-simple-keyboard/build/css/index.css";
 
 import { getTFunction } from "./i18n";
 import { getLanguagesMap } from "@/app/i18n/settings";

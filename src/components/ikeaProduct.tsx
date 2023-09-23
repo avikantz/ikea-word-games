@@ -96,7 +96,7 @@ export const IKEAProductCard = ({
         </Center>
       )}
 
-      <Box w={{ base: "120px", md: "200px" }} h={{ base: "120px", md: "200px" }} overflow="hidden">
+      <Box w={{ base: "160px", md: "200px" }} h={{ base: "160px", md: "200px" }} overflow="hidden">
         <Image
           src={product.image}
           alt={product.desc}

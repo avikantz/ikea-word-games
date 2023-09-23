@@ -5,3 +5,51 @@ html {
 body {
 	scroll-snap-type: y proximity;
 }
+.simple-keyboard.hg-theme-default.customKeyboardTheme {
+	padding: 0;
+	background-color: transparent;
+	border-radius: 0;
+	font-weight: bold;
+	font-family: inherit;
+}
+
+.simple-keyboard.hg-theme-default.customKeyboardTheme .hg-rows {
+	max-width: 525px;
+	margin: 0 auto;
+}
+
+.simple-keyboard.hg-theme-default.customKeyboardTheme .hg-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.simple-keyboard.hg-layout-default .customButton {
+	min-height: 48px;
+	max-width: calc(10% - 5px);
+	border-radius: 0;
+	background-color: #F2F2F2;
+	box-shadow: none;
+	border: 1px solid;
+	border-color: #DBDBDB;
+}
+
+.simple-keyboard.hg-layout-default .customButton:hover {
+	background-color: #DBDBDB;
+	border-color: #C4C4C4;
+}
+
+.simple-keyboard.hg-layout-default .bkspButton {
+	min-width: 48px;
+	border-radius: 100%;
+	background-color: white;
+	border: 2px solid;
+	border-color: black;
+}
+
+.simple-keyboard.hg-layout-default .bkspButton:hover {
+	border-color: black;
+	background-color: black;
+	color: white;
+}

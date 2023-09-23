@@ -100,6 +100,9 @@ export default function About({ params: { lang } }: PageProps) {
               <Link href="https://github.com/herrethan/react-confetti-explosion" target="_blank" rel="noopener">
                 React Confetti Explosion
               </Link>
+              <Link href="https://github.com/hodgef/react-simple-keyboard" target="_blank" rel="noopener">
+                React Simple Keyboard
+              </Link>
             </HStack>
           </VStack>
         </Container>
