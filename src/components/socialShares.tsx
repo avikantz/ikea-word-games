@@ -24,6 +24,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
+import i18next from "i18next";
 
 import { useTranslation } from "@/app/i18n/client";
 import { BASE_URL } from "@/utils/constants";
@@ -44,9 +45,9 @@ export const SocialShareButtons = ({
   stackProps,
   ...props
 }: SocialShareButtonsProps) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
-  const shareUrl = `${BASE_URL}/${i18n.language ?? "en"}`;
+  const shareUrl = `${BASE_URL}${i18next.language ?? "en"}`;
 
   return (
     <HStack spacing="0" gap={{ base: 2, md: 3 }} flexWrap="wrap" justifyContent="center" {...stackProps}>
