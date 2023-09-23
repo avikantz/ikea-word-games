@@ -30,7 +30,8 @@
     "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.2.0",
-    "react-share": "^4.4.1"
+    "react-share": "^4.4.1",
+    "react-simple-keyboard": "^3.7.16"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^4.32.5",

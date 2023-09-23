@@ -1,13 +1,12 @@
 "use client";
 
 import React, {
-  ChangeEventHandler,
   Dispatch,
-  KeyboardEventHandler,
   LegacyRef,
   MouseEventHandler,
   SetStateAction,
   forwardRef,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -19,11 +18,15 @@ import {
   PinInputField,
   Skeleton,
   Text,
+  VStack,
   useBreakpointValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
+import Keyboard from "react-simple-keyboard";
 
 import { matchCharacters } from "@/utils/words";
+import { PADDING } from "@/theme";
 
 interface WordInputProps {
   value: string;
@@ -42,8 +45,15 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
 
   const [containerRef, animateContainer] = useAnimate();
   const buttonRef = useRef<HTMLButtonElement>();
+  const keyboardRef = useRef();
 
   const isMobile = useBreakpointValue({ base: true, md: false }, { fallback: "md" });
+  const {
+    isOpen: isKeyboardVisible,
+    onToggle: toggleKeyboard,
+    onOpen: showKeyboard,
+    onClose: hideKeyboard,
+  } = useDisclosure();
 
   // Input target length has reached
   const onCompletion = (value: string) => {
@@ -51,10 +61,8 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     if (matchCharacters(value, targetValue)) {
       setInvalid(false);
 
-      // Auto focus button on desktop
-      if (!isMobile) {
-        buttonRef?.current?.focus();
-      }
+      // Auto focus submit button
+      buttonRef?.current?.focus();
     } else {
       setInvalid(true);
       // Jiggle input if invalid
@@ -66,6 +74,8 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
 
   const onPinInputChange = (value: string) => {
     setValue(value.toUpperCase());
+    // @ts-expect-error
+    keyboardRef.current?.setInput(value);
 
     if (value.length < length) {
       setInvalid(false);
@@ -75,20 +85,23 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     }
   };
 
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const value = event.target.value.toUpperCase();
+  const onKeyboardInputChange = (input: string, _event?: MouseEvent) => {
+    if (input.length > length) {
+      // Jiggle input if longer than target length (feedback for extra presses)
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      return;
+    }
+
+    const value = input.toUpperCase();
     setValue(value);
 
-    if (value.length < length) {
-      setInvalid(false);
-    }
     if (value.length === length) {
       onCompletion(value);
     }
   };
 
-  const onSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault();
+  const onSubmit = (event?: Event) => {
+    event?.preventDefault();
 
     if (value.length !== length || !matchCharacters(value, targetValue)) {
       // Jiggle input if invalid
@@ -97,85 +110,124 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     }
     _onSubmit(value);
     setValue("");
+    // @ts-expect-error
+    keyboardRef.current?.setInput("");
   };
 
-  const onInputKeyUp: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    event.preventDefault();
-
-    if (event.key !== "Enter") return;
-
-    if (value.length !== length || !matchCharacters(value, targetValue)) {
-      // Jiggle input if invalid
-      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
-      return;
+  const onKeyboardKeyPress = (button: string, _event?: MouseEvent) => {
+    if (button === "{enter}") {
+      onSubmit(_event);
     }
-
-    setValue("");
-
-    _onSubmit(value);
   };
+
+  // Show keyboard on mobile devices
+  useEffect(() => {
+    if (isMobile) {
+      showKeyboard();
+    } else {
+      hideKeyboard();
+    }
+  }, [hideKeyboard, isMobile, showKeyboard]);
 
   return (
-    <HStack justifyContent="center" w={{ base: "full", md: "auto" }} ref={containerRef}>
-      {isMobile ? (
-        // Render basic input on mobile due to space constraints
-        <Input
+    <VStack w={isKeyboardVisible ? "full" : "auto"} spacing={PADDING.DEFAULT}>
+      <HStack ref={containerRef}>
+        <IconButton
+          // TODO: get icons for these
+          icon={<Text>{isKeyboardVisible ? "𝙸" : "⌨️"}</Text>}
+          aria-label="Toggle keyboard"
           size="lg"
-          autoFocus
-          value={value}
-          onChange={onInputChange}
-          type="text"
+          variant="outline"
+          onClick={toggleKeyboard}
           isDisabled={isDisabled}
-          isInvalid={isInvalid}
-          _invalid={{ borderColor: "red.500", _focus: { boxShadow: "red" } }}
-          maxLength={length}
-          ref={inputRef as LegacyRef<HTMLInputElement>}
-          textTransform="uppercase"
-          textAlign="center"
-          letterSpacing="8px"
-          // Support enter key submission
-          onKeyUp={onInputKeyUp}
         />
-      ) : (
-        // Fancier Pin Input on desktop
-        <PinInput
-          size="lg"
-          autoFocus
-          value={value}
-          onChange={onPinInputChange}
-          type="alphanumeric"
-          isDisabled={isDisabled}
-          isInvalid={isInvalid}
-        >
-          <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" rounded="none" />
-          {Array(length - 1)
-            .fill(0)
-            .map((_, i) => (
-              <PinInputField textTransform="uppercase" key={i} rounded="none" />
-            ))}
-        </PinInput>
-      )}
 
-      <IconButton
-        ref={buttonRef as LegacyRef<HTMLButtonElement>}
-        icon={<Text>⏎</Text>}
-        aria-label="Submit"
-        size="lg"
-        variant="outline"
-        onClick={onSubmit}
-        isDisabled={isDisabled}
-      />
-    </HStack>
+        {isKeyboardVisible ? (
+          // Render "fake" input if OSK is visible (default on mobile)
+          <Input
+            size="lg"
+            value={value}
+            type="text"
+            isDisabled
+            isInvalid={isInvalid}
+            _disabled={{ opacity: 1, color: "black" }}
+            _invalid={{ borderColor: "red.500", _focus: { boxShadow: "red" } }}
+            textTransform="uppercase"
+            textAlign="center"
+            letterSpacing="8px"
+          />
+        ) : (
+          // Fancier pin Input on for keyboard users
+          <PinInput
+            size="lg"
+            autoFocus
+            value={value}
+            onChange={onPinInputChange}
+            type="alphanumeric"
+            isDisabled={isDisabled}
+            isInvalid={isInvalid}
+          >
+            {/* Focus on first field */}
+            <PinInputField ref={inputRef as LegacyRef<HTMLInputElement>} textTransform="uppercase" rounded="none" />
+            {Array(length - 1)
+              .fill(0)
+              .map((_, i) => (
+                <PinInputField textTransform="uppercase" key={i} rounded="none" />
+              ))}
+          </PinInput>
+        )}
+
+        <IconButton
+          ref={buttonRef as LegacyRef<HTMLButtonElement>}
+          // TODO: get an icon
+          icon={<Text>⏎</Text>}
+          aria-label="Submit"
+          size="lg"
+          variant="outline"
+          onClick={onSubmit as unknown as MouseEventHandler<HTMLButtonElement>}
+          isDisabled={isDisabled}
+        />
+      </HStack>
+
+      {/* Virtual keyboard */}
+      {isKeyboardVisible && (
+        <Keyboard
+          keyboardRef={(ref) => (keyboardRef.current = ref)}
+          onChange={onKeyboardInputChange}
+          onKeyPress={onKeyboardKeyPress}
+          theme="hg-theme-default hg-layout-default customKeyboardTheme"
+          buttonTheme={[
+            {
+              buttons: "Q W E R T Y U I O P A S D F G H J K L Z X C V B N M {bksp} {enter}",
+              class: "customButton",
+            },
+            {
+              buttons: "{bksp} {enter}",
+              class: "actionButton",
+            },
+          ]}
+          layout={{
+            default: ["Q W E R T Y U I O P", "A S D F G H J K L", "{bksp} Z X C V B N M {enter}"],
+          }}
+          display={{
+            "{bksp}": "⌫",
+            "{enter}": "🆗",
+          }}
+        />
+      )}
+    </VStack>
   );
 });
 WordInput.displayName = "WordInput";
 
 export const WordInputSkeleton = () => (
   <HStack justifyContent="center" w={{ base: "full", md: "auto" }}>
-    {Array(7)
+    <Skeleton w="12" h="12" rounded="full" />
+    {Array(6)
       .fill(0)
       .map((_, i) => (
         <Skeleton key={`wi-skeleton-${i}`} w="12" h="12" />
       ))}
+    <Skeleton w="12" h="12" rounded="full" />
   </HStack>
 );
