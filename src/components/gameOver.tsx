@@ -3,6 +3,7 @@
 import React, { ReactNode } from "react";
 import {
   Button,
+  Center,
   Divider,
   HStack,
   Modal,
@@ -79,25 +80,23 @@ export const GameOverModal = ({
             )}
           </VStack>
 
-          <Text textAlign="center" fontSize="lg" color="gray.500">
+          {children}
+
+          <Divider my={PADDING.SM} />
+
+          <Text textAlign="center" fontSize="lg" color="gray.500" mb={PADDING.SM}>
             {desc || t("thanks_for_playing")}
           </Text>
 
-          {children}
-
-          <Divider my="4" />
-
-          <SocialShareButtons
-            iconSize="24"
-            size="sm"
-            iconColor="black"
-            bgColor="white"
-            stackProps={{ gap: 2, my: 2 }}
-          />
-
-          <Text textAlign="center" fontSize="sm" color="gray.500">
-            {t("share")}
-          </Text>
+          <Center>
+            <SocialShareButtons
+              iconSize="24"
+              size="sm"
+              iconColor="black"
+              bgColor="white"
+              stackProps={{ gap: 2, my: 2 }}
+            />
+          </Center>
         </ModalBody>
 
         <ModalFooter>
