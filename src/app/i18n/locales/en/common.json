@@ -40,5 +40,6 @@
   "share": "Share this app",
   "share.desc": "Check out these silly IKEA word games!",
   "mute": "Mute",
-  "unmute": "Unmute"
+  "unmute": "Unmute",
+  "ikeadle.desc": "Wordle, but with IKEA products. Play over at {{link}}."
 }

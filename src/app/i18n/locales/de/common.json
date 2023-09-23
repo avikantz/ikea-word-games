@@ -40,5 +40,6 @@
   "share": "Teile diese app",
   "share.desc": "Schauen sie sich diese dummen IKEA Wortspiele an!",
   "mute": "Stumm",
-  "unmute": "Lauter"
+  "unmute": "Lauter",
+  "ikeadle.desc": "Wordle, bber mit IKEA Produkten. Spiele um {{link}}."
 }

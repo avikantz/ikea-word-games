@@ -40,5 +40,6 @@
   "share": "Condividi questa app",
   "share.desc": "Dai un'occhiata a questi sciocchi giochi Ikea Word!",
   "mute": "Muta",
-  "unmute": "Sala"
+  "unmute": "Sala",
+  "ikeadle.desc": "Wordle, ma con i prodotti IKEA. Gioca a {{link}}."
 }

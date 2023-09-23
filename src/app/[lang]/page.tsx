@@ -34,7 +34,7 @@ export default function Home({ params: { lang } }: PageProps) {
               buttonTitle={v("cta")}
               href={getLocalizedPath(PATH_VADARJAG, lang)}
             />
-            {/* <ModeCard title="Wordle" isDisabled desc="Coming soon!" /> */}
+            <ModeCard title="IKEADle" desc={t("ikeadle.desc", { link: "ikeadle.com" })} href="https://ikeadle.com/" />
           </SimpleGrid>
         </Container>
       </Box>

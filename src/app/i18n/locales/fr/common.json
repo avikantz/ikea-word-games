@@ -40,5 +40,6 @@
   "share": "Partagez cette application",
   "share.desc": "Découvrez ces jeux de mots ikea ikea!",
   "mute": "Muette",
-  "unmute": "Forte"
+  "unmute": "Forte",
+  "ikeadle.desc": "Wordle, mais avec les produits IKEA. Jouer à {{link}}."
 }
