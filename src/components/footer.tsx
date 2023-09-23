@@ -2,7 +2,7 @@
 
 import React, { ChangeEvent } from "react";
 import { Box, Center, Container, IconButton, Image, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import NextLink from "next/link";
 
 import { useTranslation } from "@/app/i18n/client";
@@ -24,7 +24,6 @@ export const Footer = ({ lang }: FooterProps) => {
   const { isMuted, muteAudio, unmuteAudio } = useAudio();
 
   const pathname = usePathname();
-  const router = useRouter();
 
   const onChangeLanguage = (event: ChangeEvent<HTMLSelectElement>) => {
     const locale = event.target.value;

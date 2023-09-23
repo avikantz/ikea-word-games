@@ -99,7 +99,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
           <IconButton icon={<Text>⏎</Text>} aria-label="Hit me" size="lg" variant="outline" onClick={findProducts} />
         </HStack>
 
-        <Spacer />
+        <Spacer display={{ base: "none", md: "flex" }} />
 
         <VStack spacing={PADDING.DEFAULT} alignItems="stretch">
           {products.length === 0 && value.length > 0 && [1, 2, 3].map((i) => <IKEAProductCardSkeleton key={i} />)}
@@ -120,6 +120,8 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
             </Button>
           )}
         </VStack>
+
+        <Spacer display={{ base: "flex", md: "none" }} />
       </GameContainer>
 
       <VadarjagWhatIsThisModal isOpen={isOpenWhatIsThisModal} onClose={onCloseWhatIsThisModal} />
