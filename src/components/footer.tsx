@@ -82,10 +82,6 @@ export const Footer = ({ lang }: FooterProps) => {
 
       {!pathname.endsWith(PATH_ABOUT) && (
         <Center py={PADDING.DEFAULT} bg="yellow.300" color="black" flexDirection="column" gap={PADDING.SM}>
-          <Text textAlign="center" fontWeight="semibold">
-            {t("share")}
-          </Text>
-
           <SocialShareButtons />
 
           <BuyMeACoffeeButton bg="blue.700" color="white" />

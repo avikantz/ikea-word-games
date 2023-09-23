@@ -8,6 +8,7 @@ import { Trans } from "react-i18next";
 import { PATH_AVIKANTZ, PATH_IKEA_NAGASANDRA, PATH_RITVISHREE } from "@/utils/paths";
 import { SocialShareButtons } from "@/components/socialShares";
 import { BuyMeACoffeeButton } from "@/components/coffeeButton";
+import { PADDING } from "@/theme/index";
 
 export default function About({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -21,7 +22,14 @@ export default function About({ params: { lang } }: PageProps) {
             {t("about")}
           </Heading>
 
-          <VStack w="full" alignItems="center" spacing="8" textAlign="center" color="gray.500" fontWeight="medium">
+          <VStack
+            w="full"
+            alignItems="center"
+            spacing={PADDING.DEFAULT}
+            textAlign="center"
+            color="gray.500"
+            fontWeight="medium"
+          >
             <Text>
               <Trans
                 i18nKey="about:about.1"
@@ -48,10 +56,6 @@ export default function About({ params: { lang } }: PageProps) {
             </Text>
 
             <Divider />
-
-            <Text textAlign="center" fontWeight="semibold">
-              {t("share")}
-            </Text>
 
             <SocialShareButtons bgColor="#FFFEFB" iconColor="#111111" />
 
