@@ -100,8 +100,8 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     }
   };
 
-  const onSubmit: MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault();
+  const onSubmit = (event?: Event) => {
+    event?.preventDefault();
 
     if (value.length !== length || !matchCharacters(value, targetValue)) {
       // Jiggle input if invalid
@@ -112,6 +112,12 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     setValue("");
     // @ts-expect-error
     keyboardRef.current?.setInput("");
+  };
+
+  const onKeyboardKeyPress = (button: string, _event?: MouseEvent) => {
+    if (button === "{enter}") {
+      onSubmit(_event);
+    }
   };
 
   // Show keyboard on mobile devices
@@ -178,7 +184,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
           aria-label="Submit"
           size="lg"
           variant="outline"
-          onClick={onSubmit}
+          onClick={onSubmit as unknown as MouseEventHandler<HTMLButtonElement>}
           isDisabled={isDisabled}
         />
       </HStack>
@@ -188,22 +194,24 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
         <Keyboard
           keyboardRef={(ref) => (keyboardRef.current = ref)}
           onChange={onKeyboardInputChange}
+          onKeyPress={onKeyboardKeyPress}
           theme="hg-theme-default hg-layout-default customKeyboardTheme"
           buttonTheme={[
             {
-              buttons: "Q W E R T Y U I O P A S D F G H J K L Z X C V B N M {bksp}",
+              buttons: "Q W E R T Y U I O P A S D F G H J K L Z X C V B N M {bksp} {enter}",
               class: "customButton",
             },
             {
-              buttons: "{bksp}",
-              class: "bkspButton",
+              buttons: "{bksp} {enter}",
+              class: "actionButton",
             },
           ]}
           layout={{
-            default: ["Q W E R T Y U I O P", "A S D F G H J K L", "Z X C V B N M {bksp}"],
+            default: ["Q W E R T Y U I O P", "A S D F G H J K L", "{bksp} Z X C V B N M {enter}"],
           }}
           display={{
             "{bksp}": "⌫",
+            "{enter}": "🆗",
           }}
         />
       )}

@@ -40,7 +40,7 @@ body {
 	border-color: #C4C4C4;
 }
 
-.simple-keyboard.hg-layout-default .bkspButton {
+.simple-keyboard.hg-layout-default .actionButton {
 	min-width: 48px;
 	border-radius: 100%;
 	background-color: white;
@@ -48,7 +48,7 @@ body {
 	border-color: black;
 }
 
-.simple-keyboard.hg-layout-default .bkspButton:hover {
+.simple-keyboard.hg-layout-default .actionButton:hover {
 	border-color: black;
 	background-color: black;
 	color: white;
