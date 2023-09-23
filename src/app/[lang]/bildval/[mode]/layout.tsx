@@ -1,12 +1,16 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
-import { ModePageProps } from "@/interfaces/page";
+import { ModePageProps, PageProps } from "@/interfaces/page";
 import { getTFunction } from "@/app/i18n";
 import { GAMES } from "@/interfaces";
 
 export default function BildvalLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
+}
+
+export async function generateStaticParams({ params: { lang } }: PageProps) {
+  return ["easy", "medium", "hard", "insane"].map((mode) => ({ lang, mode }));
 }
 
 export async function generateMetadata(
