@@ -1,16 +1,28 @@
-"use client";
+import { Metadata } from "next";
 
-import { Box, Container } from "@chakra-ui/react";
-import { PADDING } from "@/theme";
+import { getTFunction } from "@/app/i18n";
+import { PageProps } from "@/interfaces/page";
+import { GAMES } from "@/interfaces";
+import VadarjagClientLayout from "./client";
 
-export default function OrdvalLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <main>
-      <Box>
-        <Container py={PADDING.DEFAULT} maxW="container.md">
-          {children}
-        </Container>
-      </Box>
-    </main>
-  );
+export async function generateMetadata({ params: { lang } }: PageProps): Promise<Metadata> {
+  const t = await getTFunction(lang, GAMES.VADARJAG);
+
+  const title = t("title");
+  const description = t("desc");
+
+  return {
+    title,
+    description,
+    keywords: "hej, ordspel, ikea, word, games, vadarjag, product, name, match",
+    openGraph: {
+      title,
+      description,
+      images: "/assets/cover.jpg",
+    },
+  };
+}
+
+export default function VadarjagLayout({ children }: { children: React.ReactNode }) {
+  return <VadarjagClientLayout>{children}</VadarjagClientLayout>;
 }

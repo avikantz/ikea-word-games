@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Divider, HStack, IconButton, Input, Text, VStack, useDisclosure, Box, Spacer } from "@chakra-ui/react";
+import { Button, HStack, IconButton, Input, Text, VStack, useDisclosure, Box, Spacer } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
