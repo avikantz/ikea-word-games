@@ -84,7 +84,7 @@ export const GameOverModal = ({
 
           <Divider my={PADDING.SM} />
 
-          <Text textAlign="center" fontSize="lg" color="gray.500" mb={PADDING.SM}>
+          <Text textAlign="center" fontSize="lg" color="gray.600" mb={PADDING.SM}>
             {desc || t("common.thanks_for_playing")}
           </Text>
 

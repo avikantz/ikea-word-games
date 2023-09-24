@@ -70,9 +70,15 @@ export const Footer = ({ lang }: FooterProps) => {
           />
 
           {/* Language switcher */}
-          <Select maxW="48" size="sm" defaultValue={lang} onChange={onChangeLanguage}>
+          <Select
+            maxW="48"
+            size="sm"
+            aria-label={t("common.select_locale")}
+            defaultValue={lang}
+            onChange={onChangeLanguage}
+          >
             {LANGUAGE_LIST.map(({ label, emoji, value }) => (
-              <option key={value} value={value}>
+              <option key={value} value={value} label={label}>
                 {emoji} {label}
               </option>
             ))}

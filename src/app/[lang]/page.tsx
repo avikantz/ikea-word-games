@@ -16,7 +16,7 @@ export default function Home({ params: { lang } }: PageProps) {
       <Box minH="100vh">
         <Container py={PADDING.DEFAULT} h="full" maxW="container.xl">
           <PageTitle title={t("common.title")} desc={t("common.desc")}>
-            <Image src="/assets/logo.svg" alt="Ordspel logo" h="16" />
+            <Image src="/assets/logo.svg" alt="Ordspel logo" w="16" h="16" sizes="128px" />
           </PageTitle>
 
           <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>

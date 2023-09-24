@@ -244,7 +244,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
               isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
             >
               {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
-                <Text fontSize="sm" color="gray.400">
+                <Text fontSize="sm" color="gray.500">
                   {t("common.attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
                 </Text>
               )}

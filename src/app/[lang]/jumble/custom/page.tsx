@@ -102,7 +102,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
         ref={containerRef as Ref<HTMLDivElement>}
       >
         <HStack justifyContent="center" alignItems="center">
-          <Text color="gray.500" textAlign="center" fontSize="sm">
+          <Text color="gray.600" textAlign="center" fontSize="sm">
             {t("common.size")}
           </Text>
           <Select
@@ -131,7 +131,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
               isFailure={attempts >= JUMBLE.MAX_ATTEMPTS && !success}
             >
               {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
-                <Text fontSize="sm" color="gray.400">
+                <Text fontSize="sm" color="gray.500">
                   {t("common.attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
                 </Text>
               )}

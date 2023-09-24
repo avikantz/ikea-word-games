@@ -75,42 +75,45 @@ export const SocialShareButtons = ({
       </Text>
       <HStack spacing="0" gap={{ base: 2, md: 3 }} flexWrap="wrap" justifyContent="center" {...stackProps}>
         <EmailShareButton subject={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<EmailIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="email"
             {...props}
           />
         </EmailShareButton>
         <FacebookShareButton quote={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
             size="lg"
             variant="outline"
             icon={<FacebookIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="facebook"
             {...props}
           />
         </FacebookShareButton>
         <LineShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<LineIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="line"
             {...props}
           />
         </LineShareButton>
         <LinkedinShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<LinkedinIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="linkedin"
             {...props}
           />
         </LinkedinShareButton>
@@ -119,62 +122,68 @@ export const SocialShareButtons = ({
           url={shareUrl}
           media={`${shareUrl}/assets/cover.jpg`}
         >
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<PinterestIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="pinterest"
             {...props}
           />
         </PinterestShareButton>
         <RedditShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<RedditIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="reddit"
             {...props}
           />
         </RedditShareButton>
         <TelegramShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<TelegramIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="telegram"
             {...props}
           />
         </TelegramShareButton>
         <TumblrShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<TumblrIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="twitter"
             {...props}
           />
         </TumblrShareButton>
         <TwitterShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<TwitterIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="twitter"
             {...props}
           />
         </TwitterShareButton>
         <WhatsappShareButton title={desc || t("common.share.desc")} url={shareUrl}>
+          {/* @ts-expect-error */}
           <IconButton
             as="span"
+            role="button"
             size="lg"
             variant="outline"
             icon={<WhatsappIcon size={iconSize} round bgStyle={{ fill: bgColor }} iconFillColor={iconColor} />}
-            aria-label="tumblr"
             {...props}
           />
         </WhatsappShareButton>

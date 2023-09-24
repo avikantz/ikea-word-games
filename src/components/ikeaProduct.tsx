@@ -113,7 +113,7 @@ export const IKEAProductCard = ({
             {showName ? product.name : replaceWithQuestionMarks(product.name)}
           </Heading>
 
-          <Text color="gray.500" fontSize={{ base: "sm", md: "md" }}>
+          <Text color="gray.600" fontSize={{ base: "sm", md: "md" }}>
             {showDesc ? product.desc : replaceWithQuestionMarks(product.desc)}
           </Text>
         </CardBody>

@@ -52,11 +52,11 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
       {...props}
     >
       {!!title && (
-        <Heading as="h4" fontSize={{ base: "md", md: "lg" }}>
+        <Text fontWeight="bold" fontSize={{ base: "md", md: "lg" }}>
           {title}
-        </Heading>
+        </Text>
       )}
-      {!!desc && <Text color="gray.500">{desc}</Text>}
+      {!!desc && <Text color="gray.600">{desc}</Text>}
       {children}
       <Spacer />
       <LinkOverlay as={NextLink} href={isDisabled ? "" : href}>

@@ -26,7 +26,7 @@ export default function About({ params: { lang } }: PageProps) {
             alignItems="center"
             spacing={PADDING.DEFAULT}
             textAlign="center"
-            color="gray.500"
+            color="gray.600"
             fontWeight="medium"
           >
             <Text>
@@ -68,7 +68,7 @@ export default function About({ params: { lang } }: PageProps) {
               flexWrap="wrap"
               spacing="0"
               gap="2"
-              divider={<Text color="gray.500">•</Text>}
+              divider={<Text color="gray.600">•</Text>}
               justifyContent="center"
               color="blue.500"
             >

@@ -28,7 +28,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
                   <Heading as="h3" fontSize="lg">
                     {t(`faq.q.${i + 1}`)}
                   </Heading>
-                  <Text color="gray.500">
+                  <Text color="gray.600">
                     <Trans
                       i18nKey={`faq.a.${i + 1}`}
                       components={{
