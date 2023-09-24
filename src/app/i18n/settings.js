@@ -82,6 +82,11 @@ export const LANGUAGE_LIST = [
     emoji: "🇮🇹",
     value: "it",
   },
+  {
+    label: "Português (Portugal)",
+    emoji: "🇵🇹",
+    value: "pt",
+  },
 ];
 
 export const LANGUAGES = LANGUAGE_LIST.map(({ value }) => value);
