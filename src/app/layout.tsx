@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: "/assets/cover.jpg",
     },
     alternates: {
-      canonical: "/em",
+      canonical: "/en",
       languages: getLanguagesMap(),
     },
     authors: { name: "avikantz", url: "https://avikantz.xyz" },
