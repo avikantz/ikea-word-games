@@ -16,11 +16,11 @@ A fun collection of word games based on IKEA products.
 
 This is a hobby side project, most of the documentation is in the code itself.
 
-Refer to [documentation](https://github.com/avikantz/ikea-word-games/blob/main/DOCUMENTATION.md) for brief info about sourcing and generating product data.
+Refer to [documentation](https://github.com/avikantz/ikea-word-games/blob/main/DOCUMENTATION.MD) for brief info about sourcing and generating product data.
 
 ### Contributions
 
-Contributions welcome, browse [open issues](https://github.com/avikantz/ikea-word-games/issues) or [create a new one](https://github.com/avikantz/ikea-word-games/issues/new), read the [contributing guide](https://github.com/avikantz/ikea-word-games/blob/main/CONTRIBUTING.md).
+Contributions welcome, browse [open issues](https://github.com/avikantz/ikea-word-games/issues) or [create a new one](https://github.com/avikantz/ikea-word-games/issues/new), read the [contributing guide](https://github.com/avikantz/ikea-word-games/blob/main/CONTRIBUTING.MD).
 
 ### Local setup
 

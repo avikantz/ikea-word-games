@@ -4,7 +4,7 @@ Title Examples:
 - Fix bug relating to on iPads
 - Fix french translation for "jumble.how_to_play.desc.1"
 
-Make sure to read the [contributing guide](https://github.com/avikantz/ikea-word-games/blob/main/CONTRIBUTING.md).
+Make sure to read the [contributing guide](https://github.com/avikantz/ikea-word-games/blob/main/CONTRIBUTING.MD).
 
 --------
 

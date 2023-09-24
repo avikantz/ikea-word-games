@@ -26,7 +26,7 @@ Open a pull request to update existing ones.
 
 ### Adding a new locale
 
-Use the `generate.js` script in `scripts` to generate product data. Refer to the script itself and [documentation](https://github.com/avikantz/ikea-word-games/blob/main/DOCUMENTATION.md) for more info.
+Use the `generate.js` script in `scripts` to generate product data. Refer to the script itself and [documentation](https://github.com/avikantz/ikea-word-games/blob/main/DOCUMENTATION.MD) for more info.
 
 Move the generated locale files to `public/data`
 
