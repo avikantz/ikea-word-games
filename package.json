@@ -1,7 +1,12 @@
 {
   "name": "ikea-word-games",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "Avikant Saini",
+    "email": "avikantsainidbz@gmail.com",
+    "url": "https://avikantz.xyz/"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
