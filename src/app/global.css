@@ -5,6 +5,7 @@ html {
 body {
 	scroll-snap-type: y proximity;
 }
+
 .simple-keyboard.hg-theme-default.customKeyboardTheme {
 	padding: 0;
 	background-color: transparent;
