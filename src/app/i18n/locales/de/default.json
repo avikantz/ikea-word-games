@@ -77,6 +77,7 @@
   "faq.q.7": "Wie komme ich in kontakt?",
   "faq.a.7": "Bitte senden sie mir eine <email>email</email>.",
   "jumble.title": "Jumble",
+  "jumble.title_difficulty": "Jumble {{difficulty}}",
   "jumble.desc": "Bilden sie aus den vorgegebenen buchstaben ein wort, das zu einem IKEA produkt passt.",
   "jumble.easy.desc": "Erraten sie nur die beliebtesten produkte!",
   "jumble.medium.desc": "Beinhaltet die meisten im regal erhältlichen produkte!",
