@@ -46,15 +46,15 @@ export const Footer = ({ lang }: FooterProps) => {
           <Link as={NextLink} href={`/${lang}`}>
             <Stack direction={{ base: "column", md: "row" }} alignItems="center">
               <Image src="/assets/logo_wide.svg" alt="Ordspel logo" h="16" w="auto" />
-              <Text>{t("play")}</Text>
+              <Text>{t("common.play")}</Text>
             </Stack>
           </Link>
 
           <Link as={NextLink} href={getLocalizedPath(PATH_FAQ, lang)}>
-            {t("faq")}
+            {t("common.faq")}
           </Link>
           <Link as={NextLink} href={getLocalizedPath(PATH_ABOUT, lang)}>
-            {t("about")}
+            {t("common.about")}
           </Link>
 
           <Spacer />
@@ -64,7 +64,7 @@ export const Footer = ({ lang }: FooterProps) => {
             variant="outline"
             borderColor="gray.200"
             _hover={{ bg: "transparent", opacity: 0.5 }}
-            aria-label={isMuted ? t("unmute") : t("mute")}
+            aria-label={isMuted ? t("common.unmute") : t("common.mute")}
             onClick={isMuted ? unmuteAudio : muteAudio}
             icon={<Text>{isMuted ? "🔇" : "🔊"}</Text>}
           />

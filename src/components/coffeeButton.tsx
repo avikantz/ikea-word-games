@@ -15,7 +15,7 @@ export const BuyMeACoffeeButton = (props: ButtonProps) => {
       _hover={{ opacity: 0.5 }}
       {...props}
     >
-      ☕️ {t("buy_me_a_coffee")}
+      ☕️ {t("common.buy_me_a_coffee")}
     </Button>
   );
 };

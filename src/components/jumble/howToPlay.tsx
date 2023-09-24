@@ -21,7 +21,6 @@ import { useTranslation } from "@/app/i18n/client";
 
 export const JumbleHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
   const { t } = useTranslation();
-  const { t: j } = useTranslation(undefined, "jumble");
 
   return (
     <Modal
@@ -36,37 +35,37 @@ export const JumbleHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalPr
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          {j("how_to_play.title")}
+          {t("jumble.how_to_play.title")}
         </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
-            <ListItem>{j("how_to_play.desc.1")}</ListItem>
+            <ListItem>{t("jumble.how_to_play.desc.1")}</ListItem>
 
-            <ListItem>{j("how_to_play.desc.2", { rounds: JUMBLE.MAX_ROUNDS })}</ListItem>
+            <ListItem>{t("jumble.how_to_play.desc.2", { rounds: JUMBLE.MAX_ROUNDS })}</ListItem>
 
-            <ListItem>{j("how_to_play.desc.3", { attempts: JUMBLE.MAX_ATTEMPTS })}</ListItem>
+            <ListItem>{t("jumble.how_to_play.desc.3", { attempts: JUMBLE.MAX_ATTEMPTS })}</ListItem>
 
-            <ListItem>{j("how_to_play.desc.4", { passes: JUMBLE.MAX_PASSES })}</ListItem>
+            <ListItem>{t("jumble.how_to_play.desc.4", { passes: JUMBLE.MAX_PASSES })}</ListItem>
 
             <Divider />
 
-            <ListItem>{j("how_to_play.scoring")}</ListItem>
+            <ListItem>{t("jumble.how_to_play.scoring")}</ListItem>
 
             <ListItem>
-              {j("how_to_play.round_scores", {
+              {t("jumble.how_to_play.round_scores", {
                 g0: JUMBLE.ROUND_SCORE_G0,
                 g1: JUMBLE.ROUND_SCORE_G1,
                 g2: JUMBLE.ROUND_SCORE_G2,
               })}
             </ListItem>
 
-            <ListItem>{j("how_to_play.multiplier", { max: JUMBLE.MAX_MULTIPLIER })}</ListItem>
+            <ListItem>{t("jumble.how_to_play.multiplier", { max: JUMBLE.MAX_MULTIPLIER })}</ListItem>
 
-            <Text>{t("enjoy")}</Text>
+            <Text>{t("common.enjoy")}</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>{t("let_me_play")}</Button>
+          <Button onClick={onClose}>{t("common.let_me_play")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

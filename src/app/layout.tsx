@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTFunction("en");
 
-  const title = t("title");
-  const description = t("desc");
+  const title = t("common.title");
+  const description = t("common.desc");
 
   return {
     metadataBase: new URL(BASE_URL),

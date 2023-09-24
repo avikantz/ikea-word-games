@@ -13,13 +13,12 @@ const FAQ_COUNT = 7;
 
 export default function FAQ({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: f } = useTranslation(lang, "faq");
 
   return (
     <main>
       <Box minH="100vh">
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.sm">
-          <PageTitle title={t("faq")} />
+          <PageTitle title={t("common.faq")} />
 
           <VStack w="full" alignItems="stretch" spacing="8" divider={<Divider />}>
             {Array(FAQ_COUNT)
@@ -27,11 +26,11 @@ export default function FAQ({ params: { lang } }: PageProps) {
               .map((_, i) => (
                 <VStack key={i} textAlign="start" alignItems="stretch" spacing="4">
                   <Heading as="h3" fontSize="lg">
-                    {f(`q.${i + 1}`)}
+                    {t(`faq.q.${i + 1}`)}
                   </Heading>
                   <Text color="gray.500">
                     <Trans
-                      i18nKey={`faq:a.${i + 1}`}
+                      i18nKey={`faq.a.${i + 1}`}
                       components={{
                         contact: (
                           <Link

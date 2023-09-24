@@ -60,7 +60,7 @@ export const ModeCard = ({ title, desc, href, buttonTitle, isDisabled, children,
       {children}
       <Spacer />
       <LinkOverlay as={NextLink} href={isDisabled ? "" : href}>
-        <Button isDisabled={isDisabled}>{buttonTitle || t("play_title", { title })}</Button>
+        <Button isDisabled={isDisabled}>{buttonTitle || t("common.play_title", { title })}</Button>
       </LinkOverlay>
     </LinkBox>
   );

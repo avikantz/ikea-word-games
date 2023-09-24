@@ -4,7 +4,7 @@ import { Ref, useCallback, useRef, useState } from "react";
 import { Box, Button, HStack, Select, Skeleton, Spacer, Text, VStack } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { GAMES, IKEAJumbleWord, PageProps } from "@/interfaces";
+import { IKEAJumbleWord, PageProps } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
 import {
@@ -24,7 +24,6 @@ import { PADDING } from "@/theme";
 function JumbleGameCustom({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   // Refs
   const containerRef = useRef<HTMLDivElement>();
@@ -96,7 +95,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
 
   return (
     <Box>
-      <GameTitle title={j("title_difficulty", { difficulty: t("custom") })} />
+      <GameTitle title={t("jumble.title_difficulty", { difficulty: t("common.custom") })} />
 
       <GameContainer
         shouldSnap={!success || (attempts <= JUMBLE.MAX_ATTEMPTS && !success)}
@@ -104,11 +103,11 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
       >
         <HStack justifyContent="center" alignItems="center">
           <Text color="gray.500" textAlign="center" fontSize="sm">
-            {t("size")}
+            {t("common.size")}
           </Text>
           <Select
             maxW="32"
-            aria-label={t("length")}
+            aria-label={t("common.length")}
             onChange={(e) => setLength(parseInt(e.target.value))}
             value={length}
             isDisabled={!jumbleWord}
@@ -133,7 +132,7 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
             >
               {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
                 <Text fontSize="sm" color="gray.400">
-                  {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
+                  {t("common.attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
                 </Text>
               )}
             </IKEAProductCard>
@@ -166,9 +165,9 @@ function JumbleGameCustom({ params: { lang } }: PageProps) {
           onClick={getWords}
           alignSelf="center"
           isLoading={!jumbleWord}
-          loadingText={t("pass")}
+          loadingText={t("common.pass")}
         >
-          {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("next") : t("pass")}
+          {success || attempts >= JUMBLE.MAX_ATTEMPTS ? t("common.next") : t("common.pass")}
         </Button>
 
         <Spacer display={{ base: "flex", md: "none" }} />

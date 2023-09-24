@@ -2,14 +2,13 @@ import { Metadata } from "next";
 
 import { getTFunction } from "@/app/i18n";
 import { PageProps } from "@/interfaces/page";
-import { GAMES } from "@/interfaces";
 import VadarjagClientLayout from "./client";
 
 export async function generateMetadata({ params: { lang } }: PageProps): Promise<Metadata> {
-  const t = await getTFunction(lang, GAMES.VADARJAG);
+  const t = await getTFunction(lang);
 
-  const title = t("title");
-  const description = t("desc");
+  const title = t("vadarjag.title");
+  const description = t("vadarjag.desc");
 
   return {
     title,

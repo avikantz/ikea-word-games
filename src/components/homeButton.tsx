@@ -21,12 +21,12 @@ export const HomeButton = ({ lang, ...props }: HomeButtonProps) => {
 
   return (
     <IconButton
-      aria-label={t("home")}
+      aria-label={t("common.home")}
       position={{ base: "absolute", xl: "fixed" }}
       top={PADDING.DEFAULT}
       left={PADDING.DEFAULT}
       size="lg"
-      icon={<Image src="/assets/logo.svg" w="12" h="12" rounded="full" alt={t("title")} />}
+      icon={<Image src="/assets/logo.svg" w="12" h="12" rounded="full" alt={t("common.title")} />}
       onClick={() => router.push(`/${lang}`)}
       variant="unstyled"
       _hover={{ opacity: 0.5 }}

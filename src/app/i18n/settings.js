@@ -1,5 +1,5 @@
 export const FALLBACK_LANG = "en";
-export const DEFAULT_NS = "common";
+export const DEFAULT_NS = "default";
 
 export const LANGUAGE_LIST = [
   {

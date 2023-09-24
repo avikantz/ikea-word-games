@@ -60,8 +60,10 @@ export const SocialShareButtons = ({
   // Native share button
   if (isNativeShareSupported) {
     return (
-      <Button onClick={() => navigator.share({ title: t("title"), text: t("share.desc"), url: shareUrl })}>
-        {t("share")}
+      <Button
+        onClick={() => navigator.share({ title: t("common.title"), text: t("common.share.desc"), url: shareUrl })}
+      >
+        {t("common.share")}
       </Button>
     );
   }
@@ -69,10 +71,10 @@ export const SocialShareButtons = ({
   return (
     <Box>
       <Text textAlign="center" fontWeight="semibold" mb={PADDING.SM}>
-        {t("share")}
+        {t("common.share")}
       </Text>
       <HStack spacing="0" gap={{ base: 2, md: 3 }} flexWrap="wrap" justifyContent="center" {...stackProps}>
-        <EmailShareButton subject={desc || t("share.desc")} url={shareUrl}>
+        <EmailShareButton subject={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -82,7 +84,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </EmailShareButton>
-        <FacebookShareButton quote={desc || t("share.desc")} url={shareUrl}>
+        <FacebookShareButton quote={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -92,7 +94,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </FacebookShareButton>
-        <LineShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <LineShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -102,7 +104,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </LineShareButton>
-        <LinkedinShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <LinkedinShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -113,7 +115,7 @@ export const SocialShareButtons = ({
           />
         </LinkedinShareButton>
         <PinterestShareButton
-          description={desc || t("share.desc")}
+          description={desc || t("common.share.desc")}
           url={shareUrl}
           media={`${shareUrl}/assets/cover.jpg`}
         >
@@ -126,7 +128,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </PinterestShareButton>
-        <RedditShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <RedditShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -136,7 +138,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </RedditShareButton>
-        <TelegramShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <TelegramShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -146,7 +148,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </TelegramShareButton>
-        <TumblrShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <TumblrShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -156,7 +158,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </TumblrShareButton>
-        <TwitterShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <TwitterShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"
@@ -166,7 +168,7 @@ export const SocialShareButtons = ({
             {...props}
           />
         </TwitterShareButton>
-        <WhatsappShareButton title={desc || t("share.desc")} url={shareUrl}>
+        <WhatsappShareButton title={desc || t("common.share.desc")} url={shareUrl}>
           <IconButton
             as="span"
             size="lg"

@@ -3,7 +3,6 @@ import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 import { ModePageProps, PageProps } from "@/interfaces/page";
 import { getTFunction } from "@/app/i18n";
-import { GAMES } from "@/interfaces";
 
 export default function BildvalLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
@@ -18,10 +17,9 @@ export async function generateMetadata(
   parentMetadata: ResolvingMetadata,
 ): Promise<Metadata> {
   const t = await getTFunction(lang);
-  const b = await getTFunction(lang, GAMES.BILDVAL);
 
-  const title = b("title_difficulty", { difficulty: t(mode) });
-  const description = b("desc");
+  const title = t("bildval.title_difficulty", { difficulty: t(mode) });
+  const description = t("bildval.desc");
 
   let openGraph = {
     ...(await parentMetadata).openGraph,

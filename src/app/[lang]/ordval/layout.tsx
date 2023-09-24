@@ -2,14 +2,13 @@ import { Metadata } from "next";
 
 import { getTFunction } from "@/app/i18n";
 import { PageProps } from "@/interfaces/page";
-import { GAMES } from "@/interfaces";
 import OrdvalClientLayout from "./client";
 
 export async function generateMetadata({ params: { lang } }: PageProps): Promise<Metadata> {
-  const t = await getTFunction(lang, GAMES.ORDVAL);
+  const t = await getTFunction(lang);
 
-  const title = t("title");
-  const description = t("how_to_play.desc.1");
+  const title = t("ordval.title");
+  const description = t("ordval.how_to_play.desc.1");
 
   return {
     title,

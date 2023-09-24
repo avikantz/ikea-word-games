@@ -17,11 +17,9 @@ import {
 } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
-import { GAMES } from "@/interfaces";
 
 export const VadarjagWhatIsThisModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
   const { t } = useTranslation();
-  const { t: v } = useTranslation(undefined, GAMES.VADARJAG);
 
   return (
     <Modal
@@ -36,21 +34,21 @@ export const VadarjagWhatIsThisModal = ({ isOpen, onClose, ...props }: Omit<Moda
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          {v("what_is_this.title")}
+          {t("vadarjag.what_is_this.title")}
         </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
-            <ListItem>{v("what_is_this.desc.1")}</ListItem>
+            <ListItem>{t("vadarjag.what_is_this.desc.1")}</ListItem>
 
-            <ListItem>{v("what_is_this.desc.2")}</ListItem>
+            <ListItem>{t("vadarjag.what_is_this.desc.2")}</ListItem>
 
             <Divider />
 
-            <Text>{t("enjoy")}</Text>
+            <Text>{t("common.enjoy")}</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>{t("close")}</Button>
+          <Button onClick={onClose}>{t("common.close")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

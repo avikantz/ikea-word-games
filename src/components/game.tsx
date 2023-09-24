@@ -16,7 +16,7 @@ export const GameRound = forwardRef<HTMLDivElement, GameRoundProps>(({ round, ma
   const { t } = useTranslation();
   return (
     <Tag ref={ref} size="lg" bg="blue.500" color="white">
-      {t("rounds", { count: round, max: maxRounds })}
+      {t("common.rounds", { count: round, max: maxRounds })}
     </Tag>
   );
 });
@@ -47,7 +47,7 @@ export const GameScore = forwardRef<HTMLDivElement, GameScoreProps>(({ score }, 
   const { t } = useTranslation();
   return (
     <Tag ref={ref} size="lg" bg="black" color="white">
-      {t("score", { score })}
+      {t("common.score", { score })}
     </Tag>
   );
 });

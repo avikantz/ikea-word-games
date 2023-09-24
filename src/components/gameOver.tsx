@@ -60,12 +60,12 @@ export const GameOverModal = ({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          {title || t("game_over")}
+          {title || t("common.game_over")}
         </ModalHeader>
         <ModalBody>
           <VStack w="full" textAlign="center" p={PADDING.DEFAULT} mb={PADDING.DEFAULT} bg="yellow.500">
             <Text fontWeight="semibold" fontSize="sm" mb="-4">
-              {t("final_score")}
+              {t("common.final_score")}
             </Text>
             <Text fontSize="5xl" fontWeight="bold">
               {score}
@@ -74,8 +74,8 @@ export const GameOverModal = ({
             {scores?.highscore && (
               <Text fontWeight="semibold">
                 {score >= scores?.highscore.value
-                  ? t("new_highscore")
-                  : t("highscore", { score: scores?.highscore.value })}
+                  ? t("common.new_highscore")
+                  : t("common.highscore", { score: scores?.highscore.value })}
               </Text>
             )}
           </VStack>
@@ -85,7 +85,7 @@ export const GameOverModal = ({
           <Divider my={PADDING.SM} />
 
           <Text textAlign="center" fontSize="lg" color="gray.500" mb={PADDING.SM}>
-            {desc || t("thanks_for_playing")}
+            {desc || t("common.thanks_for_playing")}
           </Text>
 
           <Center>
@@ -111,11 +111,11 @@ export const GameOverModal = ({
 
             <HStack justifyContent="space-between">
               <Button variant="outline" onClick={onClose}>
-                {buttonTitle || t("close")}
+                {buttonTitle || t("common.close")}
               </Button>
 
               <Button autoFocus onClick={() => window.location.reload()}>
-                {t("play_again")}
+                {t("common.play_again")}
               </Button>
             </HStack>
           </Stack>

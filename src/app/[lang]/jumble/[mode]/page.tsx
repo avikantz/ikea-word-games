@@ -23,7 +23,7 @@ import { JumbleHowToPlayModal } from "@/components/jumble";
 import { IKEAJumbleWord, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
 import { useJumble } from "@/hooks/useJumble";
 import { matchWords } from "@/utils/words";
-import { PATH_JUMBLE } from "@/utils/paths";
+import { PATH_JUMBLE, getLocalizedPath } from "@/utils/paths";
 import { JUMBLE } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useTranslation } from "@/app/i18n/client";
@@ -36,7 +36,6 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
   // Translations
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   // Modals
   const {
@@ -212,7 +211,10 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Box>
-      <GameTitle title={j("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
+      <GameTitle
+        title={t("jumble.title_difficulty", { difficulty: t(difficulty) })}
+        onInfoClick={onOpenHowToPlayModal}
+      />
 
       <GameContainer
         shouldSnap={!success || (attempts <= JUMBLE.MAX_ATTEMPTS && !success)}
@@ -243,7 +245,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
             >
               {attempts < JUMBLE.MAX_ATTEMPTS && !success && (
                 <Text fontSize="sm" color="gray.400">
-                  {t("attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
+                  {t("common.attempts", { count: attempts, max: JUMBLE.MAX_ATTEMPTS })}
                 </Text>
               )}
             </IKEAProductCard>
@@ -279,7 +281,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
               round > JUMBLE.MAX_ROUNDS || passCount >= JUMBLE.MAX_PASSES || success || attempts > JUMBLE.MAX_ATTEMPTS
             }
           >
-            {t("pass_count", { count: JUMBLE.MAX_PASSES - passCount })}
+            {t("common.pass_count", { count: JUMBLE.MAX_PASSES - passCount })}
           </Button>
 
           <Button
@@ -289,7 +291,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
             isDisabled={round > JUMBLE.MAX_ROUNDS && (success || attempts >= JUMBLE.MAX_ATTEMPTS)}
             alignSelf="center"
           >
-            {round === 0 ? t("start") : round === JUMBLE.MAX_ROUNDS ? t("finish") : t("next")}
+            {round === 0 ? t("common.start") : round === JUMBLE.MAX_ROUNDS ? t("common.finish") : t("common.next")}
           </Button>
         </HStack>
 
@@ -307,7 +309,7 @@ function JumbleGameMode({ params: { mode, lang } }: ModePageProps) {
         onClose={onCloseGameOverModal}
         score={score}
         scores={scores}
-        onCloseComplete={() => router.replace(PATH_JUMBLE)}
+        onCloseComplete={() => router.replace(getLocalizedPath(PATH_JUMBLE, lang))}
       />
     </Box>
   );

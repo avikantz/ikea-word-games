@@ -121,7 +121,7 @@ export const IKEAProductCard = ({
         <CardFooter p={{ base: 2, md: 4 }}>
           {showName ? (
             <Button as="a" size="sm" href={product.url} target="_blank" variant="link" colorScheme="blue">
-              {t("view_product")}
+              {t("common.view_product")}
             </Button>
           ) : (
             children
@@ -142,7 +142,7 @@ export const IKEAProductCardSkeleton = () => (
     borderColor="gray.200"
     position="relative"
   >
-    <Skeleton w={{ base: "120px", md: "200px" }} h={{ base: "120px", md: "200px" }} overflow="hidden" />
+    <Skeleton w={{ base: "160px", md: "200px" }} h={{ base: "160px", md: "200px" }} overflow="hidden" />
     <Stack flexGrow={1} minW={{ md: "300px" }} gap="0">
       <CardBody p={{ base: 2, md: 4 }}>
         <Skeleton w="24" h="5" mb={{ base: 1, md: 2 }} />

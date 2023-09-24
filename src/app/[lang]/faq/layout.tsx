@@ -6,7 +6,7 @@ import { PageProps } from "@/interfaces/page";
 export async function generateMetadata({ params: { lang } }: PageProps): Promise<Metadata> {
   const t = await getTFunction(lang);
 
-  const title = t("faq");
+  const title = t("common.faq");
 
   return {
     title,

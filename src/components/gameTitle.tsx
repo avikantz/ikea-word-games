@@ -26,7 +26,7 @@ export const GameTitle = ({ title, stackProps, infoTitle, onInfoClick, ...props 
           size="sm"
           isRound
           icon={<Text>?</Text>}
-          aria-label={infoTitle ?? t("how_to_play")}
+          aria-label={infoTitle ?? t("common.how_to_play")}
           onClick={onInfoClick}
         />
       )}

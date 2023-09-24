@@ -17,7 +17,6 @@ import { GameContainer } from "@/components/gameContainer";
 function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: o } = useTranslation(lang, GAMES.ORDVAL);
 
   // Refs
   const containerRef = useRef<HTMLDivElement>();
@@ -75,14 +74,14 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
 
   return (
     <Box>
-      <GameTitle title={o("title_difficulty", { difficulty: "∞" })} />
+      <GameTitle title={t("ordval.title_difficulty", { difficulty: "∞" })} />
 
       <GameContainer shouldSnap={ordvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(ordvalRound && (
           <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
             <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
-              {o("question", { product: ordvalRound.solution.desc.clean() })}
+              {t("ordval.question", { product: ordvalRound.solution.desc.clean() })}
             </Text>
           </Box>
         )) || <Skeleton h="78px" />}
@@ -108,9 +107,9 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
           alignSelf="center"
           onClick={onPass}
           isLoading={!ordvalRound}
-          loadingText={t("pass")}
+          loadingText={t("common.pass")}
         >
-          {showSolution ? t("next") : t("pass")}
+          {showSolution ? t("common.next") : t("common.pass")}
         </Button>
 
         <Spacer display={{ base: "flex", md: "none" }} />

@@ -12,14 +12,13 @@ import { PADDING } from "@/theme/index";
 
 export default function About({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: a } = useTranslation(lang, "about");
 
   return (
     <main>
       <Box>
         <Container py={{ base: 4, md: 12 }} h="full" maxW="container.sm">
           <Heading textAlign="center" mb={{ base: 8, md: 16 }}>
-            {t("about")}
+            {t("common.about")}
           </Heading>
 
           <VStack
@@ -32,7 +31,7 @@ export default function About({ params: { lang } }: PageProps) {
           >
             <Text>
               <Trans
-                i18nKey="about:about.1"
+                i18nKey="about.1"
                 components={{
                   a: <Link href={PATH_AVIKANTZ} target="_blank" rel="noopener" color="blue.500" />,
                 }}
@@ -40,7 +39,7 @@ export default function About({ params: { lang } }: PageProps) {
             </Text>
             <Text>
               <Trans
-                i18nKey="about:about.2"
+                i18nKey="about.2"
                 components={{
                   a: <Link href={PATH_RITVISHREE} target="_blank" rel="noopener" color="blue.500" />,
                 }}
@@ -48,7 +47,7 @@ export default function About({ params: { lang } }: PageProps) {
             </Text>
             <Text>
               <Trans
-                i18nKey="about:about.3"
+                i18nKey="about.3"
                 components={{
                   a: <Link href={PATH_IKEA_NAGASANDRA} target="_blank" rel="noopener" color="blue.500" />,
                 }}
@@ -63,7 +62,7 @@ export default function About({ params: { lang } }: PageProps) {
 
             <Divider />
 
-            <Text>{a("about.credits")}</Text>
+            <Text>{t("about.credits")}</Text>
 
             <HStack
               flexWrap="wrap"

@@ -8,7 +8,7 @@ import { event } from "nextjs-google-analytics";
 
 import { GameContainer, GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
 import { OrdvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
-import { PATH_ORDVAL } from "@/utils/paths";
+import { PATH_ORDVAL, getLocalizedPath } from "@/utils/paths";
 import { ORDVAL } from "@/utils/constants";
 import { useOrdval } from "@/hooks/useOrdval";
 import { useScores } from "@/hooks/useScores";
@@ -23,7 +23,6 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   // Translations
   const { t } = useTranslation(lang);
-  const { t: o } = useTranslation(lang, GAMES.ORDVAL);
 
   // Modals
   const {
@@ -65,10 +64,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
         setDifficulty(mode as GAME_MODE);
       } else {
         alert("Invalid mode");
-        router.replace(PATH_ORDVAL);
+        router.replace(getLocalizedPath(PATH_ORDVAL, lang));
       }
     }
-  }, [mode, router]);
+  }, [lang, mode, router]);
 
   const getOrdvalWords = useCallback(async () => {
     // Fetch new ordval round
@@ -163,7 +162,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Box>
-      <GameTitle title={o("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
+      <GameTitle
+        title={t("ordval.title_difficulty", { difficulty: t(difficulty) })}
+        onInfoClick={onOpenHowToPlayModal}
+      />
 
       <GameContainer shouldSnap={ordvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
@@ -183,7 +185,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
           <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
-                {o("question", { product: ordvalRound.solution.desc.clean() })}
+                {t("ordval.question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>
 
@@ -219,10 +221,10 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             alignSelf="center"
             onClick={onPass}
             isLoading={!ordvalRound}
-            loadingText={t("pass")}
+            loadingText={t("common.pass")}
             isDisabled={round > ORDVAL.MAX_ROUNDS || passCount >= ORDVAL.MAX_PASSES || showSolution}
           >
-            {t("pass_count", { count: ORDVAL.MAX_PASSES - passCount })}
+            {t("common.pass_count", { count: ORDVAL.MAX_PASSES - passCount })}
           </Button>
 
           {/* Next */}
@@ -233,7 +235,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
             isDisabled={!ordvalRound || round > ORDVAL.MAX_ROUNDS || !showSolution}
             alignSelf="center"
           >
-            {round === 0 ? t("start") : round === ORDVAL.MAX_ROUNDS ? t("finish") : t("next")}
+            {round === 0 ? t("common.start") : round === ORDVAL.MAX_ROUNDS ? t("common.finish") : t("common.next")}
           </Button>
         </HStack>
 
@@ -247,7 +249,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
         onClose={onCloseGameOverModal}
         score={score}
         scores={scores}
-        onCloseComplete={() => router.replace(PATH_ORDVAL)}
+        onCloseComplete={() => router.replace(getLocalizedPath(PATH_ORDVAL, lang))}
       />
     </Box>
   );

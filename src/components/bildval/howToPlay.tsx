@@ -19,7 +19,6 @@ import { useTranslation } from "@/app/i18n/client";
 
 export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalProps, "children">) => {
   const { t } = useTranslation();
-  const { t: b } = useTranslation(undefined, "bildval");
 
   return (
     <Modal
@@ -34,27 +33,27 @@ export const BildvalHowToPlayModal = ({ isOpen, onClose, ...props }: Omit<ModalP
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="bold" textAlign="center">
-          {b("how_to_play.title")}
+          {t("bildval.how_to_play.title")}
         </ModalHeader>
         <ModalBody>
           <UnorderedList spacing="6">
-            <ListItem>{b("how_to_play.desc.1")}</ListItem>
+            <ListItem>{t("bildval.how_to_play.desc.1")}</ListItem>
 
-            <ListItem>{b("how_to_play.desc.2", { rounds: BILDVAL.MAX_ROUNDS })}</ListItem>
+            <ListItem>{t("bildval.how_to_play.desc.2", { rounds: BILDVAL.MAX_ROUNDS })}</ListItem>
 
-            <ListItem>{b("how_to_play.desc.3", { passes: BILDVAL.MAX_PASSES })}</ListItem>
+            <ListItem>{t("bildval.how_to_play.desc.3", { passes: BILDVAL.MAX_PASSES })}</ListItem>
 
             <Divider />
 
-            <ListItem>{b("how_to_play.scoring", { points: BILDVAL.ROUND_SCORE })}</ListItem>
+            <ListItem>{t("bildval.how_to_play.scoring", { points: BILDVAL.ROUND_SCORE })}</ListItem>
 
-            <ListItem>{b("how_to_play.multiplier", { max: BILDVAL.MAX_MULTIPLIER })}</ListItem>
+            <ListItem>{t("bildval.how_to_play.multiplier", { max: BILDVAL.MAX_MULTIPLIER })}</ListItem>
 
-            <Text>{t("enjoy")}</Text>
+            <Text>{t("common.enjoy")}</Text>
           </UnorderedList>
         </ModalBody>
         <ModalFooter justifyContent="center">
-          <Button onClick={onClose}>{t("let_me_play")}</Button>
+          <Button onClick={onClose}>{t("common.let_me_play")}</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

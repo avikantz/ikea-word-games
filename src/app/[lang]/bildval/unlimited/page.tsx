@@ -4,7 +4,7 @@ import { Ref, useCallback, useRef, useState } from "react";
 import { Box, Button, SimpleGrid, Skeleton, Spacer, Text } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { BildvalRound, GAMES, IKEAProduct, PageProps } from "@/interfaces";
+import { BildvalRound, IKEAProduct, PageProps } from "@/interfaces";
 import { useBildval } from "@/hooks/useBildval";
 import { BildvalGuessOption, BildvalGuessOptionSkeleton } from "@/components/bildval";
 import { BILDVAL } from "@/utils/constants";
@@ -17,7 +17,6 @@ import { GameContainer } from "@/components/gameContainer";
 function BildvalGameUnlimited({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   // Refs
   const containerRef = useRef<HTMLDivElement>();
@@ -75,14 +74,14 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
 
   return (
     <Box>
-      <GameTitle title={b("title_difficulty", { difficulty: "∞" })} />
+      <GameTitle title={t("bildval.title_difficulty", { difficulty: "∞" })} />
 
       <GameContainer shouldSnap={bildvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(bildvalRound && (
           <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
             <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
-              {b("question", { product: bildvalRound.solution.name })}
+              {t("bildval.question", { product: bildvalRound.solution.name })}
             </Text>
           </Box>
         )) || <Skeleton h="84px" />}
@@ -108,9 +107,9 @@ function BildvalGameUnlimited({ params: { lang } }: PageProps) {
           alignSelf="center"
           onClick={onPass}
           isLoading={!bildvalRound}
-          loadingText={t("pass")}
+          loadingText={t("common.pass")}
         >
-          {showSolution ? t("next") : t("pass")}
+          {showSolution ? t("common.next") : t("common.pass")}
         </Button>
 
         <Spacer display={{ base: "flex", md: "none" }} />

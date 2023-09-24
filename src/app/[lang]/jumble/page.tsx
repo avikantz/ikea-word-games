@@ -13,43 +13,41 @@ import {
   PATH_JUMBLE_INSANE,
   PATH_JUMBLE_MEDIUM,
 } from "@/utils/paths";
-import { GAMES } from "@/interfaces";
 import { PADDING } from "@/theme";
 
 function JumbleGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: j } = useTranslation(lang, GAMES.JUMBLE);
 
   return (
     <>
-      <PageTitle title={j("title")} desc={j("desc")} />
+      <PageTitle title={t("jumble.title")} desc={t("jumble.desc")} />
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
-          title={t("easy")}
-          desc={j("easy.desc")}
+          title={t("common.easy")}
+          desc={t("jumble.easy.desc")}
           href={getLocalizedPath(PATH_JUMBLE_EASY, lang)}
           bg="green.100"
         />
         <ModeCard
-          title={t("medium")}
-          desc={j("medium.desc")}
+          title={t("common.medium")}
+          desc={t("jumble.medium.desc")}
           href={getLocalizedPath(PATH_JUMBLE_MEDIUM, lang)}
           bg="yellow.200"
         />
         <ModeCard
-          title={t("hard")}
-          desc={j("hard.desc")}
+          title={t("common.hard")}
+          desc={t("jumble.hard.desc")}
           href={getLocalizedPath(PATH_JUMBLE_HARD, lang)}
           bg="orange.200"
         />
         <ModeCard
-          title={t("insane")}
-          desc={j("insane.desc")}
+          title={t("common.insane")}
+          desc={t("jumble.insane.desc")}
           href={getLocalizedPath(PATH_JUMBLE_INSANE, lang)}
           bg="red.200"
         />
-        <ModeCard title={t("custom")} desc={j("custom.desc")} href={getLocalizedPath(PATH_JUMBLE_CUSTOM, lang)} />
+        <ModeCard title={t("common.custom")} desc={t("jumble.custom.desc")} href={getLocalizedPath(PATH_JUMBLE_CUSTOM, lang)} />
       </SimpleGrid>
     </>
   );

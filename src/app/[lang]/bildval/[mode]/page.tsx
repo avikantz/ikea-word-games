@@ -8,7 +8,7 @@ import { event } from "nextjs-google-analytics";
 
 import { GameContainer, GameMultiplier, GameOverModal, GameRound, GameScore, GameTitle } from "@/components";
 import { BildvalRound, IKEAProduct, GAME_MODE, ModePageProps, GAMES } from "@/interfaces";
-import { PATH_BILDVAL } from "@/utils/paths";
+import { PATH_BILDVAL, getLocalizedPath } from "@/utils/paths";
 import { BILDVAL } from "@/utils/constants";
 import { useScores } from "@/hooks/useScores";
 import { useBildval } from "@/hooks/useBildval";
@@ -23,7 +23,6 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   // Translations
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   // Modals
   const {
@@ -65,10 +64,10 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
         setDifficulty(mode as GAME_MODE);
       } else {
         alert("Invalid mode");
-        router.replace(PATH_BILDVAL);
+        router.replace(getLocalizedPath(PATH_BILDVAL, lang));
       }
     }
-  }, [mode, router]);
+  }, [lang, mode, router]);
 
   const getBildvalWords = useCallback(async () => {
     // Fetch new bildval round
@@ -163,7 +162,10 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
 
   return (
     <Box>
-      <GameTitle title={b("title_difficulty", { difficulty: t(difficulty) })} onInfoClick={onOpenHowToPlayModal} />
+      <GameTitle
+        title={t("bildval.title_difficulty", { difficulty: t(difficulty) })}
+        onInfoClick={onOpenHowToPlayModal}
+      />
 
       <GameContainer shouldSnap={bildvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {round > 0 && (
@@ -183,7 +185,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
           <VStack alignItems="stretch" spacing={PADDING.LG}>
             <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
               <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
-                {b("question", { product: bildvalRound.solution.name })}
+                {t("bildval.question", { product: bildvalRound.solution.name })}
               </Text>
             </Box>
 
@@ -219,10 +221,10 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             alignSelf="center"
             onClick={onPass}
             isLoading={!bildvalRound}
-            loadingText={t("pass")}
+            loadingText={t("common.pass")}
             isDisabled={round > BILDVAL.MAX_ROUNDS || passCount >= BILDVAL.MAX_PASSES || showSolution}
           >
-            {t("pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
+            {t("common.pass_count", { count: BILDVAL.MAX_PASSES - passCount })}
           </Button>
 
           {/* Next */}
@@ -233,7 +235,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
             isDisabled={!bildvalRound || round > BILDVAL.MAX_ROUNDS || !showSolution}
             alignSelf="center"
           >
-            {round === 0 ? t("start") : round === BILDVAL.MAX_ROUNDS ? t("finish") : t("next")}
+            {round === 0 ? t("common.start") : round === BILDVAL.MAX_ROUNDS ? t("common.finish") : t("common.next")}
           </Button>
         </HStack>
 
@@ -247,7 +249,7 @@ function BildvalGameMode({ params: { mode, lang } }: ModePageProps) {
         onClose={onCloseGameOverModal}
         score={score}
         scores={scores}
-        onCloseComplete={() => router.replace(PATH_BILDVAL)}
+        onCloseComplete={() => router.replace(getLocalizedPath(PATH_BILDVAL, lang))}
       />
     </Box>
   );

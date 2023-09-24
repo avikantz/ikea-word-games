@@ -13,45 +13,43 @@ import {
   PATH_ORDVAL_MEDIUM,
   PATH_ORDVAL_UNLIMITED,
 } from "@/utils/paths";
-import { GAMES } from "@/interfaces";
 import { PADDING } from "@/theme";
 
 function OrdvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: o } = useTranslation(lang, GAMES.ORDVAL);
 
   return (
     <>
-      <PageTitle title={o("title")} desc={o("desc")} />
+      <PageTitle title={t("ordval.title")} desc={t("ordval.desc")} />
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
-          title={t("easy")}
-          desc={o("easy.desc")}
+          title={t("common.easy")}
+          desc={t("ordval.easy.desc")}
           href={getLocalizedPath(PATH_ORDVAL_EASY, lang)}
           bg="green.100"
         />
         <ModeCard
-          title={t("medium")}
-          desc={o("medium.desc")}
+          title={t("common.medium")}
+          desc={t("ordval.medium.desc")}
           href={getLocalizedPath(PATH_ORDVAL_MEDIUM, lang)}
           bg="yellow.200"
         />
         <ModeCard
-          title={t("hard")}
-          desc={o("hard.desc")}
+          title={t("common.hard")}
+          desc={t("ordval.hard.desc")}
           href={getLocalizedPath(PATH_ORDVAL_HARD, lang)}
           bg="orange.200"
         />
         <ModeCard
-          title={t("insane")}
-          desc={o("insane.desc")}
+          title={t("common.insane")}
+          desc={t("ordval.insane.desc")}
           href={getLocalizedPath(PATH_ORDVAL_INSANE, lang)}
           bg="red.200"
         />
         <ModeCard
-          title={o("unlimited")}
-          desc={o("unlimited.desc")}
+          title={t("ordval.unlimited")}
+          desc={t("ordval.unlimited.desc")}
           href={getLocalizedPath(PATH_ORDVAL_UNLIMITED, lang)}
         />
       </SimpleGrid>

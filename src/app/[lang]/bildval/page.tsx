@@ -13,49 +13,43 @@ import {
   PATH_BILDVAL_MEDIUM,
   PATH_BILDVAL_UNLIMITED,
 } from "@/utils/paths";
-import { GAMES } from "@/interfaces";
 import { PADDING } from "@/theme";
-import Head from "next/head";
 
 function BildvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
-  const { t: b } = useTranslation(lang, GAMES.BILDVAL);
 
   return (
     <Box>
-      <PageTitle title={b("title")} desc={b("desc")} />
-      <Head>
-        <title>{b("title")}</title>
-      </Head>
+      <PageTitle title={t("bildval.title")} desc={t("bildval.desc")} />
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
         <ModeCard
-          title={t("easy")}
-          desc={b("easy.desc")}
+          title={t("common.easy")}
+          desc={t("bildval.easy.desc")}
           href={getLocalizedPath(PATH_BILDVAL_EASY, lang)}
           bg="green.100"
         />
         <ModeCard
-          title={t("medium")}
-          desc={b("medium.desc")}
+          title={t("common.medium")}
+          desc={t("bildval.medium.desc")}
           href={getLocalizedPath(PATH_BILDVAL_MEDIUM, lang)}
           bg="yellow.200"
         />
         <ModeCard
-          title={t("hard")}
-          desc={b("hard.desc")}
+          title={t("common.hard")}
+          desc={t("bildval.hard.desc")}
           href={getLocalizedPath(PATH_BILDVAL_HARD, lang)}
           bg="orange.200"
         />
         <ModeCard
-          title={t("insane")}
-          desc={b("insane.desc")}
+          title={t("common.insane")}
+          desc={t("bildval.insane.desc")}
           href={getLocalizedPath(PATH_BILDVAL_INSANE, lang)}
           bg="red.200"
         />
         <ModeCard
-          title={b("unlimited")}
-          desc={b("unlimited.desc")}
+          title={t("bildval.unlimited")}
+          desc={t("bildval.unlimited.desc")}
           href={getLocalizedPath(PATH_BILDVAL_UNLIMITED, lang)}
         />
       </SimpleGrid>

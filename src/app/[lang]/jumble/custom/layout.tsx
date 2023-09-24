@@ -3,7 +3,6 @@ import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 import { ModePageProps } from "@/interfaces/page";
 import { getTFunction } from "@/app/i18n";
-import { GAMES } from "@/interfaces";
 
 export default function JumbleLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
@@ -14,10 +13,9 @@ export async function generateMetadata(
   parentMetadata: ResolvingMetadata,
 ): Promise<Metadata> {
   const t = await getTFunction(lang);
-  const j = await getTFunction(lang, GAMES.JUMBLE);
 
-  const title = j("title_difficulty", { difficulty: t("custom") });
-  const description = j("desc");
+  const title = t("jumble.title_difficulty", { difficulty: t("custom") });
+  const description = t("jumble.desc");
 
   let openGraph = {
     ...(await parentMetadata).openGraph,

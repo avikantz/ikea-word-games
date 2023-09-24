@@ -4,7 +4,7 @@ import { Button, HStack, IconButton, Input, Text, VStack, useDisclosure, Box, Sp
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
-import { GAMES, IKEAProduct } from "@/interfaces";
+import { IKEAProduct } from "@/interfaces";
 import { ChangeEventHandler, KeyboardEventHandler, LegacyRef, Ref, useEffect, useRef, useState } from "react";
 import { useVadarjag } from "@/hooks/useVadarjag";
 import { GameContainer, GameTitle, IKEAProductCard, IKEAProductCardSkeleton } from "@/components";
@@ -15,7 +15,6 @@ import { PADDING } from "@/theme";
 export default function Vadarjag({ params: { lang } }: PageProps) {
   // Translations
   const { t } = useTranslation(lang);
-  const { t: v } = useTranslation(lang, GAMES.VADARJAG);
 
   // Modals
   const {
@@ -75,10 +74,10 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
 
   return (
     <Box>
-      <GameTitle title={v("title")} onInfoClick={onOpenWhatIsThisModal} />
+      <GameTitle title={t("vadarjag.title")} onInfoClick={onOpenWhatIsThisModal} />
 
       <GameContainer ref={containerRef as Ref<HTMLDivElement>}>
-        <Text textAlign="center">{v("desc")}</Text>
+        <Text textAlign="center">{t("vadarjag.desc")}</Text>
 
         <HStack justifyContent="center">
           <Input
@@ -91,7 +90,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
             type="text"
             value={value}
             onChange={onInputChange}
-            placeholder={v("placeholder")}
+            placeholder={t("vadarjag.placeholder")}
             ref={inputRef as LegacyRef<HTMLInputElement>}
             textAlign="center"
             onKeyUp={onInputKeyUp}
@@ -116,7 +115,7 @@ export default function Vadarjag({ params: { lang } }: PageProps) {
 
           {products.length > 3 && (
             <Button variant={showMore ? "outline" : "solid"} onClick={toggleMore}>
-              {showMore ? t("show_less") : t("show_more")}
+              {showMore ? t("common.show_less") : t("common.show_more")}
             </Button>
           )}
         </VStack>

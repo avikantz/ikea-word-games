@@ -7,10 +7,14 @@ export function clearAllLocalesDataExcept(locale: string) {
 
   const keys = Object.keys(window.localStorage);
 
-  // Clear all locales data except the current one
   for (const key of keys) {
-	const keyLocale = key.split("_")[0];
+    const keyLocale = key.split("_")[0];
+    // Clear all locales data except the current one
     if (LANGUAGES.includes(keyLocale) && keyLocale !== locale) {
+      window.localStorage.removeItem(key);
+    }
+    // Remove legacy keys
+    if (key.startsWith("q_")) {
       window.localStorage.removeItem(key);
     }
   }
