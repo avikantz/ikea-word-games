@@ -78,7 +78,7 @@ export const Footer = ({ lang }: FooterProps) => {
             onChange={onChangeLanguage}
           >
             {LANGUAGE_LIST.map(({ label, emoji, value }) => (
-              <option key={value} value={value} label={label}>
+              <option key={value} value={value} label={`${emoji} ${label}`}>
                 {emoji} {label}
               </option>
             ))}
