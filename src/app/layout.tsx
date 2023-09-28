@@ -21,7 +21,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(BASE_URL),
     applicationName: "Ordspel",
-    appleWebApp: { capable: true, title, statusBarStyle: "black-translucent" },
     title: { default: title, template: `%s | ${title}` },
     description,
     keywords: "ordspel, ikea, word, games, jumble, wordle, shuffle, bildval, ordval, bild, ord, val, spel, guess, swedish, furniture, home, accessories, design, ideas, inspiration, web, app, html5, react, next",
