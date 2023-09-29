@@ -4,7 +4,7 @@ import { Ref, useCallback, useRef, useState } from "react";
 import { Box, Button, SimpleGrid, Skeleton, Spacer, Text } from "@chakra-ui/react";
 import { event } from "nextjs-google-analytics";
 
-import { GAMES, IKEAProduct, OrdvalRound, PageProps } from "@/interfaces";
+import { IKEAProduct, OrdvalRound, PageProps } from "@/interfaces";
 import { useOrdval } from "@/hooks/useOrdval";
 import { OrdvalGuessOption, OrdvalGuessOptionSkeleton } from "@/components/ordval";
 import { ORDVAL } from "@/utils/constants";
