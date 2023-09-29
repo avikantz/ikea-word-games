@@ -6,7 +6,7 @@ import { useTranslation } from "@/app/i18n/client";
 import { getLocalizedPath, PATH_BILDVAL, PATH_JUMBLE, PATH_ORDVAL, PATH_VADARJAG } from "@/utils/paths";
 import { ModeCard, PageTitle } from "@/components";
 import { PageProps } from "@/interfaces/page";
-import { PADDING } from "@/theme";
+import { GRID_COLUMNS, PADDING } from "@/theme";
 
 export default function Home({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -17,7 +17,7 @@ export default function Home({ params: { lang } }: PageProps) {
         <Container py={PADDING.DEFAULT} h="full" maxW="container.xl">
           <PageTitle title={t("common.title")} desc={t("common.desc")} />
 
-          <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
+          <SimpleGrid columns={GRID_COLUMNS} spacing={PADDING.DEFAULT}>
             <ModeCard title={t("bildval.title")} desc={t("bildval.desc")} href={getLocalizedPath(PATH_BILDVAL, lang)} />
             <ModeCard title={t("ordval.title")} desc={t("ordval.desc")} href={getLocalizedPath(PATH_ORDVAL, lang)} />
             <ModeCard title={t("jumble.title")} desc={t("jumble.desc")} href={getLocalizedPath(PATH_JUMBLE, lang)} />

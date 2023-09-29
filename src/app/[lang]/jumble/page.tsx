@@ -13,7 +13,7 @@ import {
   PATH_JUMBLE_INSANE,
   PATH_JUMBLE_MEDIUM,
 } from "@/utils/paths";
-import { PADDING } from "@/theme";
+import { GRID_COLUMNS, PADDING } from "@/theme";
 
 function JumbleGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -22,7 +22,7 @@ function JumbleGame({ params: { lang } }: PageProps) {
     <>
       <PageTitle title={t("jumble.title")} desc={t("jumble.desc")} />
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
+      <SimpleGrid columns={GRID_COLUMNS} spacing={PADDING.DEFAULT}>
         <ModeCard
           title={t("common.easy")}
           desc={t("jumble.easy.desc")}
@@ -47,7 +47,11 @@ function JumbleGame({ params: { lang } }: PageProps) {
           href={getLocalizedPath(PATH_JUMBLE_INSANE, lang)}
           bg="red.200"
         />
-        <ModeCard title={t("common.custom")} desc={t("jumble.custom.desc")} href={getLocalizedPath(PATH_JUMBLE_CUSTOM, lang)} />
+        <ModeCard
+          title={t("common.custom")}
+          desc={t("jumble.custom.desc")}
+          href={getLocalizedPath(PATH_JUMBLE_CUSTOM, lang)}
+        />
       </SimpleGrid>
     </>
   );

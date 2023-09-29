@@ -13,10 +13,13 @@ import { Tag } from "./tag";
 export const CONFETTI_COLORS = ["#FFDB00", "#008AFF", "#111111"];
 
 export const PADDING = {
+  XS: { base: 2, md: 4 },
   SM: { base: 3, md: 4, xl: 6 },
   DEFAULT: { base: 4, md: 6, xl: 8 },
   LG: { base: 6, md: 8 },
 };
+
+export const GRID_COLUMNS = { base: 1, sm: 2, md: 3 };
 
 // 2. Call `extendTheme` and pass your custom values
 const theme = extendTheme({

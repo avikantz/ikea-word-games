@@ -16,12 +16,13 @@ export const PageTitle = ({ title, desc, children, containerProps, ...props }: P
   <VStack w="full" alignItems="stretch" textAlign="center" mb={PADDING.DEFAULT} {...containerProps}>
     <Stack direction={{ base: "column", md: "row" }} justifyContent="center" alignItems="center">
       <Center>
-        <Box h="32" p="4" bg="blue.700" rounded="md">
-          <Center bg="yellow.400" w="full" h="full" py="4" px="8" borderRadius="50%">
+        <Box p={PADDING.XS} bg="blue.700" rounded="md">
+          <Center bg="yellow.400" w="full" h="full" p={PADDING.DEFAULT} borderRadius="50%">
             <Heading
               as="h1"
               fontWeight="extrabold"
               textTransform="uppercase"
+              textAlign="center"
               letterSpacing="tighter"
               color="blue.700"
               fontSize={{ base: "2xl", md: "4xl" }}
@@ -37,7 +38,7 @@ export const PageTitle = ({ title, desc, children, containerProps, ...props }: P
     {children}
 
     {!!desc && (
-      <Text fontSize={{ base: "sm", md: "md" }} px="12" color="gray.600">
+      <Text fontSize={{ base: "md", md: "xl" }} fontWeight="medium" px="12" color="gray.600">
         {desc}
       </Text>
     )}
@@ -51,7 +52,7 @@ export const PageTitleSkeleton = ({ withDesc = false }: { withDesc?: boolean }) 
     </Box>
 
     {withDesc && (
-      <Text fontSize={{ base: "sm", md: "md" }} color="gray.600">
+      <Text fontSize={{ base: "md", md: "xl" }} color="gray.600">
         ________ ________ ________
       </Text>
     )}

@@ -13,7 +13,7 @@ import {
   PATH_BILDVAL_MEDIUM,
   PATH_BILDVAL_UNLIMITED,
 } from "@/utils/paths";
-import { PADDING } from "@/theme";
+import { GRID_COLUMNS, PADDING } from "@/theme";
 
 function BildvalGame({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -22,7 +22,7 @@ function BildvalGame({ params: { lang } }: PageProps) {
     <Box>
       <PageTitle title={t("bildval.title")} desc={t("bildval.desc")} />
 
-      <SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={PADDING.DEFAULT}>
+      <SimpleGrid columns={GRID_COLUMNS} spacing={PADDING.DEFAULT}>
         <ModeCard
           title={t("common.easy")}
           desc={t("bildval.easy.desc")}
