@@ -20,15 +20,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(BASE_URL),
-    applicationName: "Ordspel",
-    title: { default: title, template: `%s | ${title}` },
+    applicationName: title,
+    title,
     description,
-    keywords: "ordspel, ikea, word, games, jumble, wordle, shuffle, bildval, ordval, bild, ord, val, spel, guess, swedish, furniture, home, accessories, design, ideas, inspiration, web, app, html5, react, next",
+    keywords:
+      "ordspel, ikea, word, games, jumble, wordle, shuffle, bildval, ordval, bild, ord, val, spel, guess, swedish, furniture, home, accessories, design, ideas, inspiration, web, app, html5, react, next",
     openGraph: {
       type: "website",
       title,
       description,
-      images: "/assets/cover.jpg",
+      images: "/assets/covers/cover_en.jpg",
     },
     alternates: {
       canonical: "/en",

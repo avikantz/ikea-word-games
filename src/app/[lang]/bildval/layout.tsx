@@ -10,14 +10,16 @@ export async function generateMetadata({ params: { lang } }: PageProps): Promise
   const title = t("bildval.title");
   const description = t("bildval.how_to_play.desc.1");
 
+  const langName = lang.split("-")[0];
+
   return {
-    title,
+    title: { default: title, template: `%s | ${t("common.title")}` },
     description,
     keywords: "hej, ordspel, ikea, word, games, bildval, photo, product, match",
     openGraph: {
       title,
       description,
-      images: "/assets/cover.jpg",
+      images: `/assets/covers/bildval_${langName}.jpg`,
     },
   };
 }

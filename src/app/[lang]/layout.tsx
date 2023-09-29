@@ -6,6 +6,7 @@ import "@/app/global.css";
 import { Providers } from "../providers";
 import { getLanguagesMap, LANGUAGES } from "@/app/i18n/settings";
 import { PageProps } from "@/interfaces/page";
+import { getTFunction } from "../i18n";
 
 interface RootLayoutParams {
   children: React.ReactNode;
@@ -29,7 +30,23 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params: { lang } }: PageProps): Promise<Metadata> {
+  const t = await getTFunction(lang);
+
+  const title = t("common.title");
+  const description = t("common.desc");
+
+  const langName = lang.split("-")[0];
+
   return {
+    applicationName: title,
+    title: { default: title, template: `%s | ${title}` },
+    description,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      images: `/assets/covers/cover_${langName}.jpg`,
+    },
     alternates: {
       canonical: `/${lang}`,
       languages: getLanguagesMap(),
