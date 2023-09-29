@@ -48,7 +48,7 @@ export const SocialShareButtons = ({
 }: SocialShareButtonsProps) => {
   const { t } = useTranslation();
 
-  const shareUrl = `${BASE_URL}${i18next.language ?? "en"}`;
+  const shareUrl = typeof window === "undefined" ? `${BASE_URL}${i18next.language ?? "en"}` : window.location.href;
   const [isNativeShareSupported, setNativeShareSupported] = useState(false);
 
   useEffect(() => {
