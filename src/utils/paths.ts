@@ -6,6 +6,7 @@ export const PATH_EMAIL = "mailto:avikantsainidbz@gmail.com?subject=Hello%20from
 export const PATH_AVIKANTZ = "https://avikantz.xyz/";
 export const PATH_RITVISHREE = "https://ritvishree.com/";
 export const PATH_IKEA_NAGASANDRA = "https://goo.gl/maps/hLxUDURLN3y1Pz5m7";
+export const PATH_GITHUB = "https://github.com/avikantz/ikea-word-games/";
 
 export const PATH_FAQ = "/faq";
 export const PATH_ABOUT = "/about";

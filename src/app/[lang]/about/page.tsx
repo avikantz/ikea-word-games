@@ -5,7 +5,7 @@ import { Box, Container, Divider, Heading, HStack, Link, Text, VStack } from "@c
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
 import { Trans } from "react-i18next";
-import { PATH_AVIKANTZ, PATH_IKEA_NAGASANDRA, PATH_RITVISHREE } from "@/utils/paths";
+import { PATH_AVIKANTZ, PATH_GITHUB, PATH_IKEA_NAGASANDRA, PATH_RITVISHREE } from "@/utils/paths";
 import { SocialShareButtons } from "@/components/socialShares";
 import { BuyMeACoffeeButton } from "@/components/coffeeButton";
 import { PADDING } from "@/theme/index";
@@ -50,6 +50,14 @@ export default function About({ params: { lang } }: PageProps) {
                 i18nKey="about.3"
                 components={{
                   a: <Link href={PATH_IKEA_NAGASANDRA} target="_blank" rel="noopener" color="blue.500" />,
+                }}
+              />
+            </Text>
+            <Text>
+              <Trans
+                i18nKey="about.4"
+                components={{
+                  a: <Link href={PATH_GITHUB} target="_blank" rel="noopener" color="blue.500" />,
                 }}
               />
             </Text>
