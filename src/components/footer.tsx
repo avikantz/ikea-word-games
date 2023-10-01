@@ -4,10 +4,11 @@ import React, { ChangeEvent } from "react";
 import { Box, Center, Container, IconButton, Image, Link, Select, Spacer, Stack, Text } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import NextLink from "next/link";
+import { Trans } from "react-i18next";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
-import { getLocalizedPath, PATH_ABOUT, PATH_FAQ } from "@/utils/paths";
+import { getLocalizedPath, PATH_ABOUT, PATH_FAQ, PATH_GITHUB } from "@/utils/paths";
 import { useAudio } from "@/hooks/useAudio";
 import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
@@ -93,6 +94,15 @@ export const Footer = ({ lang }: FooterProps) => {
           <BuyMeACoffeeButton bg="blue.700" color="white" />
         </Center>
       )}
+
+      <Center py={PADDING.DEFAULT} bg="black" color="white">
+        <Text as="span" fontSize="sm" fontWeight="medium">
+          <Trans
+            i18nKey="common.disclaimer"
+            components={{ a: <Link href={PATH_GITHUB} color="blue.500" />, em: <em /> }}
+          />
+        </Text>
+      </Center>
     </Box>
   );
 };
