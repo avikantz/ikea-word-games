@@ -42,8 +42,8 @@ export const BildvalGuessOption = ({
         setShowConfetti(true);
         // Play success audio
         playSuccessAudio?.();
-        // Hide Confetti with a delay of 500 ms
-        setTimeout(() => setShowConfetti(false), 500);
+        // Hide Confetti with a delay of 1500 ms
+        setTimeout(() => setShowConfetti(false), 1500);
       } else {
         // Jiggle button
         animateButton(
