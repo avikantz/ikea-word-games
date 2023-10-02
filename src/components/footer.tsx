@@ -8,7 +8,7 @@ import { Trans } from "react-i18next";
 
 import { useTranslation } from "@/app/i18n/client";
 import { LANGUAGE_LIST } from "@/app/i18n/settings";
-import { getLocalizedPath, PATH_ABOUT, PATH_FAQ, PATH_GITHUB } from "@/utils/paths";
+import { getLocalizedPath, PATH_ABOUT, PATH_FAQ, PATH_GITHUB, PATH_IKEA } from "@/utils/paths";
 import { useAudio } from "@/hooks/useAudio";
 import { PADDING } from "@/theme";
 import { SocialShareButtons } from "./socialShares";
@@ -95,11 +95,15 @@ export const Footer = ({ lang }: FooterProps) => {
         </Center>
       )}
 
-      <Center py={PADDING.DEFAULT} bg="black" color="white">
-        <Text as="span" fontSize="sm" fontWeight="medium">
+      <Center p={PADDING.DEFAULT} bg="black" color="white">
+        <Text as="span" fontSize="sm" fontWeight="medium" textAlign="center">
           <Trans
             i18nKey="common.disclaimer"
-            components={{ a: <Link href={PATH_GITHUB} color="blue.500" />, em: <em /> }}
+            components={{
+              ikea: <Link href={PATH_IKEA} color="blue.500" />,
+              github: <Link href={PATH_GITHUB} color="blue.500" />,
+              em: <em />,
+            }}
           />
         </Text>
       </Center>

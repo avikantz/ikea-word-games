@@ -6,7 +6,7 @@ import { Trans } from "react-i18next";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
-import { getLocalizedPath, PATH_ABOUT, PATH_EMAIL } from "@/utils/paths";
+import { getLocalizedPath, PATH_ABOUT, PATH_EMAIL, PATH_GITHUB } from "@/utils/paths";
 import { PageTitle } from "@/components/pageTitle";
 
 const FAQ_COUNT = 7;
@@ -41,6 +41,7 @@ export default function FAQ({ params: { lang } }: PageProps) {
                           />
                         ),
                         email: <Link color="blue.500" href={PATH_EMAIL} target="_blank" />,
+                        github: <Link color="blue.500" href={PATH_GITHUB} target="_blank" />,
                       }}
                     />
                   </Text>
