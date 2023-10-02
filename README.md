@@ -1,14 +1,16 @@
-[![IKEA Word Games](/public/assets/cover.jpg)](https://ikeawordgames.com)
+[![Ordspel](/public/assets/cover.jpg)](https://ikeawordgames.com)
 
-# IKEA Word Games [Ordspel▶️](https://ikeawordgames.com)
+# [Ordspel](https://ikeawordgames.com) (Word Games)
 
-A fun collection of word games based on IKEA products.
+Ordspel: A fun collection of word games based on products from the IKEA range.
 
-| Game | Description |
-|-----:|:------------|
-| [Bildval](https://ikeawordgames.com/bildval) | Guess what picture matches the given product name. |
-| [Ordval](https://ikeawordgames.com/ordval) | Guess what product best matches the given description. |
-| [Jumble](https://ikeawordgames.com/jumble) | Form a word from the given letters to match an IKEA product. |
+| Game | Description | Demo |
+|-----:|:------------|:----:|
+| [Bildval](https://ikeawordgames.com/bildval) | Guess what picture matches the given product name. | [![Bildval](/public/assets/bildval.gif)](https://ikeawordgames.com/bildval) |
+| [Ordval](https://ikeawordgames.com/ordval) | Guess what product best matches the given description. | [![Ordval](/public/assets/ordval.gif)](https://ikeawordgames.com/ordval) |
+| [Jumble](https://ikeawordgames.com/jumble) | Form a word from the given letters to match an IKEA product. | [![Jumble](/public/assets/jumble.gif)](https://ikeawordgames.com/jumble) |
+
+> Ordspel is a free and open-source project based on publicly available information and media from [IKEA.com](https://ikea.com) hosted on GitHub, and is not approved by or affiliated with *Inter IKEA Systems B.V.*
 
 --------
 
