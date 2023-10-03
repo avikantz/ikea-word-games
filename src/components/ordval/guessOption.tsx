@@ -22,7 +22,7 @@ export const OrdvalGuessOption = ({
   onClick: _onClick,
   ...props
 }: OrdvalGuessOptionProps) => {
-  const [isSuccess, setSuccess] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const [buttonRef, animateButton] = useAnimate();
   const { playFailureAudio, playSuccessAudio } = useAudio();
@@ -37,9 +37,11 @@ export const OrdvalGuessOption = ({
     // Check if correct
     if (solution?.id === guess.id) {
       // Show confetti
-      setSuccess(true);
+      setShowConfetti(true);
       // Play success audio
       playSuccessAudio?.();
+      // Hide Confetti Overlay with a delay of 1500 ms
+      setTimeout(() => setShowConfetti(false), 1500);
     } else {
       // Jiggle button
       animateButton(
@@ -93,7 +95,7 @@ export const OrdvalGuessOption = ({
       h={{ base: "16", md: "32", lg: "40" }}
       {...props}
     >
-      {isSuccess && (
+      {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
           <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
         </Center>
