@@ -3,7 +3,7 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
-import { Box, BoxProps, Center, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Image, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 
 import { IKEAProduct } from "@/interfaces";
 import { CONFETTI_COLORS } from "@/theme";
@@ -22,6 +22,7 @@ export const OrdvalGuessOption = ({
   onClick: _onClick,
   ...props
 }: OrdvalGuessOptionProps) => {
+  const [isLoaded, setLoaded] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const [buttonRef, animateButton] = useAnimate();
@@ -34,33 +35,35 @@ export const OrdvalGuessOption = ({
     // Nothing if solution is shown
     if (showSolution) return;
 
-    // Check if correct
-    if (solution?.id === guess.id) {
-      // Show confetti
-      setShowConfetti(true);
-      // Play success audio
-      playSuccessAudio?.();
-      // Hide Confetti Overlay with a delay of 1500 ms
-      setTimeout(() => setShowConfetti(false), 1500);
-    } else {
-      // Jiggle button
-      animateButton(
-        buttonRef.current,
-        {
-          scale: [1, 1.1, 1, 1.1, 1],
-          rotate: [0, 5, 0, -5, 0],
-        },
-        {
-          duration: 0.1,
-          repeat: 3,
-        },
-      );
-      // Play failure audio
-      playFailureAudio?.();
-    }
+    if (isLoaded) {
+      // Check if correct
+      if (solution?.id === guess.id) {
+        // Show confetti
+        setShowConfetti(true);
+        // Play success audio
+        playSuccessAudio?.();
+        // Hide Confetti Overlay with a delay of 1500 ms
+        setTimeout(() => setShowConfetti(false), 1500);
+      } else {
+        // Jiggle button
+        animateButton(
+          buttonRef.current,
+          {
+            scale: [1, 1.1, 1, 1.1, 1],
+            rotate: [0, 5, 0, -5, 0],
+          },
+          {
+            duration: 0.1,
+            repeat: 3,
+          },
+        );
+        // Play failure audio
+        playFailureAudio?.();
+      }
 
-    _onClick?.(event);
-  };
+      _onClick?.(event);
+    }
+  }
 
   useEffect(() => {
     if (showSolution && solution?.id === guess.id) {
@@ -83,7 +86,7 @@ export const OrdvalGuessOption = ({
       as="button"
       border="2px solid"
       onClick={onClick}
-      cursor={showSolution ? "default" : "pointer"}
+      cursor={showSolution ? "default" : isLoaded ? "pointer" : "progress"}
       transition="all 0.1s ease"
       _hover={showSolution ? undefined : { md: { boxShadow: "blue-xl", borderColor: "blue.500" } }}
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
@@ -92,9 +95,22 @@ export const OrdvalGuessOption = ({
       opacity={showSolution ? (solution?.id === guess.id ? 1 : 0.5) : undefined}
       position="relative"
       w="full"
-      h={{ base: "16", md: "32", lg: "40" }}
+      h={{ base: "28", md: "44", lg: "52" }}
       {...props}
     >
+      <Image
+        fallback={<Skeleton w="full" h="full" />}
+        src={guess.pImage ?? guess.image}
+        alt={guess.desc}
+        objectFit="contain"
+        w="full"
+        filter='auto' blur={showSolution ? '0px' : '8px'}
+        h={{ base: "16", md: "32", lg: "36" }}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        pointerEvents="none"
+        blendMode="darken"
+      />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
           <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
