@@ -88,9 +88,7 @@ export const OrdvalGuessOption = ({
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
       borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
       boxShadow={showSolution ? (solution?.id === guess.id ? greenShadow : redShadow) : undefined}
-      opacity={showSolution ? (solution?.id === guess.id ? 1 : 0.5) : undefined}
       position="relative"
-      w="full"
       {...props}
     >
       <Image
@@ -107,10 +105,11 @@ export const OrdvalGuessOption = ({
       <Box
         display={showSolution ? 'none' : 'block'}
         backgroundColor="gray.50"
+        borderRadius="2"
         filter="auto"
         blur="10px" w="80%"
         m="0 auto"
-        h={{ base: "27vh", md: "72", lg: "27rem" }}
+        h={{ base: "25vh", md: "64", lg: "80" }}
       />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
@@ -119,10 +118,6 @@ export const OrdvalGuessOption = ({
       )}
 
       <Text
-        position={showSolution ? 'inherit' : 'absolute'}
-        top={showSolution ? "0" : { base: "10vh", md: "28", lg: "40" }}
-        w="full"
-        m="0 auto"
         as={showSolution ? Link : undefined}
         href={showSolution ? guess.url : undefined}
         target="_blank"
@@ -138,7 +133,7 @@ export const OrdvalGuessOption = ({
 };
 
 export const OrdvalGuessOptionSkeleton = () => (
-  <Box border="2px solid" borderColor="black" position="relative" w="full" h={{ base: "28vh", md: "80", lg: "28rem" }}>
+  <Center border="2px solid" borderColor="black" w="full" h={{ base: "28vh", md: "80", lg: "96" }}>
     <Skeleton w="full" h="full" />
-  </Box>
+  </Center>
 );
