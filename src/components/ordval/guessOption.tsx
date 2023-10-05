@@ -118,6 +118,10 @@ export const OrdvalGuessOption = ({
       )}
 
       <Text
+        position={showSolution ? 'inherit' : 'absolute'}
+        bottom={showSolution ? "0" : { base: "12vh", md: "36", lg: "44" }}
+        w="full"
+        m="0 auto"
         as={showSolution ? Link : undefined}
         href={showSolution ? guess.url : undefined}
         target="_blank"
