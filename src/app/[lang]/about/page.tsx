@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Container, Divider, Heading, HStack, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Container, Divider, Heading, Link, List, ListItem, Text, VStack } from "@chakra-ui/react";
 
 import { useTranslation } from "@/app/i18n/client";
 import { PageProps } from "@/interfaces/page";
@@ -9,6 +9,8 @@ import { PATH_AVIKANTZ, PATH_GITHUB, PATH_IKEA_NAGASANDRA, PATH_RITVISHREE } fro
 import { SocialShareButtons } from "@/components/socialShares";
 import { BuyMeACoffeeButton } from "@/components/coffeeButton";
 import { PADDING } from "@/theme/index";
+import { CONTRIBUTORS } from "./contributors";
+import { OPEN_SOURCE_CREDITS } from "./credits";
 
 export default function About({ params: { lang } }: PageProps) {
   const { t } = useTranslation(lang);
@@ -64,53 +66,40 @@ export default function About({ params: { lang } }: PageProps) {
 
             <Divider />
 
-            <SocialShareButtons bgColor="#FFFEFB" iconColor="#111111" />
+            <Text>{t("about.contributors")}</Text>
 
-            <BuyMeACoffeeButton />
+            <List spacing="2">
+              {CONTRIBUTORS.map((contributor) => (
+                <ListItem key={contributor.url}>
+                  <Text>
+                    {contributor.name}{" "}
+                    <Link color="blue.500" href={contributor.url} rel="noopener" target="_blank">
+                      @{contributor.username}
+                    </Link>
+                  </Text>
+                </ListItem>
+              ))}
+            </List>
 
             <Divider />
 
             <Text>{t("about.credits")}</Text>
 
-            <HStack
-              flexWrap="wrap"
-              spacing="0"
-              gap="2"
-              divider={<Text color="gray.600">•</Text>}
-              justifyContent="center"
-              color="blue.500"
-            >
-              <Link href="https://nextjs.org" target="_blank" rel="noopener">
-                Next.js
-              </Link>
-              <Link href="https://vercel.com" target="_blank" rel="noopener">
-                Vercel
-              </Link>
-              <Link href="https://chakra-ui.com" target="_blank" rel="noopener">
-                Chakra UI
-              </Link>
-              <Link href="https://www.framer.com/motion/" target="_blank" rel="noopener">
-                Framer Motion
-              </Link>
-              <Link href="https://tanstack.com/query/latest" target="_blank" rel="noopener">
-                Tanstack Query
-              </Link>
-              <Link href="https://www.i18next.com" target="_blank" rel="noopener">
-                i18next
-              </Link>
-              <Link href="https://mixkit.co/free-sound-effects/game/" target="_blank" rel="noopener">
-                Mixkit
-              </Link>
-              <Link href="https://github.com/nygardk/react-share" target="_blank" rel="noopener">
-                React Share
-              </Link>
-              <Link href="https://github.com/herrethan/react-confetti-explosion" target="_blank" rel="noopener">
-                React Confetti Explosion
-              </Link>
-              <Link href="https://github.com/hodgef/react-simple-keyboard" target="_blank" rel="noopener">
-                React Simple Keyboard
-              </Link>
-            </HStack>
+            <List spacing="2">
+              {OPEN_SOURCE_CREDITS.map((credits) => (
+                <ListItem key={credits.href}>
+                  <Link color="blue.500" href={credits.href} rel="noopener" target="_blank">
+                    {credits.title}
+                  </Link>
+                </ListItem>
+              ))}
+            </List>
+
+            <Divider />
+
+            <SocialShareButtons bgColor="#FFFEFB" iconColor="#111111" />
+
+            <BuyMeACoffeeButton />
           </VStack>
         </Container>
       </Box>
