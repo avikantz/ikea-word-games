@@ -86,7 +86,7 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
           </Box>
         )) || <Skeleton h="78px" />}
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+        <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.LG}>
           {(ordvalRound &&
             ordvalRound.guesses.map((guess) => (
               <OrdvalGuessOption

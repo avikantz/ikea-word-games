@@ -22,7 +22,6 @@ export const OrdvalGuessOption = ({
   onClick: _onClick,
   ...props
 }: OrdvalGuessOptionProps) => {
-  const [isLoaded, setLoaded] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const [buttonRef, animateButton] = useAnimate();
@@ -35,34 +34,32 @@ export const OrdvalGuessOption = ({
     // Nothing if solution is shown
     if (showSolution) return;
 
-    if (isLoaded) {
-      // Check if correct
-      if (solution?.id === guess.id) {
-        // Show confetti
-        setShowConfetti(true);
-        // Play success audio
-        playSuccessAudio?.();
-        // Hide Confetti Overlay with a delay of 1500 ms
-        setTimeout(() => setShowConfetti(false), 1500);
-      } else {
-        // Jiggle button
-        animateButton(
-          buttonRef.current,
-          {
-            scale: [1, 1.1, 1, 1.1, 1],
-            rotate: [0, 5, 0, -5, 0],
-          },
-          {
-            duration: 0.1,
-            repeat: 3,
-          },
-        );
-        // Play failure audio
-        playFailureAudio?.();
-      }
-
-      _onClick?.(event);
+    // Check if correct
+    if (solution?.id === guess.id) {
+      // Show confetti
+      setShowConfetti(true);
+      // Play success audio
+      playSuccessAudio?.();
+      // Hide Confetti Overlay with a delay of 1500 ms
+      setTimeout(() => setShowConfetti(false), 1500);
+    } else {
+      // Jiggle button
+      animateButton(
+        buttonRef.current,
+        {
+          scale: [1, 1.1, 1, 1.1, 1],
+          rotate: [0, 5, 0, -5, 0],
+        },
+        {
+          duration: 0.1,
+          repeat: 3,
+        },
+      );
+      // Play failure audio
+      playFailureAudio?.();
     }
+
+    _onClick?.(event);
   }
 
   useEffect(() => {
@@ -86,7 +83,6 @@ export const OrdvalGuessOption = ({
       as="button"
       border="2px solid"
       onClick={onClick}
-      cursor={showSolution ? "default" : isLoaded ? "pointer" : "progress"}
       transition="all 0.1s ease"
       _hover={showSolution ? undefined : { md: { boxShadow: "blue-xl", borderColor: "blue.500" } }}
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
@@ -95,21 +91,26 @@ export const OrdvalGuessOption = ({
       opacity={showSolution ? (solution?.id === guess.id ? 1 : 0.5) : undefined}
       position="relative"
       w="full"
-      h={{ base: "28", md: "44", lg: "52" }}
       {...props}
     >
       <Image
-        fallback={<Skeleton w="full" h="full" />}
         src={guess.pImage ?? guess.image}
         alt={guess.desc}
         objectFit="contain"
         w="full"
-        filter='auto' blur={showSolution ? '0px' : '8px'}
-        h={{ base: "16", md: "32", lg: "36" }}
+        h={showSolution ? { base: "25vh", md: "72", lg: "96" } : 0}
         loading="lazy"
-        onLoad={() => setLoaded(true)}
         pointerEvents="none"
         blendMode="darken"
+        visibility={showSolution ? 'visible' : 'hidden'}
+      />
+      <Box
+        display={showSolution ? 'none' : 'block'}
+        backgroundColor="gray.50"
+        filter="auto"
+        blur="10px" w="80%"
+        m="0 auto"
+        h={{ base: "25vh", md: "72", lg: "96" }}
       />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
@@ -118,6 +119,10 @@ export const OrdvalGuessOption = ({
       )}
 
       <Text
+        position={showSolution ? 'inherit' : 'absolute'}
+        top={showSolution ? "0" : { base: "10vh", md: "28", lg: "40" }}
+        w="full"
+        m="0 auto"
         as={showSolution ? Link : undefined}
         href={showSolution ? guess.url : undefined}
         target="_blank"

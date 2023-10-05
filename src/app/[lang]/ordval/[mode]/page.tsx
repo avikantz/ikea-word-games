@@ -189,7 +189,7 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.LG}>
               {ordvalRound.guesses.map((guess) => (
                 <OrdvalGuessOption
                   key={guess.name}
