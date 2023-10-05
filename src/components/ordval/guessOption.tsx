@@ -109,7 +109,7 @@ export const OrdvalGuessOption = ({
         filter="auto"
         blur="10px" w="80%"
         m="0 auto"
-        h={{ base: "25vh", md: "64", lg: "80" }}
+        h={{ base: "27.6vh", md: "19.5rem", lg: "23.8rem" }}
       />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
