@@ -183,13 +183,13 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
         {/* Active game */}
         {(ordvalRound && round > 0 && round <= ORDVAL.MAX_ROUNDS && (
           <VStack alignItems="stretch" spacing={PADDING.LG}>
-            <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
-              <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
+            <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
+              <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
                 {t("ordval.question", { product: ordvalRound.solution.desc.clean() })}
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
               {ordvalRound.guesses.map((guess) => (
                 <OrdvalGuessOption
                   key={guess.name}
@@ -203,9 +203,9 @@ function OrdvalGameMode({ params: { mode, lang } }: ModePageProps) {
           </VStack>
         )) || (
           <VStack alignItems="stretch" spacing={PADDING.LG}>
-            <Skeleton h="78px" />
+            <Skeleton h="84px" />
 
-            <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+            <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />
               <OrdvalGuessOptionSkeleton />

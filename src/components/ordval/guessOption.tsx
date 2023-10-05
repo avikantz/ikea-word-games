@@ -3,7 +3,7 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { useAnimate } from "framer-motion";
 import ConfettiExplosion from "react-confetti-explosion";
-import { Box, BoxProps, Center, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Center, Image, Link, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 
 import { IKEAProduct } from "@/interfaces";
 import { CONFETTI_COLORS } from "@/theme";
@@ -60,7 +60,7 @@ export const OrdvalGuessOption = ({
     }
 
     _onClick?.(event);
-  };
+  }
 
   useEffect(() => {
     if (showSolution && solution?.id === guess.id) {
@@ -83,18 +83,34 @@ export const OrdvalGuessOption = ({
       as="button"
       border="2px solid"
       onClick={onClick}
-      cursor={showSolution ? "default" : "pointer"}
       transition="all 0.1s ease"
       _hover={showSolution ? undefined : { md: { boxShadow: "blue-xl", borderColor: "blue.500" } }}
       _focus={showSolution ? undefined : { boxShadow: "blue-xl", borderColor: "blue.500" }}
       borderColor={showSolution ? (solution?.id === guess.id ? "green.500" : "red.500") : "black"}
       boxShadow={showSolution ? (solution?.id === guess.id ? greenShadow : redShadow) : undefined}
-      opacity={showSolution ? (solution?.id === guess.id ? 1 : 0.5) : undefined}
       position="relative"
-      w="full"
-      h={{ base: "16", md: "32", lg: "40" }}
       {...props}
     >
+      <Image
+        src={guess.pImage ?? guess.image}
+        alt={guess.desc}
+        objectFit="contain"
+        w="full"
+        h={showSolution ? { base: "25vh", md: "64", lg: "80" } : 0}
+        loading="lazy"
+        pointerEvents="none"
+        blendMode="darken"
+        visibility={showSolution ? 'visible' : 'hidden'}
+      />
+      <Box
+        display={showSolution ? 'none' : 'block'}
+        backgroundColor="gray.50"
+        borderRadius="2"
+        filter="auto"
+        blur="10px" w="80%"
+        m="0 auto"
+        h={{ base: "27.6vh", md: "19.5rem", lg: "23.8rem" }}
+      />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
           <ConfettiExplosion colors={CONFETTI_COLORS} height="80vh" />
@@ -102,6 +118,10 @@ export const OrdvalGuessOption = ({
       )}
 
       <Text
+        position={showSolution ? 'inherit' : 'absolute'}
+        bottom={showSolution ? "0" : { base: "12vh", md: "36", lg: "44" }}
+        w="full"
+        m="0 auto"
         as={showSolution ? Link : undefined}
         href={showSolution ? guess.url : undefined}
         target="_blank"
@@ -117,7 +137,7 @@ export const OrdvalGuessOption = ({
 };
 
 export const OrdvalGuessOptionSkeleton = () => (
-  <Center border="2px solid" borderColor="black" w="full" h={{ base: "16", md: "32", lg: "40" }}>
-    <Skeleton w="32" h="37px" />
+  <Center border="2px solid" borderColor="black" w="full" h={{ base: "28vh", md: "80", lg: "96" }}>
+    <Skeleton w="full" h="full" />
   </Center>
 );
