@@ -8,10 +8,10 @@ import { GameContainer } from "@/components/gameContainer";
 
 export default function Loading() {
   return (
-    <GameContainer pt="138px">
-      <Skeleton h="78px" />
+    <GameContainer pt="109px">
+      <Skeleton h="84px" mt="8" />
 
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap={PADDING.LG}>
+      <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.DEFAULT}>
         <OrdvalGuessOptionSkeleton />
         <OrdvalGuessOptionSkeleton />
         <OrdvalGuessOptionSkeleton />
@@ -20,3 +20,4 @@ export default function Loading() {
     </GameContainer>
   );
 }
+

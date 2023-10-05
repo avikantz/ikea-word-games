@@ -98,7 +98,7 @@ export const OrdvalGuessOption = ({
         alt={guess.desc}
         objectFit="contain"
         w="full"
-        h={showSolution ? { base: "25vh", md: "72", lg: "96" } : 0}
+        h={showSolution ? { base: "25vh", md: "64", lg: "80" } : 0}
         loading="lazy"
         pointerEvents="none"
         blendMode="darken"
@@ -110,7 +110,7 @@ export const OrdvalGuessOption = ({
         filter="auto"
         blur="10px" w="80%"
         m="0 auto"
-        h={{ base: "25vh", md: "72", lg: "96" }}
+        h={{ base: "27vh", md: "72", lg: "27rem" }}
       />
       {showConfetti && (
         <Center position="absolute" top="0" bottom="0" left="0" right="0">
@@ -138,7 +138,7 @@ export const OrdvalGuessOption = ({
 };
 
 export const OrdvalGuessOptionSkeleton = () => (
-  <Center border="2px solid" borderColor="black" w="full" h={{ base: "16", md: "32", lg: "40" }}>
-    <Skeleton w="32" h="37px" />
-  </Center>
+  <Box border="2px solid" borderColor="black" position="relative" w="full" h={{ base: "28vh", md: "80", lg: "28rem" }}>
+    <Skeleton w="full" h="full" />
+  </Box>
 );

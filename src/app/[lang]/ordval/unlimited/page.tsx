@@ -79,12 +79,12 @@ function OrdvalGameUnlimited({ params: { lang } }: PageProps) {
       <GameContainer shouldSnap={ordvalRound && !showSolution} ref={containerRef as Ref<HTMLDivElement>}>
         {/* Active game */}
         {(ordvalRound && (
-          <Box px={{ base: 6, md: 12 }} py={{ base: 2, md: 4 }} bg="gray.50">
-            <Text textAlign="center" fontSize={{ base: "xl", md: "3xl" }} fontWeight="semibold">
+          <Box px="6" py={{ base: 2, md: 4 }} bg="gray.50">
+            <Text textAlign="center" fontSize={{ base: "2xl", md: "4xl" }} fontWeight="semibold">
               {t("ordval.question", { product: ordvalRound.solution.desc.clean() })}
             </Text>
           </Box>
-        )) || <Skeleton h="78px" />}
+        )) || <Skeleton h="84px" />}
 
         <SimpleGrid columns={{ base: 2, md: 4 }} gap={PADDING.LG}>
           {(ordvalRound &&
