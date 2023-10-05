@@ -6,6 +6,8 @@ Title Examples:
 
 Make sure to read the [contributing guide](https://github.com/avikantz/ikea-word-games/blob/main/CONTRIBUTING.MD).
 
+Please feel free to add yourself to the [contributors list](https://github.com/avikantz/ikea-word-games/blob/main/src/app/%5Blang%5D/about/contributors.ts)
+
 --------
 
 Please be as descriptive as possible. If this is a bug fix, please describe the bug and how you fixed it. If this is a new feature, please describe the feature and how it works.
