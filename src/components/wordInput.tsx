@@ -89,6 +89,8 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     if (input.length > length) {
       // Jiggle input if longer than target length (feedback for extra presses)
       animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      // @ts-expect-error
+      keyboardRef.current?.setInput(input.slice(0, length));
       return;
     }
 
