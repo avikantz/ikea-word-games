@@ -31,4 +31,9 @@ export const CONTRIBUTORS: Contributor[] = [
     username: "rashikolhapure",
     url: "https://github.com/rashikolhapure",
   },
+  {
+    name: "Minna N.",
+    username: "minna-xD",
+    url: "https://github.com/minna-xD",
+  },
 ];
