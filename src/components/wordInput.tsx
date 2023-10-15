@@ -91,6 +91,18 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
   };
 
   const onKeyboardInputChange = (input: string, _event?: MouseEvent) => {
+    // Filter out disabled letters
+    const invalidLetters = new RegExp(`[${disabledLetters.join("")}]+$`, "g");
+    const filteredInput = input.replace(invalidLetters, "");
+
+    if (invalidLetters.test(input)) {
+      // Jiggle input if invalid
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      // @ts-expect-error
+      keyboardRef.current?.setInput(filteredInput);
+      return;
+    }
+
     if (input.length > length) {
       // Jiggle input if longer than target length (feedback for extra presses)
       animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
