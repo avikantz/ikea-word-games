@@ -55,6 +55,11 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     onClose: hideKeyboard,
   } = useDisclosure();
 
+  const enabledLetters = targetValue.removeAccents().split("");
+  const disabledLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter((letter: string) => {
+    return !enabledLetters.includes(letter);
+  });
+
   // Input target length has reached
   const onCompletion = (value: string) => {
     // Auto focus button if valid
@@ -204,6 +209,13 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
             {
               buttons: "{bksp} {enter}",
               class: "actionButton",
+            },
+          ]}
+          buttonAttributes={[
+            {
+              attribute: "disabled",
+              value: "true",
+              buttons: disabledLetters.join(" "),
             },
           ]}
           layout={{

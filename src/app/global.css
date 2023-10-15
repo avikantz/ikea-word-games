@@ -41,6 +41,10 @@ body {
 	border-color: #C4C4C4;
 }
 
+.simple-keyboard.hg-layout-default .customButton[disabled] {
+	opacity: 0.5;
+}
+
 .simple-keyboard.hg-layout-default .actionButton {
 	min-width: 48px;
 	border-radius: 100%;
