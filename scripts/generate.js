@@ -26,9 +26,10 @@ const LOCALES = {
   "en-KR": "kr/en",
   "en-SA": "sa/en",
   "en-AE": "ae/en",
+  fi: "fi/fi",
+
   // TODO: support more locales
   //   se: "se/sv",
-  //   fi: "fi/fi",
   //   no: "no/no",
   //   "ar-AE": "ae/ar",
   //   "ar-EG": "eg/ar",
