@@ -82,6 +82,11 @@ export const LANGUAGE_LIST = [
     emoji: "🇸🇦",
     value: "en-SA",
   },
+  {
+    label: "Suomi (Finland)",
+    emoji: "🇫🇮",
+    value: "fi",
+  },
 ];
 
 export const LANGUAGES = LANGUAGE_LIST.map(({ value }) => value);
