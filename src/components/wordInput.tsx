@@ -25,7 +25,7 @@ import {
 import { useAnimate } from "framer-motion";
 import Keyboard from "react-simple-keyboard";
 
-import { matchCharacters } from "@/utils/words";
+import { matchCharacters, getDisabledLettersForWord } from "@/utils/words";
 import { PADDING } from "@/theme";
 
 interface WordInputProps {
@@ -54,6 +54,8 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     onOpen: showKeyboard,
     onClose: hideKeyboard,
   } = useDisclosure();
+
+  const disabledLetters = getDisabledLettersForWord(targetValue.removeAccents());
 
   // Input target length has reached
   const onCompletion = (value: string) => {
@@ -86,6 +88,18 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
   };
 
   const onKeyboardInputChange = (input: string, _event?: MouseEvent) => {
+    // Filter out disabled letters
+    const invalidLetters = new RegExp(`[${disabledLetters}]+$`, "g");
+    const filteredInput = input.replace(invalidLetters, "");
+
+    if (invalidLetters.test(input)) {
+      // Jiggle input if invalid
+      animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
+      // @ts-expect-error
+      keyboardRef.current?.setInput(filteredInput);
+      return;
+    }
+
     if (input.length > length) {
       // Jiggle input if longer than target length (feedback for extra presses)
       animateContainer(containerRef.current, { translate: [0, "-5px", 0, "5px", 0] }, { duration: 0.1, repeat: 3 });
@@ -206,6 +220,13 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
             {
               buttons: "{bksp} {enter}",
               class: "actionButton",
+            },
+          ]}
+          buttonAttributes={[
+            {
+              attribute: "disabled",
+              value: "true",
+              buttons: disabledLetters.replace(/./g, '$& '),
             },
           ]}
           layout={{

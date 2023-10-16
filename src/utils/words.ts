@@ -70,3 +70,9 @@ export const matchCharacters = (word1: string, word2: string) => {
 export const replaceWithQuestionMarks = (word: string) => {
   return word.removeAccents().replace(/\w/g, "?");
 };
+
+/// Get a string containing all letters except a given word
+export const getDisabledLettersForWord = (word: string) => {
+  const reg = new RegExp(`[${word}]`, "g");
+  return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".replace(reg, "");
+};
