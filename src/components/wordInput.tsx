@@ -55,7 +55,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     onClose: hideKeyboard,
   } = useDisclosure();
 
-  const enabledLetters = targetValue.removeAccents().split("");
+  const enabledLetters = targetValue.removeAccents();
   const disabledLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter((letter: string) => {
     return !enabledLetters.includes(letter);
   });
