@@ -25,7 +25,7 @@ import {
 import { useAnimate } from "framer-motion";
 import Keyboard from "react-simple-keyboard";
 
-import { matchCharacters } from "@/utils/words";
+import { matchCharacters, getDisabledLettersForWord } from "@/utils/words";
 import { PADDING } from "@/theme";
 
 interface WordInputProps {
@@ -55,10 +55,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     onClose: hideKeyboard,
   } = useDisclosure();
 
-  const enabledLetters = targetValue.removeAccents();
-  const disabledLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter((letter: string) => {
-    return !enabledLetters.includes(letter);
-  });
+  const disabledLetters = getDisabledLettersForWord(targetValue.removeAccents());
 
   // Input target length has reached
   const onCompletion = (value: string) => {
@@ -92,7 +89,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
 
   const onKeyboardInputChange = (input: string, _event?: MouseEvent) => {
     // Filter out disabled letters
-    const invalidLetters = new RegExp(`[${disabledLetters.join("")}]+$`, "g");
+    const invalidLetters = new RegExp(`[${disabledLetters}]+$`, "g");
     const filteredInput = input.replace(invalidLetters, "");
 
     if (invalidLetters.test(input)) {
@@ -227,7 +224,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
             {
               attribute: "disabled",
               value: "true",
-              buttons: disabledLetters.join(" "),
+              buttons: disabledLetters.replace(/./g, '$& '),
             },
           ]}
           layout={{
