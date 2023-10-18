@@ -11,7 +11,7 @@
   "bildval.how_to_play.desc.1": "Se le dará un nombre de producto IKEA.Elija la imagen que mejor identifique el producto.",
   "bildval.how_to_play.desc.2": "Hay {{rounds}} rondas.Cada ronda, se le dará un nuevo nombre para identificar.",
   "bildval.how_to_play.desc.3": "Si está atascado, puede pasar/omitir la ronda.Tienes {{pases}} pases por juego.",
-  "bildval.how_to_play.multiplier": "El multiplicador aumenta por 1 cada ronda si pasa, max {{max}}.Si falla, el multiplicador se restablece a 1.",
+  "bildval.how_to_play.multiplier": "El multiplicador aumenta por 1 cada ronda si pasa, max {{max}}. Si falla, el multiplicador se restablece a 1.",
   "bildval.how_to_play.scoring": "Puntuación: {{points}} Puntos por ronda * Multiplicador.",
   "bildval.how_to_play.title": "Bildval: Cómo jugar",
   "bildval.insane.desc": "Todos los productos están en el \"lagkapten\"",
