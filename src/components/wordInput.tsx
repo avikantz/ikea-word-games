@@ -24,12 +24,9 @@ import {
 } from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
 import Keyboard from "react-simple-keyboard";
-
 import { matchCharacters, getDisabledLettersForWord } from "@/utils/words";
-import { GiLaptop } from "react-icons/gi";
-import { FaKeyboard } from "react-icons/fa";
-import { BsArrowReturnLeft } from "react-icons/bs";
 import { PADDING } from "@/theme";
+import Icon from "./Icon";
 
 interface WordInputProps {
   value: string;
@@ -152,7 +149,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     <VStack w={isKeyboardVisible ? "full" : "auto"} spacing={PADDING.DEFAULT}>
       <HStack ref={containerRef}>
         <IconButton
-          icon={isKeyboardVisible ? <GiLaptop /> : <FaKeyboard />}
+          icon={<Icon name={isKeyboardVisible ? "physical-input" : "keyboard"} />}
           aria-label="Toggle keyboard"
           size="lg"
           variant="outline"
@@ -198,7 +195,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
 
         <IconButton
           ref={buttonRef as LegacyRef<HTMLButtonElement>}
-          icon={<BsArrowReturnLeft />}
+          icon={<Icon name="return" />}
           aria-label="Submit"
           size="lg"
           variant="outline"
@@ -232,7 +229,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
             {
               attribute: "disabled",
               value: "true",
-              buttons: disabledLetters.replace(/./g, '$& '),
+              buttons: disabledLetters.replace(/./g, "$& "),
             },
           ]}
           layout={{

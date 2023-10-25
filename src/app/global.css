@@ -40,35 +40,44 @@ body {
   background-color: #dbdbdb;
   border-color: #c4c4c4;
 }
+.simple-keyboard.hg-layout-default .customButton[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .simple-keyboard.hg-layout-default .backspace {
   border-radius: 100%;
+  min-height: 48px;
+  max-width: calc(10% - 5px);
   background-color: white;
   border: 2px solid;
   border-color: black;
-  content: url("/assets/backspace.svg");
 }
-
-.simple-keyboard.hg-layout-default .customButton[disabled] {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
 .simple-keyboard.hg-layout-default .backspace:hover {
   border-color: black;
   background-color: black;
+}
+.simple-keyboard.hg-layout-default .backspace span {
+  content: url("/assets/backspace.svg");
+}
+.simple-keyboard.hg-layout-default .backspace:hover span {
   content: url("/assets/backspace-hover.svg");
 }
 
 .simple-keyboard.hg-layout-default .submitButton {
   border-radius: 100%;
+  min-height: 48px;
+  max-width: calc(10% - 5px);
   background-color: white;
   border: 2px solid;
   border-color: black;
-  content: url("/assets/tick.svg");
 }
-
 .simple-keyboard.hg-layout-default .submitButton:hover {
   border-color: black;
   background-color: black;
+}
+.simple-keyboard.hg-layout-default .submitButton span {
+  content: url("/assets/tick.svg");
+}
+.simple-keyboard.hg-layout-default .submitButton:hover span {
   content: url("/assets/tick-hover.svg");
 }
