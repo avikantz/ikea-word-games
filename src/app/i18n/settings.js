@@ -70,7 +70,7 @@ export const LANGUAGE_LIST = [
   {
     label: "Korean (Korea)",
     emoji: "🇰🇷",
-    value: "kr",
+    value: "en-KR",
   },
   {
     label: "English (UAE)",
