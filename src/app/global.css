@@ -1,61 +1,83 @@
 html {
-	scroll-snap-type: y proximity;
+  scroll-snap-type: y proximity;
 }
 
 body {
-	scroll-snap-type: y proximity;
+  scroll-snap-type: y proximity;
 }
 
 .simple-keyboard.hg-theme-default.customKeyboardTheme {
-	padding: 0;
-	background-color: transparent;
-	border-radius: 0;
-	font-weight: bold;
-	font-family: inherit;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+  font-weight: bold;
+  font-family: inherit;
 }
 
 .simple-keyboard.hg-theme-default.customKeyboardTheme .hg-rows {
-	max-width: 525px;
-	margin: 0 auto;
+  max-width: 525px;
+  margin: 0 auto;
 }
 
 .simple-keyboard.hg-theme-default.customKeyboardTheme .hg-row {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .simple-keyboard.hg-layout-default .customButton {
-	min-height: 48px;
-	max-width: calc(10% - 5px);
-	border-radius: 0;
-	background-color: #F2F2F2;
-	box-shadow: none;
-	border: 1px solid;
-	border-color: #DBDBDB;
+  min-height: 48px;
+  max-width: calc(10% - 5px);
+  border-radius: 0;
+  background-color: #f2f2f2;
+  box-shadow: none;
+  border: 1px solid;
+  border-color: #dbdbdb;
 }
 
 .simple-keyboard.hg-layout-default .customButton:hover {
-	background-color: #DBDBDB;
-	border-color: #C4C4C4;
+  background-color: #dbdbdb;
+  border-color: #c4c4c4;
 }
-
 .simple-keyboard.hg-layout-default .customButton[disabled] {
-	opacity: 0.5;
-	cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.simple-keyboard.hg-layout-default .backspace {
+  border-radius: 100%;
+  min-height: 48px;
+  max-width: calc(10% - 5px);
+  background-color: white;
+  border: 2px solid;
+  border-color: black;
+}
+.simple-keyboard.hg-layout-default .backspace:hover {
+  border-color: black;
+  background-color: black;
+}
+.simple-keyboard.hg-layout-default .backspace span {
+  content: url("/assets/backspace.svg");
+}
+.simple-keyboard.hg-layout-default .backspace:hover span {
+  content: url("/assets/backspace-hover.svg");
 }
 
-.simple-keyboard.hg-layout-default .actionButton {
-	min-width: 48px;
-	border-radius: 100%;
-	background-color: white;
-	border: 2px solid;
-	border-color: black;
+.simple-keyboard.hg-layout-default .submitButton {
+  border-radius: 100%;
+  min-height: 48px;
+  max-width: calc(10% - 5px);
+  background-color: white;
+  border: 2px solid;
+  border-color: black;
 }
-
-.simple-keyboard.hg-layout-default .actionButton:hover {
-	border-color: black;
-	background-color: black;
-	color: white;
+.simple-keyboard.hg-layout-default .submitButton:hover {
+  border-color: black;
+  background-color: black;
+}
+.simple-keyboard.hg-layout-default .submitButton span {
+  content: url("/assets/tick.svg");
+}
+.simple-keyboard.hg-layout-default .submitButton:hover span {
+  content: url("/assets/tick-hover.svg");
 }

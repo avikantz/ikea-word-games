@@ -24,9 +24,9 @@ import {
 } from "@chakra-ui/react";
 import { useAnimate } from "framer-motion";
 import Keyboard from "react-simple-keyboard";
-
 import { matchCharacters, getDisabledLettersForWord } from "@/utils/words";
 import { PADDING } from "@/theme";
+import Icon from "./Icon";
 
 interface WordInputProps {
   value: string;
@@ -149,13 +149,13 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
     <VStack w={isKeyboardVisible ? "full" : "auto"} spacing={PADDING.DEFAULT}>
       <HStack ref={containerRef}>
         <IconButton
-          // TODO: get icons for these
-          icon={<Text>{isKeyboardVisible ? "𝙸" : "⌨️"}</Text>}
+          icon={<Icon name={isKeyboardVisible ? "physical-input" : "keyboard"} />}
           aria-label="Toggle keyboard"
           size="lg"
           variant="outline"
           onClick={toggleKeyboard}
           isDisabled={isDisabled}
+          className="hover:text-white"
         />
 
         {isKeyboardVisible ? (
@@ -195,8 +195,7 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
 
         <IconButton
           ref={buttonRef as LegacyRef<HTMLButtonElement>}
-          // TODO: get an icon
-          icon={<Text>⏎</Text>}
+          icon={<Icon name="return" />}
           aria-label="Submit"
           size="lg"
           variant="outline"
@@ -218,23 +217,23 @@ export const WordInput = forwardRef<HTMLInputElement, WordInputProps>((props, in
               class: "customButton",
             },
             {
-              buttons: "{bksp} {enter}",
-              class: "actionButton",
+              buttons: "{bksp}",
+              class: "backspace",
+            },
+            {
+              buttons: "{enter}",
+              class: "submitButton",
             },
           ]}
           buttonAttributes={[
             {
               attribute: "disabled",
               value: "true",
-              buttons: disabledLetters.replace(/./g, '$& '),
+              buttons: disabledLetters.replace(/./g, "$& "),
             },
           ]}
           layout={{
             default: ["Q W E R T Y U I O P", "A S D F G H J K L", "{bksp} Z X C V B N M {enter}"],
-          }}
-          display={{
-            "{bksp}": "⌫",
-            "{enter}": "🆗",
           }}
         />
       )}
