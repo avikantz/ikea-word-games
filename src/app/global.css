@@ -17,6 +17,7 @@ body {
 .simple-keyboard.hg-theme-default.customKeyboardTheme .hg-rows {
   max-width: 525px;
   margin: 0 auto;
+  margin-top: 15px;
 }
 
 .simple-keyboard.hg-theme-default.customKeyboardTheme .hg-row {
@@ -34,16 +35,26 @@ body {
   box-shadow: none;
   border: 1px solid;
   border-color: #dbdbdb;
+  transition: transform 0.1s;
 }
 
 .simple-keyboard.hg-layout-default .customButton:hover {
   background-color: #dbdbdb;
   border-color: #c4c4c4;
+  @media screen and (max-width: 768px) {
+    transform: translateY(-10px);
+  }
 }
+
 .simple-keyboard.hg-layout-default .customButton[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.simple-keyboard.hg-layout-default .customButton[disabled]:hover {
+  transform: none;
+}
+
 .simple-keyboard.hg-layout-default .backspace {
   border-radius: 100%;
   min-height: 48px;
@@ -55,6 +66,7 @@ body {
 .simple-keyboard.hg-layout-default .backspace:hover {
   border-color: black;
   background-color: black;
+  transform: none;
 }
 .simple-keyboard.hg-layout-default .backspace span {
   content: url("/assets/backspace.svg");
@@ -74,6 +86,7 @@ body {
 .simple-keyboard.hg-layout-default .submitButton:hover {
   border-color: black;
   background-color: black;
+  transform: none;
 }
 .simple-keyboard.hg-layout-default .submitButton span {
   content: url("/assets/tick.svg");
