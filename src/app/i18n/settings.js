@@ -68,9 +68,9 @@ export const LANGUAGE_LIST = [
     value: "en-JP",
   },
   {
-    label: "English (Korea)",
+    label: "Korean (Korea)",
     emoji: "🇰🇷",
-    value: "en-KR",
+    value: "kr",
   },
   {
     label: "English (UAE)",
