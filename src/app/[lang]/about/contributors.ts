@@ -51,4 +51,9 @@ export const CONTRIBUTORS: Contributor[] = [
     username: "c2lv",
     url: "https://github.com/c2lv",
   },
+  {
+    name: "Olle Widell",
+    username: "olleweb",
+    url: "https://github.com/olleweb",
+  },
 ];
