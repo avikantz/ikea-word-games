@@ -27,9 +27,9 @@ const LOCALES = {
   "en-SA": "sa/en",
   "en-AE": "ae/en",
   fi: "fi/fi",
+  se: "se/sv",
 
   // TODO: support more locales
-  //   se: "se/sv",
   //   no: "no/no",
   //   "ar-AE": "ae/ar",
   //   "ar-EG": "eg/ar",
